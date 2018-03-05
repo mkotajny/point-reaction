@@ -1121,6 +1121,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &730661875 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1938380213756670, guid: 8442a9c98a1942145acd23542b827139,
+    type: 2}
+  m_PrefabInternal: {fileID: 1683139710}
+--- !u!114 &730661880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 730661875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 591a82c51986eff418941c3b006a6de7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &822846263
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,6 +2090,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 276373680}
     m_Modifications:
+    - target: {fileID: 114829552734702476, guid: 8442a9c98a1942145acd23542b827139,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224495071961285860, guid: 8442a9c98a1942145acd23542b827139,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -2192,7 +2213,7 @@ Prefab:
     - target: {fileID: 224411302885449186, guid: 8442a9c98a1942145acd23542b827139,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -55.208332
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224594825142106670, guid: 8442a9c98a1942145acd23542b827139,
         type: 2}
@@ -2212,7 +2233,7 @@ Prefab:
     - target: {fileID: 224594825142106670, guid: 8442a9c98a1942145acd23542b827139,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -125.625
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224266403205040252, guid: 8442a9c98a1942145acd23542b827139,
         type: 2}
@@ -2232,10 +2253,40 @@ Prefab:
     - target: {fileID: 224266403205040252, guid: 8442a9c98a1942145acd23542b827139,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -196.04166
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1577450043833840, guid: 8442a9c98a1942145acd23542b827139, type: 2}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114829552734702476, guid: 8442a9c98a1942145acd23542b827139,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114829552734702476, guid: 8442a9c98a1942145acd23542b827139,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114829552734702476, guid: 8442a9c98a1942145acd23542b827139,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 730661880}
+    - target: {fileID: 114829552734702476, guid: 8442a9c98a1942145acd23542b827139,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadByIndex
+      objectReference: {fileID: 0}
+    - target: {fileID: 114829552734702476, guid: 8442a9c98a1942145acd23542b827139,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114829552734702476, guid: 8442a9c98a1942145acd23542b827139,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2423,7 +2474,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 0b3283b57ee95cf4990060f8a07a9c0c, type: 2}
+  - {fileID: 2100000, guid: 85da68c8c768d7f4282068f432100d1a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
