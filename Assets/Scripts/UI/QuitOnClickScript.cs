@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuitOnClick : MonoBehaviour {
+public class QuitOnClickScript : MonoBehaviour {
     public void Quit()
     {
         Application.Quit();

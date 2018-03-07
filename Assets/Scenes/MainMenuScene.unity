@@ -931,6 +931,11 @@ Transform:
   m_Father: {fileID: 174609609}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &478585419 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4503243717816378, guid: a72cdeb703a8f2c4aa2e1ed937e85ddb,
+    type: 2}
+  m_PrefabInternal: {fileID: 1449741266}
 --- !u!1 &551134218
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,7 +1120,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2009708434}
+  - {fileID: 478585419}
   - {fileID: 50548473}
   - {fileID: 297259145}
   m_Father: {fileID: 0}
@@ -1733,6 +1738,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1361963422904048, guid: a72cdeb703a8f2c4aa2e1ed937e85ddb, type: 2}
+      propertyPath: m_Name
+      value: Background
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a72cdeb703a8f2c4aa2e1ed937e85ddb, type: 2}
   m_IsPrefabParent: 0
@@ -2021,7 +2030,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Amount of points
+  m_Text: Difficulty level
 --- !u!222 &1637307024
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2472,8 +2481,3 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1737790109}
---- !u!4 &2009708434 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4177441907485730, guid: a72cdeb703a8f2c4aa2e1ed937e85ddb,
-    type: 2}
-  m_PrefabInternal: {fileID: 1449741266}

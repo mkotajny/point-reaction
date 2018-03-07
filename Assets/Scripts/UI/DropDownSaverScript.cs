@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class DropDownSaver : MonoBehaviour {
+public class DropDownSaverScript : MonoBehaviour {
 
     public string keyName;
     public Text keyValue;
