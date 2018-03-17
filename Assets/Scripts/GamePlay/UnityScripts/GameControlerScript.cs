@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameControlerScript : MonoBehaviour {
 
@@ -15,6 +16,14 @@ public class GameControlerScript : MonoBehaviour {
             , GameObjectFactory);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene(0);
+            Screen.orientation = ScreenOrientation.Portrait;
+        }
+    }
 
     public void FixedUpdate()
     {

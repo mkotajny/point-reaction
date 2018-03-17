@@ -33,7 +33,9 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Android
+    - Standalone
   - serializedVersion: 2
     name: Low
     pixelLightCount: 0
@@ -61,7 +63,9 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Android
+    - Standalone
   - serializedVersion: 2
     name: Medium
     pixelLightCount: 1
@@ -89,7 +93,9 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Standalone
+    - Android
   - serializedVersion: 2
     name: High
     pixelLightCount: 2
@@ -117,7 +123,9 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Android
+    - Standalone
   - serializedVersion: 2
     name: Very High
     pixelLightCount: 3
@@ -145,10 +153,12 @@ QualitySettings:
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
     resolutionScalingFixedDPIFactor: 1
-    excludedTargetPlatforms: []
+    excludedTargetPlatforms:
+    - Standalone
+    - Android
   - serializedVersion: 2
     name: Ultra
-    pixelLightCount: 4
+    pixelLightCount: 1
     shadows: 2
     shadowResolution: 2
     shadowProjection: 1
@@ -161,7 +171,7 @@ QualitySettings:
     blendWeights: 4
     textureQuality: 0
     anisotropicTextures: 2
-    antiAliasing: 2
+    antiAliasing: 0
     softParticles: 1
     softVegetation: 1
     realtimeReflectionProbes: 1

@@ -57,7 +57,8 @@ public class PointsBoard {
 
     public IEnumerator ActivateOneOfPoints()
     {
-        yield return new WaitForSeconds(_randomizer.Next(0, PointSpawnTimeRange + 1));
+        //yield return new WaitForSeconds(_randomizer.Next(0, PointSpawnTimeRange + 1));
+        yield return new WaitForSeconds(1);
         _points[_randomizer.Next(0, _boardGranularity)
             , _randomizer.Next(0, _boardGranularity)].PointGameObject.SetActive(true);
     }
