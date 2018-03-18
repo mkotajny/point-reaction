@@ -43,7 +43,9 @@ public class GameControlerScript : MonoBehaviour {
             for (int i = 0; i < nbTouches; i++)
             {
                 Touch touch = Input.GetTouch(0);
-                if (touch.phase == TouchPhase.Began)
+                if (touch.phase == TouchPhase.Began
+                    || touch.phase == TouchPhase.Moved
+                    || touch.phase == TouchPhase.Stationary)
                 {
                     Ray screenRay = Camera.main.ScreenPointToRay(touch.position);
                     RaycastHit hit;
