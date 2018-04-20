@@ -13,6 +13,7 @@ public class GameLevel {
 
     int _levelNo;
     LevelPlayStatuses _playStatus;
+    float _pointsLivingTime;
 
     public LevelPlayStatuses PlayStatus
     {
@@ -23,12 +24,17 @@ public class GameLevel {
     public int LevelNo
     {
         get { return _levelNo; }
-        set { _levelNo = value; }
     }
 
-    public GameLevel (int levelNo)
+    public float PointsLivingTime
+    {
+        get { return _pointsLivingTime; }
+    }
+
+    public GameLevel (int levelNo, float pointsLivingTime)
     {
         _levelNo = levelNo;
         _playStatus = LevelPlayStatuses.notStarted;
+        _pointsLivingTime = pointsLivingTime;
     }
 }

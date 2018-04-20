@@ -5,13 +5,11 @@ using UnityEngine.UI;
 public class GameControler : MonoBehaviour {
 
     GameMode_1 _gameMode_1;
+    PointsBoard PointsBoard;
 
     public GameObject GameObjectFactory, GameBoard, LevelStartPanel, LevelResultPanel;
     public Text PanelStartLevelValue, PanelResultLevelValue;
-
-
     public int PointsBoardGranurality = 10, PointSpawnTimeRange = 10;
-    PointsBoard PointsBoard;
 
     private void Start()
     {
@@ -34,7 +32,7 @@ public class GameControler : MonoBehaviour {
 
     public void FixedUpdate()
     {
-        if (_gameMode_1.GameLevel.PlayStatus == LevelPlayStatuses.inProgress)
+        if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.inProgress)
         {
             HandleTouch();
             CheckLevelStatus();
@@ -43,14 +41,11 @@ public class GameControler : MonoBehaviour {
 
     public void OpenLevelStartPanel()
     {
-        if (_gameMode_1.GameLevel.PlayStatus == LevelPlayStatuses.Win)
-        {
-            _gameMode_1.GameLevel.LevelNo++;
-            _gameMode_1.GameLevel.PlayStatus = LevelPlayStatuses.notStarted;
-        }
+        if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
+            _gameMode_1.CurrentLevel = _gameMode_1.GameLevels[_gameMode_1.CurrentLevel.LevelNo + 1];
 
-        PanelStartLevelValue.text = _gameMode_1.GameLevel.LevelNo.ToString();
-        PanelResultLevelValue.text = _gameMode_1.GameLevel.LevelNo.ToString();
+        PanelStartLevelValue.text = _gameMode_1.CurrentLevel.LevelNo.ToString();
+        PanelResultLevelValue.text = _gameMode_1.CurrentLevel.LevelNo.ToString();
         LevelResultPanel.SetActive(false);
         LevelStartPanel.SetActive(true);
     }
@@ -62,7 +57,7 @@ public class GameControler : MonoBehaviour {
 
     public void LevelStart()
     {
-        _gameMode_1.GameLevel.PlayStatus = LevelPlayStatuses.inProgress;
+        _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.inProgress;
         _gameMode_1.ActivateSinglePoint(true);
     }
 
@@ -84,7 +79,7 @@ public class GameControler : MonoBehaviour {
                     {
                         _gameMode_1.RegisterHit();
                         hit.collider.gameObject.SetActive(false);
-                        if (_gameMode_1.GameLevel.PlayStatus == LevelPlayStatuses.inProgress)
+                        if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.inProgress)
                             _gameMode_1.ActivateSinglePoint();
                     }
                 }
@@ -94,12 +89,8 @@ public class GameControler : MonoBehaviour {
 
     public void CheckLevelStatus()
     {
-        if (_gameMode_1.GameLevel.PlayStatus == LevelPlayStatuses.Win
-            || _gameMode_1.GameLevel.PlayStatus == LevelPlayStatuses.Lost)
-        {
+        if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win
+            || _gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost)
             LevelResultPanel.SetActive(true);
-        }
     }
-
-
 }
