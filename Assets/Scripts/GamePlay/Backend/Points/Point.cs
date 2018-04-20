@@ -18,12 +18,10 @@ public class Point {
     public GameObject PointGameObject
     {
         get { return _pointGameObject; }
-        set { _pointGameObject = value; }
     }
     public GameObject GameObjectFactory
     {
         get { return _gameObjectFactory;}
-        set { _gameObjectFactory = value; }
     }
 
     public Point (float positionX, float positionZ, GameObject gameObjectFactory)
@@ -32,9 +30,9 @@ public class Point {
         _positionZ = positionZ;
         _gameObjectFactory = gameObjectFactory;
 
-        PointGameObject = 
+        _pointGameObject = 
             gameObjectFactory.GetComponent<GameObjectFactory>().GeneratePoint(_positionX, PositionZ);
-        PointGameObject.SetActive(false);
+        _pointGameObject.SetActive(false);
     }
 }
 
