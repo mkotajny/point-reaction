@@ -4,7 +4,7 @@ using System.Collections;
 public class PointsBoard {
 
     Point[,] _points;
-    GameObject _activatedPoint;
+    public GameObject _activatedPoint;
     System.Random _randomizer;
     int _boardGranularity;
     int _pointSpawnTimeRange;
@@ -30,6 +30,8 @@ public class PointsBoard {
         get { return _gameObjectFactory; }
         set { _gameObjectFactory = value; }
     }
+
+    public GameObject ActivatedPoint { get { return _activatedPoint; } }
 
     public PointsBoard(float boardSizeX
         , float boardSizeZ
@@ -65,6 +67,6 @@ public class PointsBoard {
 
     public void DeactivateActivePoint()
     {
-        _activatedPoint.SetActive(false);
+        ActivatedPoint.SetActive(false);
     }
 }

@@ -3,14 +3,14 @@
 public class Timer  {
     float _startTime;
     bool _active;
-    float _lenght;
+    float _length;
 
     public bool Active { get { return _active; } }
-    public float Lenght { get { return _lenght; } }
+    public float Lenght { get { return _length; } }
 
     public Timer(float length)
     {
-        _lenght = length;
+        _length = length;
         Deactivate();
     }
 
@@ -28,7 +28,7 @@ public class Timer  {
 
     public bool TimeElapsed()
     {
-        if (_active && Time.time > _startTime + _lenght)
+        if (_active && Time.time > _startTime + _length)
         {
             Deactivate();
             return true;

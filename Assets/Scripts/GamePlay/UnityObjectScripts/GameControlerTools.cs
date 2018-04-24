@@ -1,9 +1,15 @@
 ﻿using UnityEngine;
 
+public enum ScreenTouchTypes
+{
+    NotTouched = 0,
+    Miss = 1,
+    Hit = 2
+}
 
 public class GameControlerTools : MonoBehaviour {
 
-    public bool IsPointTouched()
+    public ScreenTouchTypes ScreenTouched(GameMode_1 gameMode_1)
     {
         int nbTouches = Input.touchCount;
         if (nbTouches > 0)
@@ -19,12 +25,15 @@ public class GameControlerTools : MonoBehaviour {
                     RaycastHit hit;
                     if (Physics.Raycast(screenRay, out hit))
                     {
+                        gameMode_1.RegisterHit();
                         hit.collider.gameObject.SetActive(false);
-                        return true;
+                        return ScreenTouchTypes.Hit;
                     }
+                    else if (touch.phase == TouchPhase.Began)
+                        return ScreenTouchTypes.Miss; 
                 }
             }
         }
-        return false;
+        return ScreenTouchTypes.NotTouched ;
     }
 }

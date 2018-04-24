@@ -8,6 +8,7 @@ public class GameControler : MonoBehaviour {
     GameObject _gameObjectFactory, _gameBoard;
     GameControlerTools _gameControlerTools;
     UIContentManager _uIContentManager;
+    ScreenTouchTypes _screenTouch;
     public int PointsBoardGranurality = 10, PointSpawnTimeRange = 10;
 
     void Start()
@@ -25,12 +26,20 @@ public class GameControler : MonoBehaviour {
             , PointsBoardGranurality
             , PointSpawnTimeRange
             , _gameObjectFactory);
+
+        //_gameMode_1.CurrentLevel = _gameMode_1.GameLevels[7];
+        _uIContentManager.LoadPanelsWithData();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
             SceneManager.LoadScene(0);
+
+        if (_pointsBoard.ActivatedPoint != null 
+            && _pointsBoard.ActivatedPoint.activeInHierarchy 
+            && !_gameMode_1.CurrentLevel.PointsLivingTimer.Active)
+            _gameMode_1.CurrentLevel.PointsLivingTimer.Activate();
     }
 
     public void FixedUpdate()
@@ -38,14 +47,10 @@ public class GameControler : MonoBehaviour {
         if (_gameMode_1.CurrentLevel.PlayStatus != LevelPlayStatuses.inProgress)
             return;
 
-        if (_gameMode_1.CurrentLevel.PointsLivingTimer.Active 
-            && _gameControlerTools.IsPointTouched())
-            _gameMode_1.RegisterHit();
-
         if (_gameMode_1.BetweenPointsTimer.TimeElapsed())
             _gameMode_1.ActivateSinglePoint();
 
-        CheckPointLivingTime();
+        CheckPointTouch();
 
         if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win
             || _gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost)
@@ -59,13 +64,19 @@ public class GameControler : MonoBehaviour {
 
     public void LevelStart()
     {
-        _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.inProgress;
-        _gameMode_1.BetweenPointsTimer.Activate();
+        _gameMode_1.LevelRestart();
     }
 
-    void CheckPointLivingTime()
+
+    void CheckPointTouch()
     {
-        if (_gameMode_1.CurrentLevel.PointsLivingTimer.TimeElapsed())
+        if (!_gameMode_1.CurrentLevel.PointsLivingTimer.Active)
+            return;
+
+        _screenTouch = _gameControlerTools.ScreenTouched(_gameMode_1);
+
+        if (_gameMode_1.CurrentLevel.PointsLivingTimer.TimeElapsed()
+            || _screenTouch == ScreenTouchTypes.Miss)
         {
             _pointsBoard.DeactivateActivePoint();
             _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.Lost;

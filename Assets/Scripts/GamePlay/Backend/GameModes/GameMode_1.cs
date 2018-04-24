@@ -52,17 +52,25 @@ public class GameMode_1 {
         if (_currentLevel.PlayStatus == LevelPlayStatuses.inProgress)
         {
             _gameControlerComponent.ActivateOneOfPoints();
-            _currentLevel.PointsLivingTimer.Activate();
             _betweenPointsTimer.Deactivate();
         }
     }
 
     public void RegisterHit()
     {
+        _currentLevel.PointsLivingTimer.Deactivate();
         _hitsQty++;
         if (_hitsQty == _hitsToWin)
             _currentLevel.PlayStatus = LevelPlayStatuses.Win;
         else
             _betweenPointsTimer.Activate();
+    }
+
+    public void LevelRestart()
+    {
+        _currentLevel.PlayStatus = LevelPlayStatuses.inProgress;
+        _hitsQty = 0;
+        _currentLevel.PointsLivingTimer.Deactivate();
+        _betweenPointsTimer.Activate();
     }
 }
