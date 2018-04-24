@@ -7,54 +7,62 @@ public class GameMode_1 {
 
     GameControler _gameControlerComponent;
     GameLevel[] _gameLevels;
-    GameLevel _currenLevel;
+    GameLevel _currentLevel;
+    Timer _betweenPointsTimer;
 
 
     int _hitsToWin = 10;
     int _hitsQty;
-    float _pointsLivingSeconds = 5;
+    float _pointsStartingLivingSeconds = 5;
     const float _livingSecondsDecrease = .85f;
 
-    public GameControler GameControlerComponent
-    {
-        get { return _gameControlerComponent; }
-    }
-    public GameLevel[] GameLevels
-    {
-        get { return _gameLevels; }
-    }
+    public GameControler GameControlerComponent { get { return _gameControlerComponent; } }
+    public GameLevel[] GameLevels { get { return _gameLevels; } }
     public GameLevel CurrentLevel
     {
-        get { return _currenLevel; }
-        set { _currenLevel = value; }
+        get { return _currentLevel; }
+        set { _currentLevel = value; }
     }
-
+    public Timer BetweenPointsTimer
+    {
+        get { return _betweenPointsTimer; }
+        set { _betweenPointsTimer = value; }
+    }
 
     public GameMode_1(GameControler gameControler, int level)
     {
         _gameControlerComponent = gameControler;
         _gameLevels = new GameLevel[30];
+        _betweenPointsTimer = new Timer(1);
 
         for (int i = 0; i < _gameLevels.Length ; i++)
         {
-            _gameLevels[i] = new GameLevel(i, _pointsLivingSeconds);
-            _pointsLivingSeconds = Mathf.Floor(_pointsLivingSeconds * 100 * _livingSecondsDecrease) / 100;
+            if (i==0)
+                _gameLevels[i] = new GameLevel(i, _pointsStartingLivingSeconds);
+            else
+                _gameLevels[i] = new GameLevel(i, Mathf.Floor(_gameLevels[i-1].PointsLivingTimer.Lenght 
+                    * 100 * _livingSecondsDecrease) / 100);
         }
-        _currenLevel = _gameLevels[0] ;
+        _currentLevel = _gameLevels[0] ;
     }
 
     public void ActivateSinglePoint(bool startLevel = false)
     {
-        if (startLevel)
-            _hitsQty = 0;
-
-        _gameControlerComponent.ActivateOneOfPoints();
+        if (startLevel) _hitsQty = 0;
+        if (_currentLevel.PlayStatus == LevelPlayStatuses.inProgress)
+        {
+            _gameControlerComponent.ActivateOneOfPoints();
+            _currentLevel.PointsLivingTimer.Activate();
+            _betweenPointsTimer.Deactivate();
+        }
     }
 
     public void RegisterHit()
     {
         _hitsQty++;
         if (_hitsQty == _hitsToWin)
-            _currenLevel.PlayStatus = LevelPlayStatuses.Win;
+            _currentLevel.PlayStatus = LevelPlayStatuses.Win;
+        else
+            _betweenPointsTimer.Activate();
     }
 }

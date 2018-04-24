@@ -13,7 +13,8 @@ public class GameLevel {
 
     int _levelNo;
     LevelPlayStatuses _playStatus;
-    float _pointsLivingTime;
+    Timer _pointsLivingTimer;
+
 
     public LevelPlayStatuses PlayStatus
     {
@@ -26,15 +27,16 @@ public class GameLevel {
         get { return _levelNo; }
     }
 
-    public float PointsLivingTime
+    public Timer PointsLivingTimer
     {
-        get { return _pointsLivingTime; }
+        get { return _pointsLivingTimer; }
+        set { _pointsLivingTimer = value; }
     }
 
     public GameLevel (int levelNo, float pointsLivingTime)
     {
         _levelNo = levelNo;
         _playStatus = LevelPlayStatuses.notStarted;
-        _pointsLivingTime = pointsLivingTime;
+        _pointsLivingTimer = new Timer(pointsLivingTime);
     }
 }

@@ -4,6 +4,7 @@ using System.Collections;
 public class PointsBoard {
 
     Point[,] _points;
+    GameObject _activatedPoint;
     System.Random _randomizer;
     int _boardGranularity;
     int _pointSpawnTimeRange;
@@ -55,11 +56,15 @@ public class PointsBoard {
 
     }
 
-    public IEnumerator ActivateOneOfPoints()
+    public void ActivateOneOfPoints()
     {
-        //yield return new WaitForSeconds(_randomizer.Next(0, PointSpawnTimeRange + 1));
-        yield return new WaitForSeconds(1);
-        _points[_randomizer.Next(0, _boardGranularity)
-            , _randomizer.Next(0, _boardGranularity)].PointGameObject.SetActive(true);
+        _activatedPoint = _points[_randomizer.Next(0, _boardGranularity)
+            , _randomizer.Next(0, _boardGranularity)].PointGameObject;
+        _activatedPoint.SetActive(true);
+    }
+
+    public void DeactivateActivePoint()
+    {
+        _activatedPoint.SetActive(false);
     }
 }
