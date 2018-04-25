@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 
 public class Timer  {
-    float _startTime;
     bool _active;
+    float _startTime;
     float _length;
 
     public bool Active { get { return _active; } }
+    public float StartTime { get { return _startTime; } }
     public float Lenght { get { return _length; } }
 
     public Timer(float length)
@@ -28,7 +29,7 @@ public class Timer  {
 
     public bool TimeElapsed()
     {
-        if (_active && Time.time > _startTime + _length)
+        if (_active && Time.time > StartTime + _length)
         {
             Deactivate();
             return true;

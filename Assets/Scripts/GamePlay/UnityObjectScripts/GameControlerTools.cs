@@ -25,7 +25,7 @@ public class GameControlerTools : MonoBehaviour {
                     RaycastHit hit;
                     if (Physics.Raycast(screenRay, out hit))
                     {
-                        gameMode_1.RegisterHit();
+                        gameMode_1.RegisterHit(Time.time);
                         hit.collider.gameObject.SetActive(false);
                         return ScreenTouchTypes.Hit;
                     }

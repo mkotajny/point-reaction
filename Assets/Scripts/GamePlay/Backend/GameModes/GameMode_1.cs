@@ -8,11 +8,9 @@ public class GameMode_1 {
     GameControler _gameControlerComponent;
     GameLevel[] _gameLevels;
     GameLevel _currentLevel;
-    Timer _betweenPointsTimer;
 
 
     int _hitsToWin = 10;
-    int _hitsQty;
     float _pointsStartingLivingSeconds = 5;
     const float _livingSecondsDecrease = .85f;
 
@@ -23,17 +21,11 @@ public class GameMode_1 {
         get { return _currentLevel; }
         set { _currentLevel = value; }
     }
-    public Timer BetweenPointsTimer
-    {
-        get { return _betweenPointsTimer; }
-        set { _betweenPointsTimer = value; }
-    }
 
     public GameMode_1(GameControler gameControler, int level)
     {
         _gameControlerComponent = gameControler;
         _gameLevels = new GameLevel[30];
-        _betweenPointsTimer = new Timer(1);
 
         for (int i = 0; i < _gameLevels.Length ; i++)
         {
@@ -46,31 +38,17 @@ public class GameMode_1 {
         _currentLevel = _gameLevels[0] ;
     }
 
-    public void ActivateSinglePoint(bool startLevel = false)
+    public void ActivateSinglePoint()
     {
-        if (startLevel) _hitsQty = 0;
         if (_currentLevel.PlayStatus == LevelPlayStatuses.inProgress)
         {
             _gameControlerComponent.ActivateOneOfPoints();
-            _betweenPointsTimer.Deactivate();
+            _currentLevel.BetweenPointsTimer.Deactivate();
         }
     }
 
-    public void RegisterHit()
+    public void RegisterHit(float hitTime)
     {
-        _currentLevel.PointsLivingTimer.Deactivate();
-        _hitsQty++;
-        if (_hitsQty == _hitsToWin)
-            _currentLevel.PlayStatus = LevelPlayStatuses.Win;
-        else
-            _betweenPointsTimer.Activate();
-    }
-
-    public void LevelRestart()
-    {
-        _currentLevel.PlayStatus = LevelPlayStatuses.inProgress;
-        _hitsQty = 0;
-        _currentLevel.PointsLivingTimer.Deactivate();
-        _betweenPointsTimer.Activate();
+        _currentLevel.RegisterHit(_hitsToWin, hitTime);
     }
 }

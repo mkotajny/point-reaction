@@ -47,7 +47,7 @@ public class GameControler : MonoBehaviour {
         if (_gameMode_1.CurrentLevel.PlayStatus != LevelPlayStatuses.inProgress)
             return;
 
-        if (_gameMode_1.BetweenPointsTimer.TimeElapsed())
+        if (_gameMode_1.CurrentLevel.BetweenPointsTimer.TimeElapsed())
             _gameMode_1.ActivateSinglePoint();
 
         CheckPointTouch();
@@ -64,7 +64,7 @@ public class GameControler : MonoBehaviour {
 
     public void LevelStart()
     {
-        _gameMode_1.LevelRestart();
+        _gameMode_1.CurrentLevel.Restart();
     }
 
 
