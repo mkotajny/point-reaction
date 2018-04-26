@@ -21,8 +21,9 @@ public class GameMode_1 {
         get { return _currentLevel; }
         set { _currentLevel = value; }
     }
+    public int HitsToWin { get { return _hitsToWin; } }
 
-    public GameMode_1(GameControler gameControler, int level)
+    public GameMode_1(GameControler gameControler)
     {
         _gameControlerComponent = gameControler;
         _gameLevels = new GameLevel[30];
@@ -35,7 +36,8 @@ public class GameMode_1 {
                 _gameLevels[i] = new GameLevel(i, Mathf.Floor(_gameLevels[i-1].PointsLivingTimer.Lenght 
                     * 100 * _livingSecondsDecrease) / 100);
         }
-        _currentLevel = _gameLevels[0] ;
+        GameLevelPersister.LevelLoad();
+        _currentLevel = _gameLevels[GameLevelPersister.LevelPersistence.LevelNo];
     }
 
     public void ActivateSinglePoint()
@@ -47,8 +49,8 @@ public class GameMode_1 {
         }
     }
 
-    public void RegisterHit(float hitTime)
+    public void LevelUp()
     {
-        _currentLevel.RegisterHit(_hitsToWin, hitTime);
+        _currentLevel = _gameLevels[CurrentLevel.LevelNo + 1];
     }
 }

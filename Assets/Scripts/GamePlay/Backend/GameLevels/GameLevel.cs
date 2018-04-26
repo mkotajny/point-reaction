@@ -17,20 +17,39 @@ public class GameLevel {
     float _reactionSum;
     float _reactionAvg;
     float _reactionFastest;
-
     Timer _pointsLivingTimer;
     Timer _betweenPointsTimer;
-
 
     public LevelPlayStatuses PlayStatus
     {
         get { return _playStatus; }
-        set { _playStatus = value; }
+        set
+        {
+            _playStatus = value;
+            if (value == LevelPlayStatuses.Win || value == LevelPlayStatuses.Lost)
+                GameLevelPersister.LevelSave(this);
+        }
     }
-    public int LevelNo { get { return _levelNo; } }
-    public int HitsQty { get { return _hitsQty; } }
-    public float ReactionAvg { get { return _reactionAvg; } }
-    public float ReactionFastest { get { return _reactionFastest; } }
+    public int LevelNo
+    {
+        get { return _levelNo; }
+        set { _levelNo = value; }
+    }
+    public int HitsQty
+    {
+        get { return _hitsQty; }
+        set { _hitsQty = value; }
+    }
+    public float ReactionAvg
+    {
+        get { return _reactionAvg; }
+        set { _reactionAvg = value; }
+    }
+    public float ReactionFastest
+    {
+        get { return _reactionFastest; }
+        set { _reactionFastest = value; }
+    }
     public Timer PointsLivingTimer
     {
         get { return _pointsLivingTimer; }
@@ -42,13 +61,20 @@ public class GameLevel {
         set { _betweenPointsTimer = value; }
     }
 
-
-    public GameLevel (int levelNo, float pointsLivingTime)
+    public GameLevel (int levelNo
+        , float pointsLivingTime
+        , int hitsQty = 0
+        , float reactionAvg = 0
+        , float reactionFastest = 0)
     {
         _levelNo = levelNo;
         _playStatus = LevelPlayStatuses.notStarted;
         _pointsLivingTimer = new Timer(pointsLivingTime);
         _betweenPointsTimer = new Timer(1);
+        _hitsQty = hitsQty;
+        _reactionAvg = reactionAvg;
+        _reactionFastest = reactionFastest;
+        _reactionSum = 0;
         Restart(true);
     }
 
@@ -64,7 +90,7 @@ public class GameLevel {
             _reactionFastest = hitReaction;
 
         if (_hitsQty == hitsToWin)
-            _playStatus = LevelPlayStatuses.Win;
+            PlayStatus = LevelPlayStatuses.Win;
         else
             _betweenPointsTimer.Activate();
     }

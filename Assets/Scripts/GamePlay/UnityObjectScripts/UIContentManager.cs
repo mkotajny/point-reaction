@@ -32,7 +32,7 @@ public class UIContentManager : MonoBehaviour {
     public void OpenLevelStartPanel()
     {
         if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
-            GameMode_1.CurrentLevel = GameMode_1.GameLevels[GameMode_1.CurrentLevel.LevelNo + 1];
+            GameMode_1.LevelUp();
 
         _panelStartLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
@@ -68,6 +68,5 @@ public class UIContentManager : MonoBehaviour {
             _levelResultText.text = "( Not passed )";
             _resultLevelButtonText.text = "TRY AGAIN";
         }
-
     }
 }

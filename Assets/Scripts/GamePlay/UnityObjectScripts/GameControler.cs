@@ -13,10 +13,11 @@ public class GameControler : MonoBehaviour {
 
     void Start()
     {
-        _gameMode_1 = new GameMode_1(this, 0);
+        _gameMode_1 = new GameMode_1(this);
         _gameControlerTools = GameObject.Find("GameControlerTools").GetComponent<GameControlerTools>();
         _uIContentManager = GameObject.Find("UIContentManager").GetComponent<UIContentManager>();
         _uIContentManager.GameMode_1 = _gameMode_1;
+
         
         _gameObjectFactory = GameObject.Find("GameObjectFactory");
         _gameBoard = GameObject.Find("GameBoard");
@@ -27,8 +28,7 @@ public class GameControler : MonoBehaviour {
             , PointSpawnTimeRange
             , _gameObjectFactory);
 
-        //_gameMode_1.CurrentLevel = _gameMode_1.GameLevels[7];
-        _uIContentManager.LoadPanelsWithData();
+        _uIContentManager.OpenLevelStartPanel();
     }
 
     void Update()
