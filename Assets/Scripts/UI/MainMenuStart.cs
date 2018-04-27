@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuStart : MonoBehaviour {
 
-	// Use this for initialization
-	void Start ()
-    {
+    void Start ()
+    {        
         Screen.orientation = ScreenOrientation.Portrait;
+        GameObject.Find("VersionNumber_text").GetComponent<Text>().text 
+            = "Version " + Application.version;
     }	
 }
