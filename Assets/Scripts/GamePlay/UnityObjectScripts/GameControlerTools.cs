@@ -9,6 +9,13 @@ public enum ScreenTouchTypes
 
 public class GameControlerTools : MonoBehaviour {
 
+    AudioSource[] _audioSources;
+
+    public void Start()
+    {
+        _audioSources = GameObject.Find("GameControler").GetComponents<AudioSource>();
+    }
+
     public ScreenTouchTypes ScreenTouched(GameMode_1 gameMode_1)
     {
         int nbTouches = Input.touchCount;
@@ -26,11 +33,15 @@ public class GameControlerTools : MonoBehaviour {
                     if (Physics.Raycast(screenRay, out hit))
                     {
                         gameMode_1.CurrentLevel.RegisterHit(gameMode_1.HitsToWin, Time.time);
+                        _audioSources[0].Play();  //shot sound
                         hit.collider.gameObject.SetActive(false);
                         return ScreenTouchTypes.Hit;
                     }
                     else if (touch.phase == TouchPhase.Began)
-                        return ScreenTouchTypes.Miss; 
+                    {
+                        _audioSources[1].Play(); //miss sound
+                        return ScreenTouchTypes.Miss;
+                    }
                 }
             }
         }
