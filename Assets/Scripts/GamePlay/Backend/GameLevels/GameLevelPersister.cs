@@ -47,4 +47,9 @@ public static class GameLevelPersister  {
         PlayerPrefs.SetString("ReactionAvg", _levelPersistence.ReactionAvg.ToString("0.00"));
         PlayerPrefs.SetString("ReactionFastest", _levelPersistence.ReactionFastest.ToString("0.00"));
     }
+
+    public static void ResetGame()
+    {
+        PlayerPrefs.SetString("LevelNo", "0");
+    }
 }

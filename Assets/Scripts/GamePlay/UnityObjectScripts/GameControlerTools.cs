@@ -10,6 +10,7 @@ public enum ScreenTouchTypes
 public class GameControlerTools : MonoBehaviour {
 
     AudioSource[] _audioSources;
+    public GameObject _explosion;
 
     public void Start()
     {
@@ -34,6 +35,10 @@ public class GameControlerTools : MonoBehaviour {
                     {
                         gameMode_1.CurrentLevel.RegisterHit(gameMode_1.HitsToWin, Time.time);
                         _audioSources[0].Play();  //shot sound
+                        Instantiate(_explosion
+                            , hit.collider.gameObject.transform.position
+                            , hit.collider.gameObject.transform.rotation);
+
                         hit.collider.gameObject.SetActive(false);
                         return ScreenTouchTypes.Hit;
                     }

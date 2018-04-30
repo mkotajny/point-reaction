@@ -8,16 +8,18 @@ public class GameControler : MonoBehaviour {
     GameObject _gameObjectFactory, _gameBoard;
     GameControlerTools _gameControlerTools;
     UIContentManager _uIContentManager;
+    AudioSource[] _audioSources;
     ScreenTouchTypes _screenTouch;
     public int PointsBoardGranurality = 10, PointSpawnTimeRange = 10;
 
     void Start()
     {
+        //GameLevelPersister.ResetGame();
         _gameMode_1 = new GameMode_1(this);
         _gameControlerTools = GameObject.Find("GameControlerTools").GetComponent<GameControlerTools>();
         _uIContentManager = GameObject.Find("UIContentManager").GetComponent<UIContentManager>();
+        _audioSources = GameObject.Find("GameControler").GetComponents<AudioSource>();
         _uIContentManager.GameMode_1 = _gameMode_1;
-
         
         _gameObjectFactory = GameObject.Find("GameObjectFactory");
         _gameBoard = GameObject.Find("GameBoard");
@@ -80,6 +82,8 @@ public class GameControler : MonoBehaviour {
         {
             _pointsBoard.DeactivateActivePoint();
             _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.Lost;
+            if (_screenTouch != ScreenTouchTypes.Miss)
+                _audioSources[2].Play(); //fail sound
         }
     }
 }
