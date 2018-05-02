@@ -20,6 +20,7 @@ public class GameControler : MonoBehaviour {
         _uIContentManager = GameObject.Find("UIContentManager").GetComponent<UIContentManager>();
         _audioSources = GameObject.Find("GameControler").GetComponents<AudioSource>();
         _uIContentManager.GameMode_1 = _gameMode_1;
+        GameOptions.LoadOptions();
         
         _gameObjectFactory = GameObject.Find("GameObjectFactory");
         _gameBoard = GameObject.Find("GameBoard");

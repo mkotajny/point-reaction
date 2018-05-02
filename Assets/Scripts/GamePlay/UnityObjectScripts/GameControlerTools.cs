@@ -38,6 +38,8 @@ public class GameControlerTools : MonoBehaviour {
                         Instantiate(_explosion
                             , hit.collider.gameObject.transform.position
                             , hit.collider.gameObject.transform.rotation);
+                        if (GameOptions.Vibrate)
+                            Handheld.Vibrate();
 
                         hit.collider.gameObject.SetActive(false);
                         return ScreenTouchTypes.Hit;
