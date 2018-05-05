@@ -75,7 +75,6 @@ public class GameLevel {
         _reactionAvg = reactionAvg;
         _reactionFastest = reactionFastest;
         _reactionSum = 0;
-        Restart(true);
     }
 
     public void RegisterHit(int hitsToWin, float hitTime)
@@ -95,18 +94,14 @@ public class GameLevel {
             _betweenPointsTimer.Activate();
     }
 
-    public void Restart(bool fromConstructor = false)
+    public void Restart()
     {
         _hitsQty = 0;
         _reactionSum = 0;
         _reactionAvg = 0;
         _reactionFastest = 0;
-
-        if (!fromConstructor)
-        {
-            _playStatus = LevelPlayStatuses.inProgress;
-            _pointsLivingTimer.Deactivate();
-            _betweenPointsTimer.Activate();
-        }
+        _playStatus = LevelPlayStatuses.inProgress;
+        _pointsLivingTimer.Deactivate();
+        _betweenPointsTimer.Activate();
     }
 }

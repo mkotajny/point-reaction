@@ -25,6 +25,7 @@ public static class GameLevelPersister  {
     public static void LevelSave(GameLevel levelUpdated)
     {
         LevelLoad();
+        bool saveChanges = false;
 
         if (levelUpdated.PlayStatus == LevelPlayStatuses.Win)
         {
@@ -32,20 +33,38 @@ public static class GameLevelPersister  {
             _levelPersistence.HitsQty = 0;
             _levelPersistence.ReactionAvg = 0;
             _levelPersistence.ReactionFastest = 0;
+            saveChanges = true;
         } else
         {
+            if (_levelPersistence.HitsQty == levelUpdated.HitsQty)
+            {
+                if (_levelPersistence.ReactionAvg > levelUpdated.ReactionAvg)
+                {
+                    _levelPersistence.ReactionAvg = levelUpdated.ReactionAvg;
+                    saveChanges = true;
+                }
+                if (_levelPersistence.ReactionFastest > levelUpdated.ReactionFastest)
+                {
+                    _levelPersistence.ReactionFastest = levelUpdated.ReactionFastest;
+                    saveChanges = true;
+                }
+            }
             if (_levelPersistence.HitsQty < levelUpdated.HitsQty)
+            {
                 _levelPersistence.HitsQty = levelUpdated.HitsQty;
-            if (_levelPersistence.ReactionAvg > levelUpdated.ReactionAvg)
                 _levelPersistence.ReactionAvg = levelUpdated.ReactionAvg;
-            if (_levelPersistence.ReactionFastest > levelUpdated.ReactionFastest)
                 _levelPersistence.ReactionFastest = levelUpdated.ReactionFastest;
+                saveChanges = true;
+            }
         }
 
-        PlayerPrefs.SetString("LevelNo", _levelPersistence.LevelNo.ToString());
-        PlayerPrefs.SetString("PointsHit", _levelPersistence.HitsQty.ToString());
-        PlayerPrefs.SetString("ReactionAvg", _levelPersistence.ReactionAvg.ToString("0.00"));
-        PlayerPrefs.SetString("ReactionFastest", _levelPersistence.ReactionFastest.ToString("0.00"));
+        if (saveChanges)
+        {
+            PlayerPrefs.SetString("LevelNo", _levelPersistence.LevelNo.ToString());
+            PlayerPrefs.SetString("PointsHit", _levelPersistence.HitsQty.ToString());
+            PlayerPrefs.SetString("ReactionAvg", _levelPersistence.ReactionAvg.ToString("0.00"));
+            PlayerPrefs.SetString("ReactionFastest", _levelPersistence.ReactionFastest.ToString("0.00"));
+        }
     }
 
     public static void ResetGame()
