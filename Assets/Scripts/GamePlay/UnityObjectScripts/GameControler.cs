@@ -15,6 +15,7 @@ public class GameControler : MonoBehaviour {
     void Start()
     {
         //GameLevelPersister.ResetGame();
+        ActivityLogger.InitializeLog();
         _gameMode_1 = new GameMode_1(this);
         _gameControlerTools = GameObject.Find("GameControlerTools").GetComponent<GameControlerTools>();
         _uIContentManager = GameObject.Find("UIContentManager").GetComponent<UIContentManager>();
@@ -37,7 +38,10 @@ public class GameControler : MonoBehaviour {
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
             SceneManager.LoadScene(0);
+            ActivityLogger.SaveLog();
+        }
 
         if (_pointsBoard.ActivatedPoint != null 
             && _pointsBoard.ActivatedPoint.activeInHierarchy 
@@ -84,7 +88,15 @@ public class GameControler : MonoBehaviour {
             _pointsBoard.DeactivateActivePoint();
             _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.Lost;
             if (_screenTouch != ScreenTouchTypes.Miss)
+            {
                 _audioSources[2].Play(); //fail sound
+                ActivityLogger.AddLogLine("Point no "
+                        + (_gameMode_1.CurrentLevel.HitsQty + 1)
+                        + " NOT TOUCHED (time elapsed)");
+            }
+            else
+                ActivityLogger.AddLogLine("Point no "
+                    + (_gameMode_1.CurrentLevel.HitsQty + 1) + " MISSED");
         }
     }
 }

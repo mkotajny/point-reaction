@@ -6,10 +6,15 @@ public class Settings : MonoBehaviour {
     Toggle _vibrateToggle;
     string _settingsValueText;
 
-    public void Awake()
+    void Awake()
     {
         _vibrateToggle = GameObject.Find("VibrateToggle").GetComponent<Toggle>();
         GetVibrate();
+    }
+
+    void OnEnable()
+    {
+        ActivityLogger.AddLogLine("SETTINGS panel has been opened");
     }
 
 

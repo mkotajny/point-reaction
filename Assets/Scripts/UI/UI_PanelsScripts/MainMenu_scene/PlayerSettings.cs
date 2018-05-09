@@ -7,12 +7,18 @@ public class PlayerSettings : MonoBehaviour {
     Dropdown _levelDropDown;
     string _settingsValueText;
 
-    public void Awake()
+    void Awake()
     {
         _levelDropdownValue = GameObject.Find("LevelDropdownLabel").GetComponent<Text>();
         _levelDropDown = GameObject.Find("LevelDropdown").GetComponent<Dropdown>();
         GetDropdownValue();
     }
+
+    void OnEnable()
+    {
+        ActivityLogger.AddLogLine("PLAYER SETTINGS menu panel has been opened");
+    }
+
 
     public void SetDropdownValue()
     {

@@ -1,10 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class QuitOnClickScript : MonoBehaviour {
     public void Quit()
     {
+        ActivityLogger.AddLogLine("Player has LEFT THE GAME");
+        ActivityLogger.SaveLog();
+
         Application.Quit();
 
         #if UNITY_EDITOR

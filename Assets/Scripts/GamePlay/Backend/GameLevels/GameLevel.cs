@@ -88,6 +88,10 @@ public class GameLevel {
         if (_reactionFastest == 0 || _reactionFastest > hitReaction)
             _reactionFastest = hitReaction;
 
+        ActivityLogger.AddLogLine("HIT no " + _hitsQty + ": "  
+            + "hit reaction: " + hitReaction.ToString("0.00") + " seconds; "
+            + "avg reaction: " + _reactionAvg.ToString("0.00") + " seconds");
+
         if (_hitsQty == hitsToWin)
             PlayStatus = LevelPlayStatuses.Win;
         else
@@ -96,6 +100,7 @@ public class GameLevel {
 
     public void Restart()
     {
+        ActivityLogger.AddLogLine("Level " + _levelNo + " started");
         _hitsQty = 0;
         _reactionSum = 0;
         _reactionAvg = 0;
