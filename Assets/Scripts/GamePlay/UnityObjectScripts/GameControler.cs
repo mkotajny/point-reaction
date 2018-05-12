@@ -44,7 +44,7 @@ public class GameControler : MonoBehaviour {
         }
 
         if (_pointsBoard.ActivatedPoint != null 
-            && _pointsBoard.ActivatedPoint.activeInHierarchy 
+            && _pointsBoard.ActivatedPoint.activeInHierarchy
             && !_gameMode_1.CurrentLevel.PointsLivingTimer.Active)
             _gameMode_1.CurrentLevel.PointsLivingTimer.Activate();
     }

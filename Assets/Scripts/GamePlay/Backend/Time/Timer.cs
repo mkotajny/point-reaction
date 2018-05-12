@@ -19,6 +19,8 @@ public class Timer  {
     {
         _active = true;
         _startTime = Time.time;
+        /*if (_length != 1)
+            ActivityLogger.AddLogLine("Timer activated: startTime=" + _startTime);*/
     }
 
     public void Deactivate()
@@ -31,6 +33,8 @@ public class Timer  {
     {
         if (_active && Time.time > StartTime + _length)
         {
+            if (_length != 1)
+                ActivityLogger.AddLogLine("POINT'S TIMER ELAPSED: " + _startTime + "; Current Time=" + Time.time + "; Length=" + _length);
             Deactivate();
             return true;
         }

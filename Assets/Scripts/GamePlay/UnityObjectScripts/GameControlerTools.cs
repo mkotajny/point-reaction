@@ -33,6 +33,15 @@ public class GameControlerTools : MonoBehaviour {
                     RaycastHit hit;
                     if (Physics.Raycast(screenRay, out hit))
                     {
+                        if (hit.collider.gameObject.name == "GameBoard")
+                        {
+                            _audioSources[1].Play(); //miss sound
+                            return ScreenTouchTypes.Miss;
+                        }
+                        if (hit.collider.gameObject.name == "SubBoard")
+                            return ScreenTouchTypes.NotTouched;
+
+                        //Point hit
                         gameMode_1.CurrentLevel.RegisterHit(gameMode_1.HitsToWin, Time.time);
                         _audioSources[0].Play();  //shot sound
                         Instantiate(_explosion
@@ -43,11 +52,6 @@ public class GameControlerTools : MonoBehaviour {
 
                         hit.collider.gameObject.SetActive(false);
                         return ScreenTouchTypes.Hit;
-                    }
-                    else if (touch.phase == TouchPhase.Began)
-                    {
-                        _audioSources[1].Play(); //miss sound
-                        return ScreenTouchTypes.Miss;
                     }
                 }
             }
