@@ -8,6 +8,7 @@ public class GameMode_1 {
     GameControler _gameControlerComponent;
     GameLevel[] _gameLevels;
     GameLevel _currentLevel;
+    int _bestLevelNo;
 
 
     int _hitsToWin = 10;
@@ -20,6 +21,11 @@ public class GameMode_1 {
     {
         get { return _currentLevel; }
         set { _currentLevel = value; }
+    }
+    public int BestLevelNo
+    {
+        get { return _bestLevelNo;}
+        set { _bestLevelNo = value; }
     }
     public int HitsToWin { get { return _hitsToWin; } }
 
@@ -38,6 +44,7 @@ public class GameMode_1 {
         }
         GameLevelPersister.LevelLoad();
         _currentLevel = _gameLevels[GameLevelPersister.LevelPersistence.LevelNo];
+        _bestLevelNo = GameLevelPersister.BestLevelNoPersistence;
     }
 
     public void ActivateSinglePoint()
@@ -52,5 +59,7 @@ public class GameMode_1 {
     public void LevelUp()
     {
         _currentLevel = _gameLevels[CurrentLevel.LevelNo + 1];
+        if (_currentLevel.LevelNo > _bestLevelNo)
+            _bestLevelNo = _currentLevel.LevelNo;
     }
 }

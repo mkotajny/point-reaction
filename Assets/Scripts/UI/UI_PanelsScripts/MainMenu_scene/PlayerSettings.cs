@@ -1,17 +1,26 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerSettings : MonoBehaviour {
 
     Text _levelDropdownValue;
     Dropdown _levelDropDown;
-    string _settingsValueText;
+
+    int _currentLevelNo, _bestLevelNo;
 
     void Awake()
     {
         _levelDropdownValue = GameObject.Find("LevelDropdownLabel").GetComponent<Text>();
         _levelDropDown = GameObject.Find("LevelDropdown").GetComponent<Dropdown>();
-        GetDropdownValue();
+
+        _currentLevelNo = ConvertionTools.GestIntFromString(PlayerPrefs.GetString("LevelNo"), 0);
+        _bestLevelNo = ConvertionTools.GestIntFromString(PlayerPrefs.GetString("BestLevelNo"), -1);
+        if (_bestLevelNo == -1)
+            _bestLevelNo = _currentLevelNo;
+
+        GenerateListOfOptions();
+        _levelDropDown.value = _currentLevelNo;
     }
 
     void OnEnable()
@@ -20,16 +29,17 @@ public class PlayerSettings : MonoBehaviour {
     }
 
 
-    public void SetDropdownValue()
+    void GenerateListOfOptions()
     {
-        PlayerPrefs.SetString("Game Difficulty", _levelDropdownValue.text);
-    }
-    public void GetDropdownValue()
-    {
-        _settingsValueText = PlayerPrefs.GetString("Game Difficulty");
-        int dropDownValue;
-        int.TryParse(_settingsValueText, out dropDownValue);
-        _levelDropDown.value = dropDownValue - 1;
+        List<string> options = new List<string>();
+        for (int i = 0; i <= _bestLevelNo; i++)
+            options.Add(i.ToString());
+
+        _levelDropDown.AddOptions(options);
     }
 
+    public void SetDropdownValue()
+    {
+        PlayerPrefs.SetString("LevelNo", _levelDropdownValue.text);
+    }
 }
