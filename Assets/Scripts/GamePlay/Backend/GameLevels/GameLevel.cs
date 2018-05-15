@@ -80,6 +80,8 @@ public class GameLevel {
     public void RegisterHit(int hitsToWin, float hitTime)
     {
         float hitReaction = hitTime - _pointsLivingTimer.StartTime;
+        if (hitReaction > _pointsLivingTimer.Lenght)
+            hitReaction = _pointsLivingTimer.Lenght;
 
         _pointsLivingTimer.Deactivate();
         _hitsQty++;
