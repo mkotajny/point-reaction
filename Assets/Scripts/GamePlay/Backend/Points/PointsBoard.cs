@@ -51,9 +51,9 @@ public class PointsBoard {
 
         for (int _z = 0; _z < boardGgranularity; _z++)
             for (int _x = 0; _x < boardGgranularity; _x++)
-                Points[_x, _z] = 
-                    new Point(boardSizeX/2 - siblingOffsetX * (_x + 1)
-                    ,-boardSizeZ / 2 + siblingOffsetZ * (_z + 1)
+                Points[_x, _z] =
+                    new Point(boardSizeX / 2 - (siblingOffsetX) * (_x + 1)
+                    , -boardSizeZ / 2 + siblingOffsetZ * (_z + 1)
                     , _gameObjectFactory);
 
     }

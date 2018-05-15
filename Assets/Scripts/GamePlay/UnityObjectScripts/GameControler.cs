@@ -26,8 +26,8 @@ public class GameControler : MonoBehaviour {
         _gameObjectFactory = GameObject.Find("GameObjectFactory");
         _gameBoard = GameObject.Find("GameBoard");
         Screen.orientation = ScreenOrientation.LandscapeLeft;
-        _pointsBoard = new PointsBoard(_gameBoard.transform.localScale.x
-            , _gameBoard.transform.localScale.y
+        _pointsBoard = new PointsBoard(_gameBoard.transform.localScale.x + 3
+            , _gameBoard.transform.localScale.y + 1
             , PointsBoardGranurality
             , PointSpawnTimeRange
             , _gameObjectFactory);

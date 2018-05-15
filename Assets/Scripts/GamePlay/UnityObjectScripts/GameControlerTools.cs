@@ -20,6 +20,7 @@ public class GameControlerTools : MonoBehaviour {
     public ScreenTouchTypes ScreenTouched(GameMode_1 gameMode_1)
     {
         int nbTouches = Input.touchCount;
+        float timeElapsed;
         if (nbTouches > 0)
         {
             for (int i = 0; i < nbTouches; i++)
@@ -40,6 +41,16 @@ public class GameControlerTools : MonoBehaviour {
                         }
                         if (hit.collider.gameObject.name == "SubBoard")
                             return ScreenTouchTypes.NotTouched;
+                        
+                        //Point touched too quickly
+                        timeElapsed = gameMode_1.CurrentLevel.PointsLivingTimer.TooQuick(0.1f);
+                        if (hit.collider.gameObject.name == "ThePoint(Clone)" && timeElapsed != 0)
+                        {
+                            _audioSources[3].Play(); //false start sound
+                            ActivityLogger.AddLogLine("Point touched TOO QUICKLY, after "
+                                + timeElapsed.ToString("0.00") + " seconds");
+                            return ScreenTouchTypes.Miss;
+                        }
 
                         //Point hit
                         gameMode_1.CurrentLevel.RegisterHit(gameMode_1.HitsToWin, Time.time);

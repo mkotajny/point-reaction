@@ -19,8 +19,7 @@ public class Timer  {
     {
         _active = true;
         _startTime = Time.time;
-        /*if (_length != 1)
-            ActivityLogger.AddLogLine("Timer activated: startTime=" + _startTime);*/
+        /*if (_length != 1) ActivityLogger.AddLogLine("Timer activated: startTime=" + _startTime);*/
     }
 
     public void Deactivate()
@@ -39,5 +38,13 @@ public class Timer  {
             return true;
         }
         return false;
+    }
+
+    public float TooQuick(float minimalTime)
+    {
+        float timeElapsed = Time.time - StartTime;
+        if (_active && timeElapsed < minimalTime)
+            return timeElapsed;
+        return 0;
     }
 }
