@@ -19,6 +19,18 @@ public class GameControlerTools : MonoBehaviour {
 
     public ScreenTouchTypes ScreenTouched(GameMode_1 gameMode_1)
     {
+        //Automated Test for PC touhes
+        /*
+        gameMode_1.CurrentLevel.RegisterHit(gameMode_1.HitsToWin, Time.time);
+        _audioSources[0].Play();  //shot sound
+        Instantiate(_explosion
+            , gameMode_1.GameControlerComponent._pointsBoard.ActivatedPoint.gameObject.transform.position
+            , gameMode_1.GameControlerComponent._pointsBoard.ActivatedPoint.gameObject.transform.rotation);
+
+        gameMode_1.GameControlerComponent._pointsBoard.ActivatedPoint.gameObject.SetActive(false);
+        return ScreenTouchTypes.Hit;
+        */
+
         int nbTouches = Input.touchCount;
         float timeElapsed;
         if (nbTouches > 0)

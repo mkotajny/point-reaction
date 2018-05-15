@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class GameControler : MonoBehaviour {
 
     GameMode_1 _gameMode_1;
-    PointsBoard _pointsBoard;
+    public PointsBoard _pointsBoard;
     GameObject _gameObjectFactory, _gameBoard;
     GameControlerTools _gameControlerTools;
     UIContentManager _uIContentManager;
