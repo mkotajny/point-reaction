@@ -6,20 +6,25 @@ public class BestResults : MonoBehaviour {
 
     void Awake()
     {
-        int _currentLevelNo, _bestLevelNo;
-        _currentLevelNo = ConvertionTools.GestIntFromString(PlayerPrefs.GetString("LevelNo"), 0);
-        _bestLevelNo = ConvertionTools.GestIntFromString(PlayerPrefs.GetString("BestLevelNo"), -1);
-        if (_bestLevelNo == -1)
-            _bestLevelNo = _currentLevelNo;
+        GameLevelPersister.LevelLoad();
+        string _bestLevelNo, _pointsHit, _reactionAvg, _reactionFastest;
 
-        GameObject.Find("PanelResult_LevelAchieved").GetComponent<Text>().text 
-            = _bestLevelNo.ToString();
-        GameObject.Find("PanelResult_PointsHit").GetComponent<Text>().text
-            = PlayerPrefs.GetString("PointsHit");
-        GameObject.Find("PanelResult_AvgReaction").GetComponent<Text>().text 
-            = PlayerPrefs.GetString("ReactionAvg");
-        GameObject.Find("PanelResult_FastestReaction").GetComponent<Text>().text 
-            = PlayerPrefs.GetString("ReactionFastest");
+        _bestLevelNo = GameLevelPersister.BestLevelNoPersistence.ToString();
+        _pointsHit = GameLevelPersister.LevelPersistence.HitsQty.ToString();
+        _reactionAvg = GameLevelPersister.LevelPersistence.ReactionAvg.ToString();
+        _reactionFastest = GameLevelPersister.LevelPersistence.ReactionFastest.ToString();
+
+        if (_pointsHit == "0")
+        {
+            _pointsHit = "-";
+            _reactionAvg = "-";
+            _reactionFastest = "-";
+        }
+
+        GameObject.Find("PanelResult_LevelAchieved").GetComponent<Text>().text = _bestLevelNo;
+        GameObject.Find("PanelResult_PointsHit").GetComponent<Text>().text = _pointsHit;
+        GameObject.Find("PanelResult_AvgReaction").GetComponent<Text>().text = _reactionAvg;
+        GameObject.Find("PanelResult_FastestReaction").GetComponent<Text>().text = _reactionFastest;
     }
 
     void OnEnable()

@@ -26,50 +26,44 @@ public static class GameLevelPersister  {
         _bestLevelNoPersistence = bestLevelNo;
     }
 
-    public static void LevelSave(GameLevel levelUpdated)
+    public static void LevelSave(GameLevel currentLevel)
     {
-        if (_levelPersistence.LevelNo < _bestLevelNoPersistence)
+        if (currentLevel.LevelNo < _bestLevelNoPersistence 
+            || currentLevel.HitsQty == 0)
             return;
 
         LevelLoad();
         bool saveChanges = false;
 
-        if (levelUpdated.PlayStatus == LevelPlayStatuses.Win)
+        if (_levelPersistence.HitsQty == currentLevel.HitsQty
+            && _levelPersistence.LevelNo == currentLevel.LevelNo)
         {
-            _levelPersistence.LevelNo++;
-            _levelPersistence.HitsQty = 0;
-            _levelPersistence.ReactionAvg = 0;
-            _levelPersistence.ReactionFastest = 0;
-            if (_levelPersistence.LevelNo > _bestLevelNoPersistence)
-                _bestLevelNoPersistence++;
-
-            saveChanges = true;
-        } else
-        {
-            if (_levelPersistence.HitsQty == levelUpdated.HitsQty)
+            if (_levelPersistence.ReactionAvg > currentLevel.ReactionAvg)
             {
-                if (_levelPersistence.ReactionAvg > levelUpdated.ReactionAvg)
-                {
-                    _levelPersistence.ReactionAvg = levelUpdated.ReactionAvg;
-                    saveChanges = true;
-                }
-                if (_levelPersistence.ReactionFastest > levelUpdated.ReactionFastest)
-                {
-                    _levelPersistence.ReactionFastest = levelUpdated.ReactionFastest;
-                    saveChanges = true;
-                }
-            }
-            if (_levelPersistence.HitsQty < levelUpdated.HitsQty)
-            {
-                _levelPersistence.HitsQty = levelUpdated.HitsQty;
-                _levelPersistence.ReactionAvg = levelUpdated.ReactionAvg;
-                _levelPersistence.ReactionFastest = levelUpdated.ReactionFastest;
+                _levelPersistence.ReactionAvg = currentLevel.ReactionAvg;
                 saveChanges = true;
             }
+            if (_levelPersistence.ReactionFastest > currentLevel.ReactionFastest)
+            {
+                _levelPersistence.ReactionFastest = currentLevel.ReactionFastest;
+                saveChanges = true;
+            }
+        }
+        if (_levelPersistence.HitsQty < currentLevel.HitsQty 
+            || _levelPersistence.LevelNo < currentLevel.LevelNo)
+        {
+            _levelPersistence.LevelNo = currentLevel.LevelNo;
+            _bestLevelNoPersistence = currentLevel.LevelNo;
+            _levelPersistence.HitsQty = currentLevel.HitsQty;
+            _levelPersistence.ReactionAvg = currentLevel.ReactionAvg;
+            _levelPersistence.ReactionFastest = currentLevel.ReactionFastest;
+            saveChanges = true;
         }
 
         if (saveChanges)
         {
+            //_levelPersistence.LevelNo = 28;
+            //  _bestLevelNoPersistence = 28;
             PlayerPrefs.SetString("LevelNo", _levelPersistence.LevelNo.ToString());
             PlayerPrefs.SetString("BestLevelNo", _bestLevelNoPersistence.ToString());
             PlayerPrefs.SetString("PointsHit", _levelPersistence.HitsQty.ToString());
@@ -82,5 +76,8 @@ public static class GameLevelPersister  {
     {
         PlayerPrefs.SetString("LevelNo", "0");
         PlayerPrefs.SetString("BestLevelNo", "0");
+        PlayerPrefs.SetString("PointsHit", "0");
+        PlayerPrefs.SetString("ReactionAvg", "0");
+        PlayerPrefs.SetString("ReactionFastest", "0");
     }
 }

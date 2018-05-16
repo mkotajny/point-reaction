@@ -28,7 +28,7 @@ public class UIContentManager : MonoBehaviour {
 
     public void OpenLevelStartPanel()
     {
-        if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
+        if (GameMode_1.CurrentLevel.HitsQty == 10)
             GameMode_1.LevelUp();
 
         _panelStartLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();

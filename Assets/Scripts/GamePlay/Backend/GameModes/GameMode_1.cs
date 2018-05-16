@@ -30,7 +30,7 @@ public class GameMode_1 {
     public GameMode_1(GameControler gameControler)
     {
         _gameControlerComponent = gameControler;
-        _gameLevels = new GameLevel[30];
+        _gameLevels = new GameLevel[31];
 
         for (int i = 0; i < _gameLevels.Length ; i++)
         {
@@ -42,6 +42,7 @@ public class GameMode_1 {
         }
         GameLevelPersister.LevelLoad();
         _currentLevel = _gameLevels[GameLevelPersister.LevelPersistence.LevelNo];
+        _currentLevel.HitsQty = GameLevelPersister.LevelPersistence.HitsQty;
         _bestLevelNo = GameLevelPersister.BestLevelNoPersistence;
     }
 
