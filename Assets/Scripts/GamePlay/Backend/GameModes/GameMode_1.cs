@@ -11,7 +11,7 @@ public class GameMode_1 {
 
     int _hitsToWin = 10;
     float _pointsStartingLivingSeconds = 5;
-    const float _livingSecondsDecrease = .85f;
+    const float _livingSecondsDecrease = .8f;
 
     public GameControler GameControlerComponent { get { return _gameControlerComponent; } }
     public GameLevel[] GameLevels { get { return _gameLevels; } }
@@ -30,15 +30,17 @@ public class GameMode_1 {
     public GameMode_1(GameControler gameControler)
     {
         _gameControlerComponent = gameControler;
-        _gameLevels = new GameLevel[31];
+        _gameLevels = new GameLevel[58];
 
         for (int i = 0; i < _gameLevels.Length ; i++)
         {
-            if (i==0)
+            if (i == 0)
                 _gameLevels[i] = new GameLevel(i, _pointsStartingLivingSeconds);
+            else if (i < 21)
+                _gameLevels[i] = new GameLevel(i, Mathf.Floor(_gameLevels[i - 1].PointsLivingTimer.Lenght
+                    * 100 * (_livingSecondsDecrease + ((i - 1) / 100f))) / 100);
             else
-                _gameLevels[i] = new GameLevel(i, Mathf.Floor(_gameLevels[i-1].PointsLivingTimer.Lenght 
-                    * 100 * _livingSecondsDecrease) / 100);
+                _gameLevels[i] = new GameLevel(i, Mathf.Floor((_gameLevels[i - 1].PointsLivingTimer.Lenght - .01f)*100)/100);
         }
         GameLevelPersister.LevelLoad();
         _currentLevel = _gameLevels[GameLevelPersister.LevelPersistence.LevelNo];
