@@ -36,14 +36,14 @@ public class UIContentManager : MonoBehaviour {
         LoadPanelsWithData();
         _levelResultPanel.SetActive(false);
         _levelStartPanel.SetActive(true);
-        ActivityLogger.AddLogLine("LEVEL START panel has been opened");
+        //ActivityLogger.AddLogLine("LEVEL START panel has been opened");
     }
 
     public void ActivateResultPanel()
     {
         LoadPanelsWithData();
         _levelResultPanel.SetActive(true);
-        ActivityLogger.AddLogLine("LEVEL RESULT panel has been opened");
+        //ActivityLogger.AddLogLine("LEVEL RESULT panel has been opened");
         ActivityLogger.SaveLog();
     }
 

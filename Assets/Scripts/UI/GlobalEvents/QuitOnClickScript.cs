@@ -3,8 +3,8 @@
 public class QuitOnClickScript : MonoBehaviour {
     public void Quit()
     {
-        ActivityLogger.AddLogLine("Player has LEFT THE GAME");
-        ActivityLogger.SaveLog();
+        //ActivityLogger.AddLogLine("Player has LEFT THE GAME");
+        //ActivityLogger.SaveLog();
 
         Application.Quit();
 

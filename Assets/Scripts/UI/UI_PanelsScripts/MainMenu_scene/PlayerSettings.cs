@@ -25,7 +25,7 @@ public class PlayerSettings : MonoBehaviour {
 
     void OnEnable()
     {
-        ActivityLogger.AddLogLine("PLAYER SETTINGS menu panel has been opened");
+        //ActivityLogger.AddLogLine("PLAYER SETTINGS menu panel has been opened");
     }
 
 

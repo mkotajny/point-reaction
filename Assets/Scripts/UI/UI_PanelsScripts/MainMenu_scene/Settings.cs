@@ -14,7 +14,7 @@ public class Settings : MonoBehaviour {
 
     void OnEnable()
     {
-        ActivityLogger.AddLogLine("SETTINGS panel has been opened");
+        //ActivityLogger.AddLogLine("SETTINGS panel has been opened");
     }
 
 

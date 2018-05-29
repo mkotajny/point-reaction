@@ -11,8 +11,8 @@ public class BestResults : MonoBehaviour {
 
         _bestLevelNo = GameLevelPersister.BestLevelNoPersistence.ToString();
         _pointsHit = GameLevelPersister.LevelPersistence.HitsQty.ToString();
-        _reactionAvg = GameLevelPersister.LevelPersistence.ReactionAvg.ToString();
-        _reactionFastest = GameLevelPersister.LevelPersistence.ReactionFastest.ToString();
+        _reactionAvg = GameLevelPersister.LevelPersistence.ReactionAvg.ToString() + " sec";
+        _reactionFastest = GameLevelPersister.LevelPersistence.ReactionFastest.ToString() + " sec";
 
         if (_pointsHit == "0")
         {
@@ -29,7 +29,7 @@ public class BestResults : MonoBehaviour {
 
     void OnEnable()
     {
-        ActivityLogger.AddLogLine("PLAYER BEST RESULTS panel has been opened");
+        //ActivityLogger.AddLogLine("PLAYER BEST RESULTS panel has been opened");
     }
 
 }

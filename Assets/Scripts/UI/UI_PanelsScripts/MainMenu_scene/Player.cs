@@ -6,6 +6,6 @@ public class Player : MonoBehaviour {
 
     void OnEnable()
     {
-        ActivityLogger.AddLogLine("PLAYER menu panel has been opened");
+        //ActivityLogger.AddLogLine("PLAYER menu panel has been opened");
     }	
 }

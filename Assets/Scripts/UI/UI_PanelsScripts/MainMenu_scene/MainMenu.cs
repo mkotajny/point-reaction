@@ -13,6 +13,6 @@ public class MainMenu : MonoBehaviour {
 
     void OnEnable()
     {
-        ActivityLogger.AddLogLine("MAIN MENU panel has been opened");
+        //ActivityLogger.AddLogLine("MAIN MENU panel has been opened");
     }
 }
