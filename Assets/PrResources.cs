@@ -24,7 +24,7 @@
 
 public static class PrResources
 {
-        public const string leaderboard_top_reactor = "CgkIrLKb9oIGEAIQAA"; // <GPGSID>
+        public const string achievement_completed_first_level = "CgkImq3J7asREAIQAg"; // <GPGSID>
 
 }
 

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "595888068250",
+    "firebase_url": "https://point-reaction-44fca.firebaseio.com",
+    "project_id": "point-reaction-44fca",
+    "storage_bucket": "point-reaction-44fca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595888068250:android:90234130964239d2",
+        "android_client_info": {
+          "package_name": "com.TenSoft.PReaction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595888068250-rpdaqniff90u562chjc0olgk2e7gs17b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.TenSoft.PReaction",
+            "certificate_hash": "e4bf4ffded4f528e9b723b16c5c8045380d4c3a6"
+          }
+        },
+        {
+          "client_id": "595888068250-s9166b7pfv6k4rfmgnv3ibtm179i84qr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxQ_H1y65-Acv5Wf94O-T-8drAjhiQ4ME"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595888068250-s9166b7pfv6k4rfmgnv3ibtm179i84qr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -33,8 +33,6 @@ public class PlayerSettings : MonoBehaviour {
     }
 
     #region Google Play Account Management
-
-
     private void Update()
     {
         if (_signInButton.activeInHierarchy == PlayerAuthenticated)
@@ -44,7 +42,7 @@ public class PlayerSettings : MonoBehaviour {
     public void GooglePlaySignInOut(bool signIn = true)
     {
         if (signIn)
-            _uiControler.GooglePlaySignIn();
+            _uiControler.FireBaseGooglePlaySignIn();
         else
             _uiControler.GooglePlaySignOut();
     }
