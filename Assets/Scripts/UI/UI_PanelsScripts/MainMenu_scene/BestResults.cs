@@ -6,7 +6,6 @@ public class BestResults : MonoBehaviour {
 
     void Awake()
     {
-        GameLevelPersister.LevelLoad();
         string _bestLevelNo, _pointsHit, _reactionAvg, _reactionFastest;
 
         _bestLevelNo = GameLevelPersister.BestLevelNoPersistence.ToString();

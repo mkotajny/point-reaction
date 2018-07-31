@@ -6,24 +6,13 @@ public class PlayerSettings : MonoBehaviour {
 
     Text _levelDropdownValue, _playerName;
     Dropdown _levelDropDown;
-    UiControler _uiControler;
     GameObject _signInButton, _signOutButton;
-
-    bool PlayerAuthenticated
-    {
-        get
-        {
-            return (string.IsNullOrEmpty(_uiControler.PlayerName.text)) ? false : true;
-        }
-    }
-
     int _currentLevelNo, _bestLevelNo;
 
     void Awake()
     {
         _levelDropdownValue = GameObject.Find("LevelDropdownLabel").GetComponent<Text>();
         _levelDropDown = GameObject.Find("LevelDropdown").GetComponent<Dropdown>();
-        _uiControler = GameObject.Find("UiControler").GetComponent<UiControler>();
         _signInButton = GameObject.Find("ButtonSignIn");
         _signOutButton = GameObject.Find("ButtonSignOut");
         _playerName = GameObject.Find("PlayerSettings_PlayerName_text").GetComponent<Text>();
@@ -35,23 +24,23 @@ public class PlayerSettings : MonoBehaviour {
     #region Google Play Account Management
     private void Update()
     {
-        if (_signInButton.activeInHierarchy == PlayerAuthenticated)
+        if (_signInButton.activeInHierarchy == CurrentPlayer.SignedIn)
             SwitchGoogleSignButtons();
     }
 
     public void GooglePlaySignInOut(bool signIn = true)
     {
         if (signIn)
-            _uiControler.FireBaseGooglePlaySignIn();
+            CurrentPlayer.SignInFireBase();
         else
-            _uiControler.GooglePlaySignOut();
+            CurrentPlayer.SignOutFireBase();
     }
 
     public void SwitchGoogleSignButtons()
     {
-        if (PlayerAuthenticated)
+        if (CurrentPlayer.SignedIn)
         {
-            _playerName.text = _uiControler.PlayerName.text;
+            _playerName.text = CurrentPlayer.PlayerName;
             _signInButton.SetActive(false);
         }
         else
@@ -67,8 +56,8 @@ public class PlayerSettings : MonoBehaviour {
     #region Current Level Selection
     void GenerateListOfLevels()
     {
-        _currentLevelNo = ConvertionTools.GestIntFromString(PlayerPrefs.GetString("LevelNo"), 0);
-        _bestLevelNo = ConvertionTools.GestIntFromString(PlayerPrefs.GetString("BestLevelNo"), -1);
+        _currentLevelNo = PlayerPrefs.GetInt("LevelNo");
+        _bestLevelNo = PlayerPrefs.GetInt("BestLevelNo");
         if (_bestLevelNo == -1)
             _bestLevelNo = _currentLevelNo;
 

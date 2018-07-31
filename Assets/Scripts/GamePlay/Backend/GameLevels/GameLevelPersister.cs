@@ -14,11 +14,11 @@ public static class GameLevelPersister  {
 
         try
         {
-            int.TryParse(PlayerPrefs.GetString("LevelNo"), out levelNo);
-            int.TryParse(PlayerPrefs.GetString("BestLevelNo"), out bestLevelNo);
-            int.TryParse(PlayerPrefs.GetString("PointsHit"), out pointsHit);
-            float.TryParse(PlayerPrefs.GetString("ReactionAvg"), out reactionAvg);
-            float.TryParse(PlayerPrefs.GetString("ReactionFastest"), out reactionFastest);
+            levelNo = PlayerPrefs.GetInt("LevelNo");
+            bestLevelNo = PlayerPrefs.GetInt("BestLevelNo");
+            pointsHit = PlayerPrefs.GetInt("PointsHit");
+            reactionAvg = PlayerPrefs.GetFloat("ReactionAvg");
+            reactionFastest = PlayerPrefs.GetFloat("ReactionFastest");
 
         } catch {}
 
@@ -62,22 +62,20 @@ public static class GameLevelPersister  {
 
         if (saveChanges)
         {
-            //_levelPersistence.LevelNo = 28;
-            //  _bestLevelNoPersistence = 28;
-            PlayerPrefs.SetString("LevelNo", _levelPersistence.LevelNo.ToString());
-            PlayerPrefs.SetString("BestLevelNo", _bestLevelNoPersistence.ToString());
-            PlayerPrefs.SetString("PointsHit", _levelPersistence.HitsQty.ToString());
-            PlayerPrefs.SetString("ReactionAvg", _levelPersistence.ReactionAvg.ToString("0.00"));
-            PlayerPrefs.SetString("ReactionFastest", _levelPersistence.ReactionFastest.ToString("0.00"));
+            PlayerPrefs.SetInt("LevelNo", _levelPersistence.LevelNo);
+            PlayerPrefs.SetInt("BestLevelNo", _bestLevelNoPersistence);
+            PlayerPrefs.SetInt("PointsHit", _levelPersistence.HitsQty);
+            PlayerPrefs.SetFloat("ReactionAvg", _levelPersistence.ReactionAvg);
+            PlayerPrefs.SetFloat("ReactionFastest", _levelPersistence.ReactionFastest);
         }
     }
 
     public static void ResetGame()
     {
-        PlayerPrefs.SetString("LevelNo", "0");
-        PlayerPrefs.SetString("BestLevelNo", "0");
-        PlayerPrefs.SetString("PointsHit", "0");
-        PlayerPrefs.SetString("ReactionAvg", "0");
-        PlayerPrefs.SetString("ReactionFastest", "0");
+        PlayerPrefs.SetInt("LevelNo", 0);
+        PlayerPrefs.SetInt("BestLevelNo", 0);
+        PlayerPrefs.SetInt("PointsHit", 0);
+        PlayerPrefs.SetFloat("ReactionAvg", 0);
+        PlayerPrefs.SetFloat("ReactionFastest", 0);
     }
 }
