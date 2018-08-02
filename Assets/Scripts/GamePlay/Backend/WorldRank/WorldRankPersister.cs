@@ -30,6 +30,8 @@ public static class WorldRankPersister  {
                                 ));
                 }
             });
+
+        
     }
 
     public static void CreateCurrentPlayerItem()

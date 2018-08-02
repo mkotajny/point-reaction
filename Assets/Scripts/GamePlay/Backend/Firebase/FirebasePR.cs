@@ -48,6 +48,6 @@ public static class FirebasePR
             else
                 Debug.LogError("debug: Could not resolve all Firebase dependencies: " + dependencyStatus);
         });
-        _firebaseInitialized = true;
+        _firebaseInitialized = true;     
     }
 }

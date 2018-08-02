@@ -20,7 +20,7 @@ public class ForTesters : MonoBehaviour {
         string testVal;
 
         myWr =  WorldRankPersister.WorldRank;
-        testVal = "aaa";
+        //testVal = "aaa";
     }
 
     public void UpdateWorldRank(string playerId
