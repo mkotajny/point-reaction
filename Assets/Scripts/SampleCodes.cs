@@ -1,5 +1,15 @@
 ﻿public class SampleCodes {
 
+    
+    // Try catch
+    /*
+     
+     catch (System.Exception e)
+        {
+            Debug.LogError("debug: " + e.Message + "::: " + e.StackTrace);
+        } 
+     */
+
     //mock for sign in 
     /*
     {
@@ -18,6 +28,7 @@
         Reset();
         return;
     }*/
+
 
 
 }

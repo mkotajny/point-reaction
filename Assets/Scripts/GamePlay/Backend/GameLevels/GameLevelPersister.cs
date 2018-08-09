@@ -65,8 +65,9 @@ public static class GameLevelPersister  {
             PlayerPrefs.SetInt("LevelNo", _levelPersistence.LevelNo);
             PlayerPrefs.SetInt("BestLevelNo", _bestLevelNoPersistence);
             PlayerPrefs.SetInt("PointsHit", _levelPersistence.HitsQty);
-            PlayerPrefs.SetFloat("ReactionAvg", _levelPersistence.ReactionAvg);
-            PlayerPrefs.SetFloat("ReactionFastest", _levelPersistence.ReactionFastest);
+            PlayerPrefs.SetFloat("ReactionAvg",  float.Parse(_levelPersistence.ReactionAvg.ToString("0.00")));
+            PlayerPrefs.SetFloat("ReactionFastest", float.Parse(_levelPersistence.ReactionFastest.ToString("0.00")));
+            PlayerPrefs.SetInt("ScoreServerUpdated", 0);
         }
     }
 
@@ -77,5 +78,20 @@ public static class GameLevelPersister  {
         PlayerPrefs.SetInt("PointsHit", 0);
         PlayerPrefs.SetFloat("ReactionAvg", 0);
         PlayerPrefs.SetFloat("ReactionFastest", 0);
+    }
+
+    public static void ListAllPlayerPrefsValues()
+    {
+        Debug.Log("debug: **** ALL PLAYERPREFS VALUES : ****");
+        Debug.Log("debug: PlayerId: " + PlayerPrefs.GetString("PlayerId"));
+        Debug.Log("debug: PlayerName: " + PlayerPrefs.GetString("PlayerName"));
+        Debug.Log("debug: LevelNo: " + PlayerPrefs.GetInt("LevelNo"));
+        Debug.Log("debug: BestLevelNo: " + PlayerPrefs.GetInt("BestLevelNo"));
+        Debug.Log("debug: PointsHit: " + PlayerPrefs.GetInt("PointsHit"));
+        Debug.Log("debug: ReactionAvg: " + PlayerPrefs.GetFloat("ReactionAvg"));
+        Debug.Log("debug: ReactionFastest: " + PlayerPrefs.GetFloat("ReactionFastest"));
+        Debug.Log("debug: ScoreServerUpdated: " + PlayerPrefs.GetInt("ScoreServerUpdated"));
+        Debug.Log("debug: InGooglePlay: " + PlayerPrefs.GetInt("InGooglePlay"));
+        Debug.Log("debug: **** END OF ALL PLAYERPREFS VALUES : ****");
     }
 }

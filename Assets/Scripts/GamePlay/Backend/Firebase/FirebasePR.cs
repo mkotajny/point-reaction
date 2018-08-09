@@ -50,4 +50,9 @@ public static class FirebasePR
         });
         _firebaseInitialized = true;     
     }
+
+    public static void SignOutFireBase()
+    {
+        FirebasePR.FirebaseAuth.SignOut();
+    }
 }

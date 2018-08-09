@@ -16,7 +16,10 @@ public class PlayerSettings : MonoBehaviour {
         _signInButton = GameObject.Find("ButtonSignIn");
         _signOutButton = GameObject.Find("ButtonSignOut");
         _playerName = GameObject.Find("PlayerSettings_PlayerName_text").GetComponent<Text>();
+    }
 
+    private void OnEnable()
+    {
         SwitchGoogleSignButtons();
         GenerateListOfLevels();
     }
@@ -31,9 +34,9 @@ public class PlayerSettings : MonoBehaviour {
     public void GooglePlaySignInOut(bool signIn = true)
     {
         if (signIn)
-            CurrentPlayer.SignInFireBase();
+            CurrentPlayer.SignInGooglePlay();
         else
-            CurrentPlayer.SignOutFireBase();
+            CurrentPlayer.SignOutGooglePlay();
     }
 
     public void SwitchGoogleSignButtons()
@@ -71,7 +74,7 @@ public class PlayerSettings : MonoBehaviour {
 
     public void SetDropdownValue()
     {
-        PlayerPrefs.SetString("LevelNo", _levelDropdownValue.text);
+        PlayerPrefs.SetInt("LevelNo", System.Convert.ToInt16(_levelDropdownValue.text));
     }
     #endregion
 }

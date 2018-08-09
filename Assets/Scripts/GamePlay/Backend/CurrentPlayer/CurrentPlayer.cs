@@ -1,20 +1,18 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using UnityEngine.UI;
 using GooglePlayGames;
 
 public static class CurrentPlayer
 {
-    static Text _playerNameUnity;
     static string _playerId, _playerName;
     static bool _signedIn;
     public static string PlayerId { get { return _playerId; } }
     public static string PlayerName { get { return _playerName; } }
     public static bool SignedIn { get { return _signedIn; } }
 
-    public static void SignInFireBase()
+    public static void SignInGooglePlay()
     {
-        if (_playerNameUnity == null)
-            _playerNameUnity = GameObject.Find("PlayerName_background").GetComponent<Text>();
+        FirebasePR.InitializeGooglePlay();
 
         Social.localUser.Authenticate((bool success) =>
         {
@@ -47,24 +45,51 @@ public static class CurrentPlayer
                 }
                 Firebase.Auth.FirebaseUser newUser = task.Result;
                 Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
-                _playerId = newUser.UserId;
-                _playerName = newUser.DisplayName;
-                _signedIn = true;
-                _playerNameUnity.text = _playerName;
+
+                ResetPlayerAttributes(newUser.UserId, newUser.DisplayName);
                 PlayerPrefs.SetInt("InGooglePlay", 1);
+                _signedIn = true;
             });
         });
     }
 
-    public static void SignOutFireBase()
+    public static void SignOutGooglePlay()
     {
         FirebasePR.FirebaseAuth.SignOut();
         PlayGamesPlatform.Instance.SignOut();
         _playerId = null;
         _playerName = string.Empty;
         _signedIn = false;
-        _playerNameUnity.text = string.Empty;
+        GameObject.Find("PlayerName_background").GetComponent<Text>().text = string.Empty;
         PlayerPrefs.SetInt("InGooglePlay", 0);
     }
 
+    public static void UpdateScores(WorldRankItem worldRankItem)
+    {
+        if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerId"))
+            || PlayerPrefs.GetString("PlayerId") != _playerId)
+        {
+            PlayerPrefs.SetString("PlayerId", _playerId);
+            PlayerPrefs.SetString("PlayerName", _playerName);
+            PlayerPrefs.SetInt("LevelNo", worldRankItem.LevelNo);
+            PlayerPrefs.SetInt("BestLevelNo", worldRankItem.LevelNo);
+            PlayerPrefs.SetInt("PointsHit", worldRankItem.PointsHit);
+            PlayerPrefs.SetFloat("ReactionAvg", float.Parse(worldRankItem.ReactionAvg.ToString("0.00")));
+            GameLevelPersister.LevelLoad();
+        }
+    }
+
+    static void ResetPlayerAttributes(string userId, string userName)
+    {
+        _playerId = userId;
+        _playerName = userName;
+        GameObject.Find("PlayerName_background").GetComponent<Text>().text = _playerName;
+        
+        if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerId"))
+            || PlayerPrefs.GetString("PlayerId") != _playerId)    // new or change of signed in player
+        {
+            PlayerPrefs.SetInt("ScoreServerUpdated", 1);
+            WorldRankPersister.LoadWorldRank(updateSingleUserLocalScores: true);  //for update of player's local scores
+        }
+    }
 }

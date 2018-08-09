@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class BestResults : MonoBehaviour {
 
-    void Awake()
+    void OnEnable()
     {
         string _bestLevelNo, _pointsHit, _reactionAvg, _reactionFastest;
 
@@ -25,10 +25,4 @@ public class BestResults : MonoBehaviour {
         GameObject.Find("PanelResult_AvgReaction").GetComponent<Text>().text = _reactionAvg;
         GameObject.Find("PanelResult_FastestReaction").GetComponent<Text>().text = _reactionFastest;
     }
-
-    void OnEnable()
-    {
-        //ActivityLogger.AddLogLine("PLAYER BEST RESULTS panel has been opened");
-    }
-
 }
