@@ -12,6 +12,8 @@ public static class CurrentPlayer
 
     public static void SignInGooglePlay()
     {
+        if (!CheckInternet.IsConnected()) return;
+
         FirebasePR.InitializeGooglePlay();
 
         Social.localUser.Authenticate((bool success) =>
@@ -84,7 +86,7 @@ public static class CurrentPlayer
         _playerId = userId;
         _playerName = userName;
         GameObject.Find("PlayerName_background").GetComponent<Text>().text = _playerName;
-        
+
         if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerId"))
             || PlayerPrefs.GetString("PlayerId") != _playerId)    // new or change of signed in player
         {

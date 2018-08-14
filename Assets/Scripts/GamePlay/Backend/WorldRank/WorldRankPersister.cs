@@ -12,34 +12,59 @@ public static class WorldRankPersister  {
     public static void LoadWorldRank(bool updateSingleUserLocalScores = false)
     {
         bool userFound = false;
-        _worldRank.Clear();
-        FirebasePR.FirebaseDbReference
-            .GetValueAsync().ContinueWith(task =>
-            {
-                if (task.IsCompleted)
+        try
+        {
+            if (!CheckInternet.IsConnected()) return;
+            _worldRank.Clear();
+            FirebasePR.FirebaseDbReference
+                .GetValueAsync().ContinueWith(task =>
                 {
-                    DataSnapshot snapshot = task.Result;
-                    foreach (var childSnapshot in snapshot.Children)
-                        foreach (var childSnapshot2 in childSnapshot.Children)
-                        {
-                            WorldRankItem worldRankItem = new WorldRankItem(childSnapshot2.Child("PlayerId").Value.ToString()
-                                , childSnapshot2.Child("PlayerName").Value.ToString()
-                                , System.Convert.ToInt32(childSnapshot2.Child("LevelNo").Value)
-                                , System.Convert.ToInt32(childSnapshot2.Child("PointsHit").Value)
-                                , System.Convert.ToDouble(childSnapshot2.Child("ReactionAvg").Value));
-
-                            _worldRank.Add(worldRankItem);
-
-                            if (updateSingleUserLocalScores && worldRankItem.PlayerId == CurrentPlayer.PlayerId)
+                    if (task.IsCompleted)
+                    {
+                        DataSnapshot snapshot = task.Result;
+                        foreach (var childSnapshot in snapshot.Children)
+                            foreach (var childSnapshot2 in childSnapshot.Children)
                             {
-                                CurrentPlayer.UpdateScores(worldRankItem);
-                                userFound = true;
+                                WorldRankItem worldRankItem = new WorldRankItem(childSnapshot2.Child("PlayerId").Value.ToString()
+                                    , childSnapshot2.Child("PlayerName").Value.ToString()
+                                    , System.Convert.ToInt32(childSnapshot2.Child("LevelNo").Value)
+                                    , System.Convert.ToInt32(childSnapshot2.Child("PointsHit").Value)
+                                    , System.Convert.ToDouble(childSnapshot2.Child("ReactionAvg").Value));
+
+                                _worldRank.Add(worldRankItem);
+
+                                if (updateSingleUserLocalScores && worldRankItem.PlayerId == CurrentPlayer.PlayerId)
+                                {
+                                    CurrentPlayer.UpdateScores(worldRankItem);
+                                    userFound = true;
+                                }
+                            }
+                        if (updateSingleUserLocalScores && !userFound )
+                        {
+                            if (!string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerId")))
+                            {
+                                CurrentPlayer.UpdateScores(new WorldRankItem(CurrentPlayer.PlayerId, CurrentPlayer.PlayerName
+                                    , 0, 0, 0));
+                            }
+                            else
+                            {
+                                PlayerPrefs.SetInt("ScoreServerUpdated", 0);
+                                WorldRankPersister.UpdateCurrentPlayer();
+                                CurrentPlayer.UpdateScores(new WorldRankItem(CurrentPlayer.PlayerId, CurrentPlayer.PlayerName
+                                    , PlayerPrefs.GetInt("BestLevelNo")
+                                    , PlayerPrefs.GetInt("PointsHit")
+                                    , PlayerPrefs.GetFloat("ReactionAvg")));
                             }
                         }
-                    if (updateSingleUserLocalScores && !userFound)
-                        CurrentPlayer.UpdateScores(new WorldRankItem(CurrentPlayer.PlayerId, CurrentPlayer.PlayerName, 0, 0, 0));
-                }
-            });
+                        if (!updateSingleUserLocalScores && _worldRank.Count > 1)
+                            _worldRank.Sort((b, a) => a.FinalPoints.CompareTo(b.FinalPoints));
+                    }
+                });
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("debug: " + e.Message + "::: " + e.StackTrace);
+        }
     }
 
 
@@ -47,11 +72,16 @@ public static class WorldRankPersister  {
     {
         string playerId, playerName;
 
+        /*Debug.Log("debug: UpdateCurrentPlayer: chk1: " + PlayerPrefs.GetInt("ScoreServerUpdated") 
+            + "; " + CurrentPlayer.PlayerId + "; " + PlayerPrefs.GetString("PlayerId"));*/
+
         if (PlayerPrefs.GetInt("ScoreServerUpdated") == 0
             && (!string.IsNullOrEmpty(CurrentPlayer.PlayerId)
                 || (!string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerId")))))
 
         {
+            if (!CheckInternet.IsConnected()) return;
+
             Debug.Log("debug: Update player in WR !!!");
             PlayerPrefs.SetInt("ScoreServerUpdated", 1); // to prevent from running again in SceneControler.Update
             if (!string.IsNullOrEmpty(CurrentPlayer.PlayerId))
@@ -71,8 +101,8 @@ public static class WorldRankPersister  {
             , PlayerPrefs.GetInt("PointsHit")
             , System.Convert.ToDouble(PlayerPrefs.GetFloat("ReactionAvg").ToString("0.00"))));
 
-            FirebasePR.FirebaseDbReference.Child("Top Reactors")
-                .Child(playerName).SetRawJsonValueAsync(json);
+            FirebasePR.FirebaseDbReference.Child("topreactors")
+                .Child(playerId).SetRawJsonValueAsync(json);
         }
     }
 }

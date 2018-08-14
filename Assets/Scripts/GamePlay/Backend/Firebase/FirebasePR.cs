@@ -16,11 +16,12 @@ public static class FirebasePR
 
     public static void InitializeGooglePlay()
     {
-        if (_googlePlayInitialized)
+        if (_googlePlayInitialized || !CheckInternet.IsConnected())
             return;
 
         PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
          .RequestServerAuthCode(false /*forceRefresh*/)
+         .RequestIdToken()
          .Build();
         PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.Activate();
@@ -31,7 +32,7 @@ public static class FirebasePR
 
     public static void InitializeFireBaseDb()
     {
-        if (_firebaseInitialized)
+        if (_firebaseInitialized || !CheckInternet.IsConnected())
             return;
 
         DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;

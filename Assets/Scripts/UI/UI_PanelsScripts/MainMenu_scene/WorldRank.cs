@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using PaperPlaneTools;
 
 public class WorldRank : MonoBehaviour {
 
-    public GameObject GridWorldRank;
+    public GameObject GridWorldRank, PanelWorldRank, PanelMainMenu;
     GameObject _worldRankItemPrefab, _worldRankItemObject;
     bool _worldRankLoaded;
+    string _currentPlayerNameText;
     
     void Awake()
     {
@@ -14,11 +16,21 @@ public class WorldRank : MonoBehaviour {
 
     void OnEnable()
     {
+        _currentPlayerNameText = GameObject.Find("PlayerName_background").GetComponent<Text>().text;
         for (int i = 0; i < GridWorldRank.transform.childCount; i++)
             Destroy(GridWorldRank.transform.GetChild(i).gameObject);
 
         _worldRankLoaded = false;
-        WorldRankPersister.LoadWorldRank();
+
+        if (!CheckInternet.IsConnected())
+        {
+            new Alert("No internet !", "Please connect with the internet and try again.")
+                .SetPositiveButton("OK", () => { }).Show();
+            PanelMainMenu.SetActive(true);
+            PanelWorldRank.SetActive(false);
+        }
+        else
+            WorldRankPersister.LoadWorldRank();
     }
 
     private void Update()
@@ -35,6 +47,13 @@ public class WorldRank : MonoBehaviour {
                 _worldRankItemObject.transform.GetChild(2).GetComponent<Text>().text =
                     "Level: " + worldRankItem.LevelNo + "." + worldRankItem.PointsHit
                     + "\nAvg Reaction: " + worldRankItem.ReactionAvg + "s";
+
+                if (worldRankItem.PlayerName == _currentPlayerNameText)
+                {
+                    _worldRankItemObject.transform.GetChild(0).GetComponent<Text>().color = new Color32(255, 255, 0, 255);
+                    _worldRankItemObject.transform.GetChild(1).GetComponent<Text>().color = new Color32(255, 255, 0, 255);
+                }
+
                 counter++;
             }
             _worldRankLoaded = true;

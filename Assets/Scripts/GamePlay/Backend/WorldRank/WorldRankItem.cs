@@ -4,7 +4,7 @@
 public class WorldRankItem {
 
     public string PlayerId, PlayerName;
-    public int LevelNo, PointsHit;
+    public int LevelNo, PointsHit, FinalPoints;
     public double ReactionAvg;
 
 
@@ -12,13 +12,15 @@ public class WorldRankItem {
         , string playerName
         , int levelNo
         , int pointsHit
-        , double reactionAvg)
+        , double reactionAvg
+        )
     {
         PlayerId = playerId;
         PlayerName = playerName;
         LevelNo = levelNo;
         PointsHit =  pointsHit;
         ReactionAvg = reactionAvg;
+        FinalPoints = CalculateFinalPoints();
     }
 
     public int CalculateFinalPoints()

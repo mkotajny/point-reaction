@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using PaperPlaneTools;
 
 public class PlayerSettings : MonoBehaviour {
 
@@ -33,6 +34,13 @@ public class PlayerSettings : MonoBehaviour {
 
     public void GooglePlaySignInOut(bool signIn = true)
     {
+        if (!CheckInternet.IsConnected() && signIn)
+        {
+            new Alert("No internet !", "Please connect with the internet and try again.")
+                .SetPositiveButton("OK", () => {}).Show();
+            return;
+        }
+
         if (signIn)
             CurrentPlayer.SignInGooglePlay();
         else
