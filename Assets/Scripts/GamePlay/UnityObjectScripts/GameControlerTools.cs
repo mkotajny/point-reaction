@@ -15,6 +15,8 @@ public class GameControlerTools : MonoBehaviour {
     public void Start()
     {
         _audioSources = GameObject.Find("GameControler").GetComponents<AudioSource>();
+        foreach (AudioSource audiosource in _audioSources)
+            audiosource.volume = MusicPR.VolumeSfx;
     }
 
     public ScreenTouchTypes ScreenTouched(GameMode_1 gameMode_1)

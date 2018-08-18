@@ -33,6 +33,8 @@ public class GameControler : MonoBehaviour {
             , _gameObjectFactory);
 
         _uIContentManager.OpenLevelStartPanel();
+        MusicPR.SetVolumeMusic();
+        MusicPR.PlayNextSong(MusicPR.PlayListGameBoard);
     }
 
     void Update()
@@ -47,6 +49,9 @@ public class GameControler : MonoBehaviour {
             && _pointsBoard.ActivatedPoint.activeInHierarchy
             && !_gameMode_1.CurrentLevel.PointsLivingTimer.Active)
             _gameMode_1.CurrentLevel.PointsLivingTimer.Activate();
+
+        if (MusicPR.NextSongTimer.TimeElapsed())
+            MusicPR.PlayNextSong(MusicPR.PlayListGameBoard);
     }
 
     public void FixedUpdate()

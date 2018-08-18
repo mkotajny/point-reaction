@@ -23,9 +23,10 @@ public class ForTesters : MonoBehaviour {
         //PlayerPrefs.SetInt("InGooglePlay", 0);
         //PlayerPrefs.SetInt("ScoreServerUpdated", 0);
 
+        //MusicManager.play("Music/Menu/352428__klavo1985__mgs-sample-loop-by-kk-v2");
+
 
         GameLevelPersister.ListAllPlayerPrefsValues();
-        
 
 
     }

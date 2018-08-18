@@ -92,6 +92,9 @@ public static class GameLevelPersister  {
         Debug.Log("debug: ReactionFastest: " + PlayerPrefs.GetFloat("ReactionFastest"));
         Debug.Log("debug: ScoreServerUpdated: " + PlayerPrefs.GetInt("ScoreServerUpdated"));
         Debug.Log("debug: InGooglePlay: " + PlayerPrefs.GetInt("InGooglePlay"));
+        Debug.Log("debug: Vibrate: " + PlayerPrefs.GetString("Vibrate"));
+        Debug.Log("debug: MusicVolume: " + PlayerPrefs.GetString("MusicVolume"));
+        Debug.Log("debug: SfxVolume: " + PlayerPrefs.GetString("SfxVolume"));
         Debug.Log("debug: **** END OF ALL PLAYERPREFS VALUES : ****");
     }
 }

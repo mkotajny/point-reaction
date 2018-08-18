@@ -19,7 +19,6 @@ public class Timer  {
     {
         _active = true;
         _startTime = Time.time;
-        /*if (_length != 1) ActivityLogger.AddLogLine("Timer activated: startTime=" + _startTime);*/
     }
 
     public void Deactivate()

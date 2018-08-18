@@ -6,14 +6,21 @@ public class SceneControler : MonoBehaviour {
 
     Timer _checkOnlineTimer;
 
+    private void Awake()
+    {
+        ActivityLogger.InitializeLog();
+        GameLevelPersister.LevelLoad();
+        MusicPR.PlayNextSong(MusicPR.PlayListMenu);
+        MusicPR.SetVolumeSfx();
+        //MusicManager.play("369066__mrthenoronha__hurry-loop");
+    }
+
     void OnEnable()
     {
         _checkOnlineTimer = new Timer(3);
         _checkOnlineTimer.Activate();
-        ActivityLogger.InitializeLog();
 
         Screen.orientation = ScreenOrientation.Portrait;
-        GameLevelPersister.LevelLoad();
         GameObject.Find("VersionNumber_text").GetComponent<Text>().text = "Version " + Application.version;
         GameObject.Find("PlayerName_background").GetComponent<Text>().text = CurrentPlayer.PlayerName;
 
@@ -29,6 +36,8 @@ public class SceneControler : MonoBehaviour {
             WorldRankPersister.UpdateCurrentPlayer();
             _checkOnlineTimer.Activate();
         }
+        if (MusicPR.NextSongTimer.TimeElapsed())
+            MusicPR.PlayNextSong(MusicPR.PlayListMenu);
     }
 
 }
