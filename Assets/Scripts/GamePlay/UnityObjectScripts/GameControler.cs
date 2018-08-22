@@ -14,6 +14,7 @@ public class GameControler : MonoBehaviour {
     ScreenTouchTypes _screenTouch;
     public int PointsBoardGranurality = 10, PointSpawnTimeRange = 10;
 
+    
     void Start()
     {
         //GameLevelPersister.ResetGame();
@@ -28,7 +29,6 @@ public class GameControler : MonoBehaviour {
         
         _gameObjectFactory = GameObject.Find("GameObjectFactory");
         _gameBoard = GameObject.Find("GameBoard");
-        Screen.orientation = ScreenOrientation.LandscapeLeft;
         _pointsBoard = new PointsBoard(_gameBoard.transform.localScale.x + 3
             , _gameBoard.transform.localScale.y + 1
             , PointsBoardGranurality
@@ -85,7 +85,8 @@ public class GameControler : MonoBehaviour {
 
     public void LoadMainMenuScene()
     {
-        SceneManager.LoadScene(0);
+        SessionVariables.CurrentScene = SessionVariables.PRScenes.MainMenu;
+        Initiate.Fade("BlackScene", Color.black, 1.0f);
     }
 
 

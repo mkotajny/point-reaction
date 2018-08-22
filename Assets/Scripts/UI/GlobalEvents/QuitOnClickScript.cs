@@ -3,13 +3,7 @@
 public class QuitOnClickScript : MonoBehaviour {
     public void Quit()
     {
-        //ActivityLogger.AddLogLine("Player has LEFT THE GAME");
-        //ActivityLogger.SaveLog();
-
-        Application.Quit();
-
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;        
-        #endif
+        SessionVariables.CurrentScene = SessionVariables.PRScenes.Quit;
+        Initiate.Fade("BlackScene", Color.black, 1.0f);
     }
 }
