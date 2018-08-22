@@ -4,8 +4,8 @@ using UnityEngine.UI;
 public class UIContentManager : MonoBehaviour {
 
     Text _panelStartLevelValue, _panelStart_PointsLivingTime;
-    Text _panelResultLevelValue, _levelResultQtyPointsHit, _levelResultReactionAvg, _levelResultReactionFastest
-        ,  _levelResultText, _resultLevelButtonText;
+    Text _panelResultLevelValue, _levelResultQtyPointsHit, _levelResultReactionAvg, _levelResultText, _resultLevelButtonText;
+    Button _backToMainMenuButton;
 
     GameObject _levelStartPanel, _levelResultPanel;
     public GameMode_1 GameMode_1;
@@ -19,9 +19,9 @@ public class UIContentManager : MonoBehaviour {
         _panelResultLevelValue = GameObject.Find("PanelResultLevelValue").GetComponent<Text>();
         _levelResultQtyPointsHit = GameObject.Find("QtyOfPointsHit_value").GetComponent<Text>();
         _levelResultReactionAvg = GameObject.Find("AvgReaction_value").GetComponent<Text>();
-        _levelResultReactionFastest = GameObject.Find("FastestReaction_value").GetComponent<Text>();
         _levelResultText = GameObject.Find("LevelResult_value").GetComponent<Text>();
         _resultLevelButtonText = GameObject.Find("PanelResult_ButtonRun_Text").GetComponent<Text>();
+        _backToMainMenuButton = GameObject.Find("ButtonBlue_Back").GetComponent<Button>();
 
         _levelResultPanel.SetActive(false);
     }
@@ -36,6 +36,7 @@ public class UIContentManager : MonoBehaviour {
         LoadPanelsWithData();
         _levelResultPanel.SetActive(false);
         _levelStartPanel.SetActive(true);
+
         //ActivityLogger.AddLogLine("LEVEL START panel has been opened");
     }
 
@@ -43,8 +44,8 @@ public class UIContentManager : MonoBehaviour {
     {
         LoadPanelsWithData();
         _levelResultPanel.SetActive(true);
-        //ActivityLogger.AddLogLine("LEVEL RESULT panel has been opened");
         ActivityLogger.SaveLog();
+        _backToMainMenuButton.gameObject.SetActive(true);
     }
 
     public void LoadPanelsWithData()
@@ -54,12 +55,10 @@ public class UIContentManager : MonoBehaviour {
         _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         _levelResultQtyPointsHit.text = GameMode_1.CurrentLevel.HitsQty.ToString();
 
-        if (GameMode_1.CurrentLevel.HitsQty > 0) {
+        if (GameMode_1.CurrentLevel.HitsQty > 0) 
             _levelResultReactionAvg.text = GameMode_1.CurrentLevel.ReactionAvg.ToString("0.00") + " sec";
-            _levelResultReactionFastest.text = GameMode_1.CurrentLevel.ReactionFastest.ToString("0.00") + " sec"; }
-        else {
+        else 
             _levelResultReactionAvg.text = "-";
-            _levelResultReactionFastest.text = "-"; }
 
         if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
         {

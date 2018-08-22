@@ -8,11 +8,17 @@ public class SceneControler : MonoBehaviour {
 
     private void Awake()
     {
-        ActivityLogger.InitializeLog();
-        GameLevelPersister.LevelLoad();
-        MusicPR.PlayNextSong(MusicPR.PlayListMenu);
-        MusicPR.SetVolumeSfx();
-        //MusicManager.play("369066__mrthenoronha__hurry-loop");
+        try
+        {
+            ActivityLogger.InitializeLog();
+            GameLevelPersister.LevelLoad();
+            MusicPR.PlayNextSong(MusicPR.PlayListMenu);
+            MusicPR.SetVolumeSfx();
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("debug: " + e.Message + "::: " + e.StackTrace);
+        }
     }
 
     void OnEnable()

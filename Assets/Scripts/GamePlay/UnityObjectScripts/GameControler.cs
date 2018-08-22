@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameControler : MonoBehaviour {
@@ -6,6 +7,7 @@ public class GameControler : MonoBehaviour {
     GameMode_1 _gameMode_1;
     public PointsBoard _pointsBoard;
     GameObject _gameObjectFactory, _gameBoard;
+    Button _backToMainMenuButton;
     GameControlerTools _gameControlerTools;
     UIContentManager _uIContentManager;
     AudioSource[] _audioSources;
@@ -20,6 +22,7 @@ public class GameControler : MonoBehaviour {
         _gameControlerTools = GameObject.Find("GameControlerTools").GetComponent<GameControlerTools>();
         _uIContentManager = GameObject.Find("UIContentManager").GetComponent<UIContentManager>();
         _audioSources = GameObject.Find("GameControler").GetComponents<AudioSource>();
+        _backToMainMenuButton = GameObject.Find("ButtonBlue_Back").GetComponent<Button>();
         _uIContentManager.GameMode_1 = _gameMode_1;
         GameOptions.LoadOptions();
         
@@ -41,7 +44,7 @@ public class GameControler : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            SceneManager.LoadScene(0);
+            LoadMainMenuScene();
             ActivityLogger.SaveLog();
         }
 
@@ -77,6 +80,12 @@ public class GameControler : MonoBehaviour {
     public void LevelStart()
     {
         _gameMode_1.CurrentLevel.Restart();
+        _backToMainMenuButton.gameObject.SetActive(false);
+    }
+
+    public void LoadMainMenuScene()
+    {
+        SceneManager.LoadScene(0);
     }
 
 
