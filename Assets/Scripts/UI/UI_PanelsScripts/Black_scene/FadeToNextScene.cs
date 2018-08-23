@@ -15,11 +15,11 @@ public class FadeToNextScene : MonoBehaviour {
                 #endif
                 break;
             case SessionVariables.PRScenes.GameBoard:
-                Screen.orientation = ScreenOrientation.LandscapeLeft;
+                //Screen.orientation = ScreenOrientation.LandscapeLeft;
                 Initiate.Fade("GameScene", Color.black, 1.0f);
                 break;
             case SessionVariables.PRScenes.MainMenu:
-                Screen.orientation = ScreenOrientation.Portrait;
+                //Screen.orientation = ScreenOrientation.Portrait;
                 Initiate.Fade("MainMenuScene", Color.black, 1.0f);
                 break;
             default:
