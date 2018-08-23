@@ -160,7 +160,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.TenSoft.PReaction
   buildNumber: {}
-  AndroidBundleVersionCode: 17
+  AndroidBundleVersionCode: 18
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1

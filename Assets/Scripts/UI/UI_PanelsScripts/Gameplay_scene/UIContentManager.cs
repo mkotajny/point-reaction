@@ -64,13 +64,13 @@ public class UIContentManager : MonoBehaviour {
         {
             _levelResultText.color = new Color32(50, 160, 50, 255);
             _levelResultText.text = "( Passed )";
-            _resultLevelButtonText.text = "NEXT LEVEL";
+            _resultLevelButtonText.text = "Next Level";
         }
         else
         {
             _levelResultText.color = Color.red;
             _levelResultText.text = "( Not passed )";
-            _resultLevelButtonText.text = "TRY AGAIN";
+            _resultLevelButtonText.text = "Try Again";
         }
     }
 }
