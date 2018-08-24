@@ -7,6 +7,6 @@ public class LoadSceneOnClickScript : MonoBehaviour {
     {
         ActivityLogger.SaveLog();
         SessionVariables.CurrentScene = SessionVariables.PRScenes.GameBoard;
-        Initiate.Fade("BlackScene", Color.black, 1.0f);
+        Initiate.Fade("GameScene", Color.black, 1.0f);
     }
 }

@@ -86,7 +86,7 @@ public class GameControler : MonoBehaviour {
     public void LoadMainMenuScene()
     {
         SessionVariables.CurrentScene = SessionVariables.PRScenes.MainMenu;
-        Initiate.Fade("BlackScene", Color.black, 1.0f);
+        Initiate.Fade("MainMenuScene", Color.black, 1.0f);
     }
 
 

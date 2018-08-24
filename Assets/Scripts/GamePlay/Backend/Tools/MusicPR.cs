@@ -19,24 +19,49 @@ public static class MusicPR  {
     public static void LoadList(List<string> playList)
     {
         string suffix, newSong;
+        List<string> fileNames = new List<string>();
 
         if (_playListMenu.Count > 0 && _playListGameBoard.Count > 0)
             return;
 
-        if (playList == _playListMenu) suffix = "Menu";
-        else suffix = "GameBoard";
+        if (playList == _playListMenu)
+        {
+            suffix = "Menu";
+            fileNames.Add("202221__luckylittleraven__sweetclouds 1");
+            fileNames.Add("241441__foolboymedia__ocean-drift");
+            fileNames.Add("329953__shadydave__alone-electronic-edit");
+            fileNames.Add("396024__patricklieberkind__rhythmic-game-menu-ambience");
+        }
+        else
+        {
+            suffix = "GameBoard";
+            fileNames.Add("100870__xythe__loop");
+            fileNames.Add("174589__dingo1__down-dark-metal-electronic-loop");
+            fileNames.Add("218347__luckylittleraven__superhappycheesyloop2of2");
+            fileNames.Add("369066__mrthenoronha__hurry-loop");
+            fileNames.Add("419335__sieuamthanh__nhanh-len");
+            fileNames.Add("428858__supervanz__duskwalkin-loop");
+        }
 
         playList.Clear();
 
-        UnityEngine.Object[] files = Resources.LoadAll("Music/" + suffix, typeof(UnityEngine.Object));
+
+        /*UnityEngine.Object[] files = Resources.LoadAll("Music/" + suffix, typeof(UnityEngine.Object));
 
         foreach (UnityEngine.Object f in files)
         {
             newSong = "Music/" + suffix + "/" + f.name;
             if (newSong != _currentStrong)
                 playList.Add(newSong);
-        }
+        }*/
 
+        foreach (string f in fileNames)
+        {
+            newSong = "Music/" + suffix + "/" + f;
+            if (newSong != _currentStrong)
+                playList.Add(newSong);
+        }
+       
         if (_nextSongTimer == null) _nextSongTimer = new Timer(120);
         if (_volumeMusic == -1f) SetVolumeMusic();
     }
