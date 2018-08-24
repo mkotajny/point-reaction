@@ -76,6 +76,7 @@ public class PlayerSettings : MonoBehaviour {
         for (int i = 0; i <= _bestLevelNo; i++)
             options.Add(i.ToString());
 
+        _levelDropDown.ClearOptions();
         _levelDropDown.AddOptions(options);
         _levelDropDown.value = _currentLevelNo;
     }
