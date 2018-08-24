@@ -53,7 +53,8 @@ public class GameControler : MonoBehaviour {
             && !_gameMode_1.CurrentLevel.PointsLivingTimer.Active)
             _gameMode_1.CurrentLevel.PointsLivingTimer.Activate();
 
-        if (MusicPR.NextSongTimer.TimeElapsed())
+        if (_gameMode_1.CurrentLevel.PlayStatus != LevelPlayStatuses.inProgress
+            && MusicPR.NextSongTimer.TimeElapsed())
             MusicPR.PlayNextSong(MusicPR.PlayListGameBoard);
     }
 
