@@ -52,6 +52,17 @@ public class WorldRank : MonoBehaviour {
                 {
                     _worldRankItemObject.transform.GetChild(0).GetComponent<Text>().color = new Color32(255, 255, 0, 255);
                     _worldRankItemObject.transform.GetChild(1).GetComponent<Text>().color = new Color32(255, 255, 0, 255);
+                    int playersPointsFromDisk = PlayerPrefs.GetInt("BestLevelNo") * 1000
+                        + PlayerPrefs.GetInt("PointsHit") * 100
+                        + (100 - System.Convert.ToInt32((PlayerPrefs.GetFloat("ReactionAvg") * 100)));
+
+                    if (playersPointsFromDisk > worldRankItem.CalculateFinalPoints())
+                    {
+                        _worldRankItemObject.transform.GetChild(2).GetComponent<Text>().text =
+                            "Level: " + PlayerPrefs.GetInt("BestLevelNo").ToString() + "." 
+                            + PlayerPrefs.GetInt("PointsHit").ToString()
+                            + "\nAvg Reaction: " + PlayerPrefs.GetFloat("ReactionAvg").ToString() + "s";
+                    }
                 }
 
                 counter++;
