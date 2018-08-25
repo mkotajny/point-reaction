@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UIContentManager : MonoBehaviour {
@@ -40,8 +41,9 @@ public class UIContentManager : MonoBehaviour {
         //ActivityLogger.AddLogLine("LEVEL START panel has been opened");
     }
 
-    public void ActivateResultPanel()
+    public IEnumerator ActivateResultPanel()
     {
+        yield return new WaitForSeconds(1f);
         LoadPanelsWithData();
         _levelResultPanel.SetActive(true);
         ActivityLogger.SaveLog();

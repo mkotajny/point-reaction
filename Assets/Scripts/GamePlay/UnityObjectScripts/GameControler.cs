@@ -70,7 +70,7 @@ public class GameControler : MonoBehaviour {
 
         if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win
             || _gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost)
-            _uIContentManager.ActivateResultPanel();
+            StartCoroutine(_uIContentManager.ActivateResultPanel());
     }
 
     public void ActivateOneOfPoints()
