@@ -45,6 +45,8 @@ public class GameMode_1 {
         GameLevelPersister.LevelLoad();
         _currentLevel = _gameLevels[GameLevelPersister.LevelPersistence.LevelNo];
         _currentLevel.HitsQty = GameLevelPersister.LevelPersistence.HitsQty;
+        if (_currentLevel.LevelNo < GameLevelPersister.BestLevelNoPersistence)
+            _currentLevel.HitsQty = 0;
         _bestLevelNo = GameLevelPersister.BestLevelNoPersistence;
     }
 
