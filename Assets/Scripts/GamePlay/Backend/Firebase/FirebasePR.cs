@@ -42,9 +42,9 @@ public static class FirebasePR
             if (dependencyStatus == DependencyStatus.Available)
             {
                 FirebaseApp app = FirebaseApp.DefaultInstance;
-                app.SetEditorDatabaseUrl("https://point-reaction-44fca.firebaseio.com/");
+                app.SetEditorDatabaseUrl("https://point-reaction-44fca.firebaseio.com/topreactors/");
                 if (app.Options.DatabaseUrl != null) app.SetEditorDatabaseUrl(app.Options.DatabaseUrl);
-                _firebaseDbReference = FirebaseDatabase.DefaultInstance.RootReference;
+                _firebaseDbReference = FirebaseDatabase.DefaultInstance.GetReference("topreactors");
             }
             else
                 Debug.LogError("debug: Could not resolve all Firebase dependencies: " + dependencyStatus);

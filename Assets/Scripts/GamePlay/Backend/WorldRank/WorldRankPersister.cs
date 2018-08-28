@@ -23,22 +23,21 @@ public static class WorldRankPersister  {
                     {
                         DataSnapshot snapshot = task.Result;
                         foreach (var childSnapshot in snapshot.Children)
-                            foreach (var childSnapshot2 in childSnapshot.Children)
+                        {
+                            WorldRankItem worldRankItem = new WorldRankItem(childSnapshot.Child("PlayerId").Value.ToString()
+                                , childSnapshot.Child("PlayerName").Value.ToString()
+                                , System.Convert.ToInt32(childSnapshot.Child("LevelNo").Value)
+                                , System.Convert.ToInt32(childSnapshot.Child("PointsHit").Value)
+                                , System.Convert.ToDouble(childSnapshot.Child("ReactionAvg").Value));
+
+                            _worldRank.Add(worldRankItem);
+
+                            if (updateSingleUserLocalScores && worldRankItem.PlayerId == CurrentPlayer.PlayerId)
                             {
-                                WorldRankItem worldRankItem = new WorldRankItem(childSnapshot2.Child("PlayerId").Value.ToString()
-                                    , childSnapshot2.Child("PlayerName").Value.ToString()
-                                    , System.Convert.ToInt32(childSnapshot2.Child("LevelNo").Value)
-                                    , System.Convert.ToInt32(childSnapshot2.Child("PointsHit").Value)
-                                    , System.Convert.ToDouble(childSnapshot2.Child("ReactionAvg").Value));
-
-                                _worldRank.Add(worldRankItem);
-
-                                if (updateSingleUserLocalScores && worldRankItem.PlayerId == CurrentPlayer.PlayerId)
-                                {
-                                    CurrentPlayer.UpdateScores(worldRankItem);
-                                    userFound = true;
-                                }
+                                CurrentPlayer.UpdateScores(worldRankItem);
+                                userFound = true;
                             }
+                        }
                         if (updateSingleUserLocalScores && !userFound )
                         {
                             if (!string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerId")))
