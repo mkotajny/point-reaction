@@ -61,6 +61,7 @@ public class PlayerSettings : MonoBehaviour {
         }
 
         _signOutButton.SetActive(!_signInButton.activeInHierarchy);
+        int test = 1;
     }
     #endregion
 
