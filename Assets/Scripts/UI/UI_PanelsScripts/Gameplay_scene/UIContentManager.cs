@@ -4,9 +4,12 @@ using UnityEngine.UI;
 
 public class UIContentManager : MonoBehaviour {
 
+    public Text _panelResultLevelValue, _levelResultQtyPointsHit, _levelResultReactionAvg, _levelResultText, _resultLevelButtonText;
+
     Text _panelStartLevelValue, _panelStart_PointsLivingTime;
-    Text _panelResultLevelValue, _levelResultQtyPointsHit, _levelResultReactionAvg, _levelResultText, _resultLevelButtonText;
+    public ZUIManager _zuiManager;
     Button _backToMainMenuButton;
+
 
     GameObject _levelStartPanel, _levelResultPanel;
     public GameMode_1 GameMode_1;
@@ -17,14 +20,7 @@ public class UIContentManager : MonoBehaviour {
         _panelStartLevelValue = GameObject.Find("PanelStartLevelValue").GetComponent<Text>();
         _panelStart_PointsLivingTime = GameObject.Find("PanelStart_PointsLivingTime").GetComponent<Text>();
         _levelResultPanel = GameObject.Find("Panel_Result");
-        _panelResultLevelValue = GameObject.Find("PanelResultLevelValue").GetComponent<Text>();
-        _levelResultQtyPointsHit = GameObject.Find("QtyOfPointsHit_value").GetComponent<Text>();
-        _levelResultReactionAvg = GameObject.Find("AvgReaction_value").GetComponent<Text>();
-        _levelResultText = GameObject.Find("LevelResult_value").GetComponent<Text>();
-        _resultLevelButtonText = GameObject.Find("PanelResult_ButtonRun_Text").GetComponent<Text>();
         _backToMainMenuButton = GameObject.Find("ButtonBlue_Back").GetComponent<Button>();
-
-        _levelResultPanel.SetActive(false);
     }
 
     public void OpenLevelStartPanel()
@@ -34,16 +30,17 @@ public class UIContentManager : MonoBehaviour {
 
         _panelStartLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
+        try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
+
         LoadPanelsWithData();
-        _levelResultPanel.SetActive(false);
-        _levelStartPanel.SetActive(true);
     }
 
-    public IEnumerator ActivateResultPanel()
+
+    public void ActivateResultPanel()
     {
-        yield return new WaitForSeconds(0.5f);
+        _zuiManager.OpenMenu("Menu_Result");
+
         LoadPanelsWithData();
-        _levelResultPanel.SetActive(true);
         ActivityLogger.SaveLog();
         _backToMainMenuButton.gameObject.SetActive(true);
     }
@@ -51,7 +48,7 @@ public class UIContentManager : MonoBehaviour {
     public void LoadPanelsWithData()
     {
         _panelStartLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
-        _panelStart_PointsLivingTime.text = GameMode_1.CurrentLevel.PointsLivingTimer.Lenght.ToString() + " sec";
+        _panelStart_PointsLivingTime.text = (GameMode_1.CurrentLevel.PointsLivingTimer.Lenght-0.1f).ToString() + " sec";
         _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         _levelResultQtyPointsHit.text = GameMode_1.CurrentLevel.HitsQty.ToString();
 
@@ -63,13 +60,13 @@ public class UIContentManager : MonoBehaviour {
         if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
         {
             _levelResultText.color = new Color32(50, 160, 50, 255);
-            _levelResultText.text = "( Passed )";
+            _levelResultText.text = " PASSED !";
             _resultLevelButtonText.text = "Next Level";
         }
         else
         {
             _levelResultText.color = Color.red;
-            _levelResultText.text = "( Not passed )";
+            _levelResultText.text = " Not passed";
             _resultLevelButtonText.text = "Try Again";
         }
     }
