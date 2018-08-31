@@ -69,7 +69,7 @@ public class GameLevel {
     {
         _levelNo = levelNo;
         _playStatus = LevelPlayStatuses.notStarted;
-        _pointsLivingTimer = new Timer(pointsLivingTime+0.1f);
+        _pointsLivingTimer = new Timer(pointsLivingTime);
         _betweenPointsTimer = new Timer(1);
         _hitsQty = hitsQty;
         _reactionAvg = reactionAvg;

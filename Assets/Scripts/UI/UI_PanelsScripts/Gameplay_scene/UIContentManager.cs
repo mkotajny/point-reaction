@@ -50,7 +50,7 @@ public class UIContentManager : MonoBehaviour {
         LoadPanelsWithData();
         ActivityLogger.SaveLog();
         _backToMainMenuButton.gameObject.SetActive(true);
-        _selectedVictoryAnimationIndex = _randomizer.Next(0, 6);
+        _selectedVictoryAnimationIndex = _randomizer.Next(0, 8);
         if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
             victoryAnimations[_selectedVictoryAnimationIndex].SetActive(true);
     }
@@ -63,7 +63,7 @@ public class UIContentManager : MonoBehaviour {
     public void LoadPanelsWithData()
     {
         _panelStartLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
-        _panelStart_PointsLivingTime.text = (GameMode_1.CurrentLevel.PointsLivingTimer.Lenght-0.1f).ToString() + " sec";
+        _panelStart_PointsLivingTime.text = (GameMode_1.CurrentLevel.PointsLivingTimer.Lenght).ToString() + " sec";
         _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         _levelResultQtyPointsHit.text = GameMode_1.CurrentLevel.HitsQty.ToString();
 
