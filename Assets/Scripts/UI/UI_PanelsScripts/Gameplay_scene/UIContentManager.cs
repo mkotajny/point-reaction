@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UIContentManager : MonoBehaviour {
@@ -9,6 +8,9 @@ public class UIContentManager : MonoBehaviour {
     Text _panelStartLevelValue, _panelStart_PointsLivingTime;
     public ZUIManager _zuiManager;
     Button _backToMainMenuButton;
+    public GameObject[] backgrounds, victoryAnimations;
+    int _selectedBackgorundIndex, _selectedVictoryAnimationIndex;
+    System.Random _randomizer = new System.Random();
 
 
     GameObject _levelStartPanel, _levelResultPanel;
@@ -25,12 +27,17 @@ public class UIContentManager : MonoBehaviour {
 
     public void OpenLevelStartPanel()
     {
+        victoryAnimations[_selectedVictoryAnimationIndex].SetActive(false);
+
         if (GameMode_1.CurrentLevel.HitsQty == 10)
             GameMode_1.LevelUp();
 
         _panelStartLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
+
+        _selectedBackgorundIndex = _randomizer.Next(0, 6);
+        backgrounds[_selectedBackgorundIndex].SetActive(true);
 
         LoadPanelsWithData();
     }
@@ -43,6 +50,14 @@ public class UIContentManager : MonoBehaviour {
         LoadPanelsWithData();
         ActivityLogger.SaveLog();
         _backToMainMenuButton.gameObject.SetActive(true);
+        _selectedVictoryAnimationIndex = _randomizer.Next(0, 6);
+        if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
+            victoryAnimations[_selectedVictoryAnimationIndex].SetActive(true);
+    }
+
+    public void DeacTivateBackgroundAnimation()
+    {
+        backgrounds[_selectedBackgorundIndex].SetActive(false);
     }
 
     public void LoadPanelsWithData()

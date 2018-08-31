@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using PaperPlaneTools;
 
 public class WorldRank : MonoBehaviour {
 
@@ -21,16 +20,7 @@ public class WorldRank : MonoBehaviour {
             Destroy(GridWorldRank.transform.GetChild(i).gameObject);
 
         _worldRankLoaded = false;
-
-        if (!CheckInternet.IsConnected())
-        {
-            new Alert("No internet !", "Please connect with the internet and try again.")
-                .SetPositiveButton("OK", () => { }).Show();
-            PanelMainMenu.SetActive(true);
-            PanelWorldRank.SetActive(false);
-        }
-        else
-            WorldRankPersister.LoadWorldRank();
+        WorldRankPersister.LoadWorldRank();
     }
 
     private void Update()

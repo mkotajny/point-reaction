@@ -70,7 +70,11 @@ public class GameControler : MonoBehaviour {
 
         if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win
             || _gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost)
+        {
             _uIContentManager.ActivateResultPanel();
+            if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
+                _audioSources[4].Play(); //play fanfare
+        }
     }
 
     public void ActivateOneOfPoints()

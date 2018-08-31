@@ -14,8 +14,8 @@ public class GameObjectFactory : MonoBehaviour {
 
     public GameObject GeneratePoint(float pointPositionX, float pointPositionZ)
     {
-        _position.x = pointPositionX;
-        _position.z = pointPositionZ;
+        _position.y = pointPositionX;
+        _position.x = pointPositionZ;
         return Instantiate(PointGameObject, _position, _rotation);
     }
 }
