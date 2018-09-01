@@ -32,7 +32,7 @@ public class Point {
 
         _pointGameObject = 
             gameObjectFactory.GetComponent<GameObjectFactory>().GeneratePoint(_positionX, PositionZ);
-        //_pointGameObject.SetActive(false);
+        _pointGameObject.SetActive(false);
     }
 }
 
