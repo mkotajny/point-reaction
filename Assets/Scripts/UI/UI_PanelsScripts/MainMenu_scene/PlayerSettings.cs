@@ -7,15 +7,16 @@ public class PlayerSettings : MonoBehaviour {
 
     Text _levelDropdownValue, _playerName;
     Dropdown _levelDropDown;
-    GameObject _signInButton, _signOutButton;
+    Button _signInButton, _signOutButton;
     int _currentLevelNo, _bestLevelNo;
+    bool _sychronizeLewelDropdown = false;
 
     void Awake()
     {
         _levelDropdownValue = GameObject.Find("LevelDropdownLabel").GetComponent<Text>();
         _levelDropDown = GameObject.Find("LevelDropdown").GetComponent<Dropdown>();
-        _signInButton = GameObject.Find("ButtonSignIn");
-        _signOutButton = GameObject.Find("ButtonSignOut");
+        _signInButton = GameObject.Find("ButtonSignIn").GetComponent<Button>();
+        _signOutButton = GameObject.Find("ButtonSignOut").GetComponent<Button>();
         _playerName = GameObject.Find("PlayerSettings_PlayerName_text").GetComponent<Text>();
     }
 
@@ -28,8 +29,14 @@ public class PlayerSettings : MonoBehaviour {
     #region Google Play Account Management
     private void Update()
     {
-        if (_signInButton.activeInHierarchy == CurrentPlayer.SignedIn)
+        if (_signInButton.gameObject.activeInHierarchy == CurrentPlayer.SignedIn
+            && !_sychronizeLewelDropdown)
             SwitchGoogleSignButtons();
+        if (_sychronizeLewelDropdown && !WorldRankPersister.LoadInProgress)  //World Rank Loaded (with new player data) after sign
+        {
+            SetNewPlayerData();
+            _sychronizeLewelDropdown = false;
+        }
     }
 
     public void GooglePlaySignInOut(bool signIn = true)
@@ -42,7 +49,12 @@ public class PlayerSettings : MonoBehaviour {
         }
 
         if (signIn)
+        {
+            _signInButton.interactable = false;
             CurrentPlayer.SignInGooglePlay();
+            _sychronizeLewelDropdown = true;
+            WorldRankPersister.LoadInProgress = true;
+        }
         else
             CurrentPlayer.SignOutGooglePlay();
     }
@@ -50,18 +62,21 @@ public class PlayerSettings : MonoBehaviour {
     public void SwitchGoogleSignButtons()
     {
         if (CurrentPlayer.SignedIn)
-        {
-            _playerName.text = CurrentPlayer.PlayerName;
-            _signInButton.SetActive(false);
-        }
+            SetNewPlayerData();
         else
         {
             _playerName.text = "-";
-            _signInButton.SetActive(true);
+            _signInButton.gameObject.SetActive(true);
+            _signOutButton.gameObject.SetActive(false);
         }
-
-        _signOutButton.SetActive(!_signInButton.activeInHierarchy);
-        int test = 1;
+    }
+    void SetNewPlayerData()
+    {
+        _playerName.text = CurrentPlayer.PlayerName;
+        _signInButton.interactable = true;
+        _signInButton.gameObject.SetActive(false);
+        _signOutButton.gameObject.SetActive(true);
+        GenerateListOfLevels();
     }
     #endregion
 

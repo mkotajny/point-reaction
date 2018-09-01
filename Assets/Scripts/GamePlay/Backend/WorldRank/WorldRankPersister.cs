@@ -9,7 +9,10 @@ public static class WorldRankPersister  {
     //static WorldRankItem _currentPlayerItem;
 
     public static List<WorldRankItem> WorldRank { get { return _worldRank; }  }
-    public static bool LoadInProgress { get { return _loadInProgress; } } 
+    public static bool LoadInProgress {
+        get { return _loadInProgress; }
+        set { _loadInProgress = value; }
+    } 
 
 
     public static void LoadWorldRank(bool updateSingleUserLocalScores = false)
@@ -77,9 +80,6 @@ public static class WorldRankPersister  {
     {
         string playerId, playerName;
 
-        /*Debug.Log("debug: UpdateCurrentPlayer: chk1: " + PlayerPrefs.GetInt("ScoreServerUpdated") 
-            + "; " + CurrentPlayer.PlayerId + "; " + PlayerPrefs.GetString("PlayerId"));*/
-
         if (PlayerPrefs.GetInt("ScoreServerUpdated") == 0
             && (!string.IsNullOrEmpty(CurrentPlayer.PlayerId)
                 || (!string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerId")))))
@@ -106,8 +106,7 @@ public static class WorldRankPersister  {
             , PlayerPrefs.GetInt("PointsHit")
             , System.Convert.ToDouble(PlayerPrefs.GetFloat("ReactionAvg").ToString("0.00"))));
 
-            FirebasePR.FirebaseDbReference.Child("topreactors")
-                .Child(playerId).SetRawJsonValueAsync(json);
+            FirebasePR.FirebaseDbReference.Child(playerId).SetRawJsonValueAsync(json);
         }
     }
 }
