@@ -17,7 +17,7 @@ public class SceneControler : MonoBehaviour {
 
     void OnEnable()
     {
-        _checkOnlineTimer = new Timer(3);
+       _checkOnlineTimer = new Timer(3);
         _checkOnlineTimer.Activate();
 
         GameObject.Find("VersionNumber_text").GetComponent<Text>().text = "Version " + Application.version;

@@ -5,7 +5,7 @@ public class WorldRank : MonoBehaviour {
 
     public GameObject GridWorldRank, PanelWorldRank, PanelMainMenu;
     GameObject _worldRankItemPrefab, _worldRankItemObject;
-    bool _worldRankLoaded;
+    bool _worldRankRendered;
     string _currentPlayerNameText;
     
     void Awake()
@@ -19,13 +19,15 @@ public class WorldRank : MonoBehaviour {
         for (int i = 0; i < GridWorldRank.transform.childCount; i++)
             Destroy(GridWorldRank.transform.GetChild(i).gameObject);
 
-        _worldRankLoaded = false;
+        _worldRankRendered = false;
         WorldRankPersister.LoadWorldRank();
     }
 
     private void Update()
     {
-        if (!_worldRankLoaded && WorldRankPersister.WorldRank.Count > 0)
+        if (!_worldRankRendered 
+            && WorldRankPersister.WorldRank.Count > 0
+            && !WorldRankPersister.LoadInProgress)
         {
             int counter = 1;
             foreach (WorldRankItem worldRankItem in WorldRankPersister.WorldRank)
@@ -57,7 +59,7 @@ public class WorldRank : MonoBehaviour {
 
                 counter++;
             }
-            _worldRankLoaded = true;
+            _worldRankRendered = true;
         }
     }
 }

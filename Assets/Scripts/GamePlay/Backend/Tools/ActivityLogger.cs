@@ -10,7 +10,7 @@ public static class ActivityLogger {
 
     public static void InitializeLog()
     {
-        _logSize = 1000;
+        /*_logSize = 1000;
         if (_activityLog == null)
             _activityLog = new string[0];
         _filePath = Application.persistentDataPath + "/ActivityLog.txt";
@@ -19,19 +19,19 @@ public static class ActivityLogger {
         {
             _activityLog = File.ReadAllLines(_filePath);
             _lastIndex = File.ReadAllLines(_filePath).Length;
-        } else _lastIndex = 0;
+        } else _lastIndex = 0;*/
     }
 
     public static void AddLogLine(string line)
     {
-        Array.Resize<string>(ref _activityLog, _lastIndex + 1);
+        /*Array.Resize<string>(ref _activityLog, _lastIndex + 1);
         _activityLog[_lastIndex] = DateTime.Now.ToString("s").Replace("T"," ") + ": " + line;
-        _lastIndex++;
+        _lastIndex++;*/
     }
 
     public static void SaveLog()
     {
-        int startingIndex;
+        /*int startingIndex;
 
         if (_lastIndex <= _logSize)
             startingIndex = 0;
@@ -41,7 +41,7 @@ public static class ActivityLogger {
         var sr = File.CreateText(_filePath);
         for (int i = startingIndex; i < _lastIndex; i++)
             sr.WriteLine(_activityLog[i]);
-        sr.Close();
+        sr.Close();*/
     }
 
     public static void PreviewLog()

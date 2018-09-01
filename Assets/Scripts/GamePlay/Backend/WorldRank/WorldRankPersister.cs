@@ -5,9 +5,12 @@ using Firebase.Database;
 public static class WorldRankPersister  {
 
     static List<WorldRankItem> _worldRank = new List<WorldRankItem>();
+    static bool _loadInProgress = false;
     //static WorldRankItem _currentPlayerItem;
 
     public static List<WorldRankItem> WorldRank { get { return _worldRank; }  }
+    public static bool LoadInProgress { get { return _loadInProgress; } } 
+
 
     public static void LoadWorldRank(bool updateSingleUserLocalScores = false)
     {
@@ -22,6 +25,7 @@ public static class WorldRankPersister  {
                     if (task.IsCompleted)
                     {
                         DataSnapshot snapshot = task.Result;
+                        _loadInProgress = true;
                         foreach (var childSnapshot in snapshot.Children)
                         {
                             WorldRankItem worldRankItem = new WorldRankItem(childSnapshot.Child("PlayerId").Value.ToString()
@@ -48,7 +52,7 @@ public static class WorldRankPersister  {
                             else
                             {
                                 PlayerPrefs.SetInt("ScoreServerUpdated", 0);
-                                WorldRankPersister.UpdateCurrentPlayer();
+                                UpdateCurrentPlayer();
                                 CurrentPlayer.UpdateScores(new WorldRankItem(CurrentPlayer.PlayerId, CurrentPlayer.PlayerName
                                     , PlayerPrefs.GetInt("BestLevelNo")
                                     , PlayerPrefs.GetInt("PointsHit")
@@ -57,11 +61,13 @@ public static class WorldRankPersister  {
                         }
                         if (!updateSingleUserLocalScores && _worldRank.Count > 1)
                             _worldRank.Sort((b, a) => a.FinalPoints.CompareTo(b.FinalPoints));
+                        _loadInProgress = false;
                     }
                 });
         }
         catch (System.Exception e)
         {
+            _loadInProgress = false;
             Debug.LogError("debug: " + e.Message + "::: " + e.StackTrace);
         }
     }

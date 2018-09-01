@@ -31,8 +31,8 @@ public class Timer  {
     {
         if (_active && Time.time > StartTime + _length)
         {
-            if (_length != 1)
-                ActivityLogger.AddLogLine("POINT'S TIMER ELAPSED: " + _startTime + "; Current Time=" + Time.time + "; Length=" + _length);
+            /*if (_length != 1)
+                ActivityLogger.AddLogLine("POINT'S TIMER ELAPSED: " + _startTime + "; Current Time=" + Time.time + "; Length=" + _length);*/
             Deactivate();
             return true;
         }
