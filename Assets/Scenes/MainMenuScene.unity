@@ -314,7 +314,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -1529,7 +1529,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -2672,7 +2672,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -3871,7 +3871,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -5525,7 +5525,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -6595,7 +6595,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 224, y: -401.62952}
+  m_AnchoredPosition: {x: 224, y: -443.96005}
   m_SizeDelta: {x: 160, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &237516097
@@ -6859,7 +6859,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -7602,7 +7602,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -8214,7 +8214,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -9348,7 +9348,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -9832,7 +9832,7 @@ MonoBehaviour:
   durationLink: 1
   ControlledBy: {fileID: 1488881305}
   MovementSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -10497,7 +10497,7 @@ RectTransform:
   m_AnchorMin: {x: 0.2, y: 0.8}
   m_AnchorMax: {x: 0.8, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -99.56277, y: 0}
+  m_SizeDelta: {x: -95.999985, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &376201186
 MonoBehaviour:
@@ -10631,7 +10631,7 @@ MonoBehaviour:
   durationLink: 1
   ControlledBy: {fileID: 1445645839}
   MovementSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -11228,7 +11228,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -12236,7 +12236,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 427.8, y: -388.99124}
+  m_AnchoredPosition: {x: 427.8, y: -427.98615}
   m_SizeDelta: {x: 350, y: 75}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &454629048
@@ -13904,7 +13904,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 252.79999, y: -41.79825}
+  m_AnchoredPosition: {x: 252.79999, y: -49.597225}
   m_SizeDelta: {x: 400, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &538040457
@@ -14171,7 +14171,7 @@ MonoBehaviour:
   ShowingDirection: 0
   HidingDirection: 0
   ScaleSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -14723,7 +14723,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -16331,7 +16331,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -17565,7 +17565,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -18007,7 +18007,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 399, y: -245.39474}
+  m_AnchoredPosition: {x: 399, y: -268.7917}
   m_SizeDelta: {x: 350, y: 75}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &723712135
@@ -21294,7 +21294,7 @@ RectTransform:
   m_AnchorMin: {x: 0.1, y: 0.9}
   m_AnchorMax: {x: 0.9, y: 0.98}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -238.69148, y: 0}
+  m_SizeDelta: {x: -224.39996, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &859645568
 MonoBehaviour:
@@ -21428,7 +21428,7 @@ MonoBehaviour:
   durationLink: 1
   ControlledBy: {fileID: 1371457726}
   MovementSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -21857,7 +21857,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 224, y: -311.16394}
+  m_AnchoredPosition: {x: 224, y: -341.40002}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &862177076
@@ -23067,7 +23067,7 @@ MonoBehaviour:
   durationLink: 1
   ControlledBy: {fileID: 1867098180}
   MovementSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -23789,7 +23789,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -24138,7 +24138,7 @@ RectTransform:
   m_AnchorMin: {x: 0.2, y: 0.8}
   m_AnchorMax: {x: 0.8, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -4.441039, y: 0}
+  m_SizeDelta: {x: 7.3333445, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &961661678
 MonoBehaviour:
@@ -24431,7 +24431,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -25706,7 +25706,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -26771,7 +26771,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -27324,7 +27324,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -28296,7 +28296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 224, y: -170.69836}
+  m_AnchoredPosition: {x: 224, y: -188.84003}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1141153207
@@ -29017,7 +29017,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -31658,7 +31658,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -32781,7 +32781,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -33835,7 +33835,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -36215,7 +36215,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 224, y: -50.232788}
+  m_AnchoredPosition: {x: 224, y: -56.280006}
   m_SizeDelta: {x: 450, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1451828452
@@ -36727,7 +36727,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 398.99997, y: -97.576035}
+  m_AnchoredPosition: {x: 398.99997, y: -108.66666}
   m_SizeDelta: {x: 350, y: 75}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1468186903
@@ -36855,7 +36855,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 374, y: -517.0951}
+  m_AnchoredPosition: {x: 374, y: -571.52}
   m_SizeDelta: {x: 300, y: 75}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1476397845
@@ -37572,8 +37572,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1523783883}
   m_HandleRect: {fileID: 1523783882}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.99999994
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -38349,7 +38349,7 @@ RectTransform:
   m_Father: {fileID: 1536382692}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.000000059604645}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -38643,7 +38643,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -39160,7 +39160,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -40020,8 +40020,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: -748.16504}
+  m_AnchoredPosition: {x: 0, y: 0.000091552734}
+  m_SizeDelta: {x: 0, y: -832.3652}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1578521420
 MonoBehaviour:
@@ -41183,7 +41183,7 @@ RectTransform:
   m_AnchorMin: {x: 0.2, y: 0.8}
   m_AnchorMax: {x: 0.8, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -29.40243, y: 0}
+  m_SizeDelta: {x: -17.533312, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1624293682
 MonoBehaviour:
@@ -41317,7 +41317,7 @@ MonoBehaviour:
   durationLink: 1
   ControlledBy: {fileID: 58486943}
   MovementSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -42290,7 +42290,7 @@ Prefab:
     - target: {fileID: 224088421242678908, guid: 3fc39fe0f20a66f46a873c2504fe1c64,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -383.99124
+      value: -422.98615
       objectReference: {fileID: 0}
     - target: {fileID: 224088421242678908, guid: 3fc39fe0f20a66f46a873c2504fe1c64,
         type: 2}
@@ -42999,7 +42999,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 399, y: -106.79825}
+  m_AnchoredPosition: {x: 399, y: -114.59723}
   m_SizeDelta: {x: 350, y: 75}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1720770635
@@ -43745,7 +43745,7 @@ RectTransform:
   m_AnchorMin: {x: 0.2, y: 0.8}
   m_AnchorMax: {x: 0.8, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -151.38461, y: 0}
+  m_SizeDelta: {x: -144.33331, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1793165540
 MonoBehaviour:
@@ -43879,7 +43879,7 @@ MonoBehaviour:
   durationLink: 1
   ControlledBy: {fileID: 664667413}
   MovementSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -45729,7 +45729,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 252.79999, y: -185.39474}
+  m_AnchoredPosition: {x: 252.79999, y: -208.79169}
   m_SizeDelta: {x: 400, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1930300388
@@ -47602,7 +47602,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -48121,7 +48121,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -48747,7 +48747,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1
@@ -51159,7 +51159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 398.99997, y: -217.72812}
+  m_AnchoredPosition: {x: 398.99997, y: -250.99997}
   m_SizeDelta: {x: 350, y: 75}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &2116867819
@@ -51467,7 +51467,7 @@ MonoBehaviour:
   EdgeGap: 0.25
   LocalCustomPosition: 1
   RotationSection:
-    UseSection: 1
+    UseSection: 0
     HideType: 3
     ShowType: 3
     TypeLink: 1

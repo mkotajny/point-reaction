@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0.3096345, g: 0.40558973, b: 0.6102941, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -33,7 +33,7 @@ RenderSettings:
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
-  m_DefaultReflectionResolution: 128
+  m_DefaultReflectionResolution: 16
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
@@ -43,7 +43,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -51,8 +51,8 @@ LightmapSettings:
     m_AlbedoBoost: 1
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 1
+    m_EnableBakedLightmaps: 0
+    m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
     serializedVersion: 9
     m_Resolution: 2
@@ -70,7 +70,7 @@ LightmapSettings:
     m_FinalGather: 0
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 256
-    m_ReflectionCompression: 2
+    m_ReflectionCompression: 0
     m_MixedBakeMode: 2
     m_BakeBackend: 0
     m_PVRSampling: 1
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000002, guid: f5ad391703e16b94d9d4a22a6e3e2476,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -479,7 +480,7 @@ MonoBehaviour:
     WantedFloatValue: 0
     ShowAfter: -1
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -1082,7 +1083,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 146449946}
   - {fileID: 1639981062}
   - {fileID: 654464556}
   - {fileID: 1669359999}
@@ -1091,16 +1091,6 @@ Transform:
   m_Father: {fileID: 725044320}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &146449945 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1627548513595392, guid: b764b0172f4b15c4cb551bb7a048383d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1096502582}
---- !u!4 &146449946 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d,
-    type: 2}
-  m_PrefabInternal: {fileID: 1096502582}
 --- !u!1 &153121778
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,7 +1475,7 @@ MonoBehaviour:
     WantedFloatValue: 0
     ShowAfter: 0
     HideAfter: -1
-    ShowingDuration: 1.5
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -1763,7 +1753,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4356156329070222, guid: 39507955ce168284faffe5c95a996e76, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1920413098203834, guid: 39507955ce168284faffe5c95a996e76, type: 2}
       propertyPath: m_IsActive
@@ -1776,6 +1766,16 @@ Prefab:
     - target: {fileID: 4356156329070222, guid: 39507955ce168284faffe5c95a996e76, type: 2}
       propertyPath: m_LocalScale.z
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 198315531981435194, guid: 39507955ce168284faffe5c95a996e76,
+        type: 2}
+      propertyPath: randomSeed
+      value: 108516815
+      objectReference: {fileID: 0}
+    - target: {fileID: 198315531981435194, guid: 39507955ce168284faffe5c95a996e76,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.29411766
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 39507955ce168284faffe5c95a996e76, type: 2}
@@ -1939,7 +1939,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 1
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -2451,9 +2451,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.5
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -4234,9 +4234,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.5
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -4751,9 +4751,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.5
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -4937,7 +4937,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4935148874791162, guid: 99861b741cabc6d44ac11b6fe688ad63, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1564605018246508, guid: 99861b741cabc6d44ac11b6fe688ad63, type: 2}
       propertyPath: m_IsActive
@@ -4946,6 +4946,21 @@ Prefab:
     - target: {fileID: 4935148874791162, guid: 99861b741cabc6d44ac11b6fe688ad63, type: 2}
       propertyPath: m_LocalScale.x
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198095165297530740, guid: 99861b741cabc6d44ac11b6fe688ad63,
+        type: 2}
+      propertyPath: randomSeed
+      value: 2108993904
+      objectReference: {fileID: 0}
+    - target: {fileID: 198095165297530740, guid: 99861b741cabc6d44ac11b6fe688ad63,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.11764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 198095165297530740, guid: 99861b741cabc6d44ac11b6fe688ad63,
+        type: 2}
+      propertyPath: InitialModule.startColor.minColor.a
+      value: 0.23529412
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99861b741cabc6d44ac11b6fe688ad63, type: 2}
@@ -5244,9 +5259,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.3
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: -1
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -5794,7 +5809,6 @@ MonoBehaviour:
   _resultLevelButtonText: {fileID: 225115438}
   _zuiManager: {fileID: 1793286991}
   backgrounds:
-  - {fileID: 146449945}
   - {fileID: 1639981061}
   - {fileID: 654464555}
   - {fileID: 1669359998}
@@ -6352,9 +6366,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 0.7
+    ShowAfter: 0.2
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: -1
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -6967,9 +6981,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.5
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -7790,7 +7804,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4514147493844550, guid: 99a46072c1563fb4d99cb00b69e2a766, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1.3
+      value: 1.74
       objectReference: {fileID: 0}
     - target: {fileID: 4514147493844550, guid: 99a46072c1563fb4d99cb00b69e2a766, type: 2}
       propertyPath: m_LocalPosition.z
@@ -7814,7 +7828,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4514147493844550, guid: 99a46072c1563fb4d99cb00b69e2a766, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1084730752297928, guid: 99a46072c1563fb4d99cb00b69e2a766, type: 2}
       propertyPath: m_IsActive
@@ -7823,6 +7837,21 @@ Prefab:
     - target: {fileID: 4514147493844550, guid: 99a46072c1563fb4d99cb00b69e2a766, type: 2}
       propertyPath: m_LocalScale.x
       value: 3.47
+      objectReference: {fileID: 0}
+    - target: {fileID: 198340130808516754, guid: 99a46072c1563fb4d99cb00b69e2a766,
+        type: 2}
+      propertyPath: randomSeed
+      value: -1887133985
+      objectReference: {fileID: 0}
+    - target: {fileID: 198340130808516754, guid: 99a46072c1563fb4d99cb00b69e2a766,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.039215688
+      objectReference: {fileID: 0}
+    - target: {fileID: 198340130808516754, guid: 99a46072c1563fb4d99cb00b69e2a766,
+        type: 2}
+      propertyPath: InitialModule.startColor.minColor.a
+      value: 0.078431375
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 99a46072c1563fb4d99cb00b69e2a766, type: 2}
@@ -7864,7 +7893,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4405415930643242, guid: d33667b5938be3040bc48837dd6f71a0, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1249422961765968, guid: d33667b5938be3040bc48837dd6f71a0, type: 2}
       propertyPath: m_IsActive
@@ -7877,6 +7906,16 @@ Prefab:
     - target: {fileID: 4405415930643242, guid: d33667b5938be3040bc48837dd6f71a0, type: 2}
       propertyPath: m_LocalScale.z
       value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198749969836585836, guid: d33667b5938be3040bc48837dd6f71a0,
+        type: 2}
+      propertyPath: randomSeed
+      value: -833396419
+      objectReference: {fileID: 0}
+    - target: {fileID: 198749969836585836, guid: d33667b5938be3040bc48837dd6f71a0,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.29411766
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d33667b5938be3040bc48837dd6f71a0, type: 2}
@@ -7930,64 +7969,6 @@ Prefab:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 77ca35c1345c147448bcee998fa7a81d, type: 2}
-  m_IsPrefabParent: 0
---- !u!1001 &1096502582
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 119402323}
-    m_Modifications:
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.29
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1627548513595392, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 3.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4410320169784626, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: b764b0172f4b15c4cb551bb7a048383d, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1152175793
 GameObject:
@@ -8377,9 +8358,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.5
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -8787,9 +8768,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 0.75
+    ShowAfter: 0.55
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -8864,9 +8845,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.3
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: -1
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -9361,9 +9342,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 90, z: 90}
     WantedFloatValue: 0
-    ShowAfter: 0.5
+    ShowAfter: 0.1
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: -1
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -9826,7 +9807,7 @@ MonoBehaviour:
   MenuDependent: 1
   Prewarm: 1
   DeactivateWhileInvisible: 0
-  ShowAfter: 0.5
+  ShowAfter: 0
   HideAfter: 0
   HidingDuration: 0.5
   ShowingDuration: 0.5
@@ -9842,7 +9823,7 @@ MonoBehaviour:
     WantedFloatValue: 0
     ShowAfter: -1
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -10078,7 +10059,7 @@ MonoBehaviour:
     WantedFloatValue: 0
     ShowAfter: -1
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -10733,7 +10714,7 @@ MonoBehaviour:
     WantedFloatValue: 0
     ShowAfter: -1
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -11171,9 +11152,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1.1
+    ShowAfter: 0.4
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: -1
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -11520,7 +11501,7 @@ MonoBehaviour:
   MenuDependent: 1
   Prewarm: 1
   DeactivateWhileInvisible: 0
-  ShowAfter: 0.5
+  ShowAfter: 0
   HideAfter: 0
   HidingDuration: 0.5
   ShowingDuration: 0.5
@@ -11536,7 +11517,7 @@ MonoBehaviour:
     WantedFloatValue: 0
     ShowAfter: -1
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -11772,7 +11753,7 @@ MonoBehaviour:
     WantedFloatValue: 0
     ShowAfter: -1
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -12329,9 +12310,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.5
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -13329,7 +13310,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4279782131410246, guid: 6dcb8c33aa9edf34bbd176455c1d058a, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1497288013940878, guid: 6dcb8c33aa9edf34bbd176455c1d058a, type: 2}
       propertyPath: m_IsActive
@@ -13342,6 +13323,16 @@ Prefab:
     - target: {fileID: 4279782131410246, guid: 6dcb8c33aa9edf34bbd176455c1d058a, type: 2}
       propertyPath: m_LocalScale.z
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198113708177160892, guid: 6dcb8c33aa9edf34bbd176455c1d058a,
+        type: 2}
+      propertyPath: randomSeed
+      value: 1085339592
+      objectReference: {fileID: 0}
+    - target: {fileID: 198113708177160892, guid: 6dcb8c33aa9edf34bbd176455c1d058a,
+        type: 2}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.29411766
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6dcb8c33aa9edf34bbd176455c1d058a, type: 2}
@@ -13658,9 +13649,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 90, z: 90}
     WantedFloatValue: 0
-    ShowAfter: 0.9
+    ShowAfter: 0.3
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: -1
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -14255,13 +14246,13 @@ MonoBehaviour:
   ScaleSection:
     UseSection: 1
     HideType: 9
-    ShowType: 3
+    ShowType: 9
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.5
     HideAfter: -1
-    ShowingDuration: 3
+    ShowingDuration: -1
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -14873,9 +14864,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -15656,9 +15647,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.5
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -16557,9 +16548,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.5
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0
@@ -17133,9 +17124,9 @@ MonoBehaviour:
     TypeLink: 1
     WantedVectorValue: {x: 0, y: 0, z: 0}
     WantedFloatValue: 0
-    ShowAfter: 1
+    ShowAfter: 0.5
     HideAfter: -1
-    ShowingDuration: 1
+    ShowingDuration: 0.5
     HidingDuration: -1
     startVectorValue: {x: 0, y: 0, z: 0}
     startFloatValue: 0

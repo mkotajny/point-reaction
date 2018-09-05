@@ -18,6 +18,7 @@ public class GameControler : MonoBehaviour {
     void Start()
     {
         //GameLevelPersister.ResetGame();
+        
         ActivityLogger.InitializeLog();
         _gameMode_1 = new GameMode_1(this);
         _gameControlerTools = GameObject.Find("GameControlerTools").GetComponent<GameControlerTools>();
@@ -36,6 +37,7 @@ public class GameControler : MonoBehaviour {
             , _gameObjectFactory);
 
         _uIContentManager.OpenLevelStartPanel();
+
         MusicPR.SetVolumeMusic();
         MusicPR.PlayNextSong(MusicPR.PlayListGameBoard);
     }

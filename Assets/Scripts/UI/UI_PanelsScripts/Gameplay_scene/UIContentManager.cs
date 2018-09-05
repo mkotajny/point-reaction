@@ -36,7 +36,7 @@ public class UIContentManager : MonoBehaviour {
         _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
 
-        _selectedBackgorundIndex = _randomizer.Next(0, 6);
+        _selectedBackgorundIndex = _randomizer.Next(0, 5);
         backgrounds[_selectedBackgorundIndex].SetActive(true);
 
         LoadPanelsWithData();
