@@ -49,8 +49,6 @@ public class GameControlerTools : MonoBehaviour {
                         if (hit.collider.gameObject.name == "ThePoint(Clone)" && timeElapsed != 0)
                         {
                             _audioSources[3].Play(); //false start sound
-                            ActivityLogger.AddLogLine("Point touched TOO QUICKLY, after "
-                                + timeElapsed.ToString("0.00") + " seconds");
                             return ScreenTouchTypes.Miss;
                         }
 

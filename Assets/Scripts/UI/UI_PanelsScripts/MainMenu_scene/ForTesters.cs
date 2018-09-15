@@ -26,33 +26,23 @@ public class ForTesters : MonoBehaviour {
         //MusicManager.play("Music/Menu/352428__klavo1985__mgs-sample-loop-by-kk-v2");
 
 
-        GameLevelPersister.ListAllPlayerPrefsValues();
+        //GameLevelPersister.ListAllPlayerPrefsValues();
 
+        /*
+        string json = JsonUtility.ToJson(new CampaignItem("1"
+            , "zenek"
+            , 2
+            , 7
+            , System.Convert.ToDouble(0.37)));
 
+        FirebasePR.CampaignDbReference.Child("zenek").SetRawJsonValueAsync(json);
+        */
     }
 
     public void ActivityLogPreview()
     {
-        PlayerPrefs.DeleteKey("PlayerId");
-        PlayerPrefs.DeleteKey("PlayerName");
-        PlayerPrefs.DeleteKey("ScoreServerUpdated");
-        PlayerPrefs.DeleteKey("InGooglePlay");
         //ActivityLogger.PreviewLog();
-    }
-
-    public void UpdateWorldRank(string playerId
-        , string playerName
-        , int levelNo
-        , int pointsHit
-        , double reactionAvg)
-    {
-        string json;
-        WorldRankItem worldRankItem = new WorldRankItem(playerId, playerName, levelNo
-            , pointsHit, reactionAvg);
-
-        json = JsonUtility.ToJson(worldRankItem);
-        FirebasePR.FirebaseDbReference.Child("topreactors")
-            .Child(playerId).SetRawJsonValueAsync(json);
+        CurrentPlayer.GetCurrentPlayerData();
     }
 
 }

@@ -27,32 +27,34 @@ public class UIContentManager : MonoBehaviour {
 
     public void OpenLevelStartPanel()
     {
+        LoadPanelsWithData();
         victoryAnimations[_selectedVictoryAnimationIndex].SetActive(false);
-
-        if (GameMode_1.CurrentLevel.HitsQty == 10)
-            GameMode_1.LevelUp();
-
-        _panelStartLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
-        _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
-
         _selectedBackgorundIndex = _randomizer.Next(0, 5);
         backgrounds[_selectedBackgorundIndex].SetActive(true);
-
-        LoadPanelsWithData();
     }
 
 
     public void ActivateResultPanel()
     {
         _zuiManager.OpenMenu("Menu_Result");
-
         LoadPanelsWithData();
-        ActivityLogger.SaveLog();
-        _backToMainMenuButton.gameObject.SetActive(true);
-        _selectedVictoryAnimationIndex = _randomizer.Next(0, 8);
         if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
+        {
+            _selectedVictoryAnimationIndex = _randomizer.Next(0, 8);
             victoryAnimations[_selectedVictoryAnimationIndex].SetActive(true);
+        }
+        if (GameMode_1.CurrentLevel.HitsQty == 10)
+            GameMode_1.LevelUp();
+
+        if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost
+            && GameMode_1.CurrentLevel.HitsQty > CurrentPlayer.CampaignItem.HitsLvl)
+        {
+            GameMode_1.SaveToFireBase(levelWin: false);
+            CurrentPlayer.CampaignItem.HitsLvl = GameMode_1.CurrentLevel.HitsQty;
+        }
+            
+        _backToMainMenuButton.gameObject.SetActive(true);
     }
 
     public void DeacTivateBackgroundAnimation()
@@ -68,7 +70,7 @@ public class UIContentManager : MonoBehaviour {
         _levelResultQtyPointsHit.text = GameMode_1.CurrentLevel.HitsQty.ToString();
 
         if (GameMode_1.CurrentLevel.HitsQty > 0) 
-            _levelResultReactionAvg.text = GameMode_1.CurrentLevel.ReactionAvg.ToString("0.00") + " sec";
+            _levelResultReactionAvg.text = 0.ToString("0.00") + " sec";
         else 
             _levelResultReactionAvg.text = "-";
 

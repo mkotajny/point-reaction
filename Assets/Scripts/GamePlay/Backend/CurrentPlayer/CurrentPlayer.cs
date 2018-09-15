@@ -1,14 +1,23 @@
 ﻿ using UnityEngine;
 using UnityEngine.UI;
 using GooglePlayGames;
+using Firebase.Database;
 
 public static class CurrentPlayer
 {
     static string _playerId, _playerName;
     static bool _signedIn;
+    static CampaignItem _campaignItem;
+
     public static string PlayerId { get { return _playerId; } }
     public static string PlayerName { get { return _playerName; } }
     public static bool SignedIn { get { return _signedIn; } }
+    public static CampaignItem CampaignItem
+    {
+        get { return _campaignItem; }
+        set { _campaignItem = value; }
+    }
+
 
     public static void SignInGooglePlay()
     {
@@ -48,7 +57,8 @@ public static class CurrentPlayer
                 Firebase.Auth.FirebaseUser newUser = task.Result;
                 Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
 
-                ResetPlayerAttributes(newUser.UserId, newUser.DisplayName);
+                SetPlayerAttributes(newUser.UserId, newUser.DisplayName);
+                GetCurrentPlayerData();
                 PlayerPrefs.SetInt("InGooglePlay", 1);
                 _signedIn = true;
             });
@@ -66,32 +76,42 @@ public static class CurrentPlayer
         PlayerPrefs.SetInt("InGooglePlay", 0);
     }
 
-    public static void UpdateScores(WorldRankItem worldRankItem)
-    {
-        if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerId"))
-            || PlayerPrefs.GetString("PlayerId") != _playerId)
-        {
-            PlayerPrefs.SetString("PlayerId", _playerId);
-            PlayerPrefs.SetString("PlayerName", _playerName);
-            PlayerPrefs.SetInt("LevelNo", worldRankItem.LevelNo);
-            PlayerPrefs.SetInt("BestLevelNo", worldRankItem.LevelNo);
-            PlayerPrefs.SetInt("PointsHit", worldRankItem.PointsHit);
-            PlayerPrefs.SetFloat("ReactionAvg", float.Parse(worldRankItem.ReactionAvg.ToString("0.00")));
-            GameLevelPersister.LevelLoad();
-        }
-    }
-
-    static void ResetPlayerAttributes(string userId, string userName)
+    static void SetPlayerAttributes(string userId, string userName)
     {
         _playerId = userId;
         _playerName = userName;
         GameObject.Find("PlayerName_background").GetComponent<Text>().text = _playerName;
 
-        if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerId"))
-            || PlayerPrefs.GetString("PlayerId") != _playerId)    // new or change of signed in player
-        {
-            PlayerPrefs.SetInt("ScoreServerUpdated", 1);
-            WorldRankPersister.LoadWorldRank(updateSingleUserLocalScores: true);  //for update of player's local scores
-        }
+    }
+
+
+    public static void GetCurrentPlayerData()
+    {
+        _campaignItem = new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd"), _playerId, _playerName, 1, 0, 0, 30, 0, 0);
+        if (!CheckInternet.IsConnected()) return;
+        FirebasePR.CampaignDbReference
+            .OrderByChild("PlayerId")
+            .EqualTo(_playerId)
+            .GetValueAsync().ContinueWith(task =>
+            {
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (var childSnapshot in snapshot.Children)
+                    {
+                        _campaignItem = new CampaignItem(childSnapshot.Child("Updated").Value.ToString()
+                                , childSnapshot.Child("PlayerId").Value.ToString()
+                                , childSnapshot.Child("PlayerName").Value.ToString()
+                                , System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value)
+                                , System.Convert.ToInt32(childSnapshot.Child("HitsLvl").Value)
+                                , System.Convert.ToInt32(childSnapshot.Child("HitsCmp").Value)
+                                , System.Convert.ToInt32(childSnapshot.Child("Lives").Value)
+                                , System.Convert.ToInt32(childSnapshot.Child("Ads").Value)
+                                , System.Convert.ToDouble(childSnapshot.Child("ReacCmp").Value));
+                        return;
+                    }
+                }
+            });
     }
 }
+ 

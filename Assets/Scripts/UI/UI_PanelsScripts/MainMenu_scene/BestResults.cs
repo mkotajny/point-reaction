@@ -8,7 +8,7 @@ public class BestResults : MonoBehaviour {
     {
         string _bestLevelNo, _pointsHit, _reactionAvg, _reactionFastest;
 
-        _bestLevelNo = GameLevelPersister.BestLevelNoPersistence.ToString();
+        /*_bestLevelNo = GameLevelPersister.BestLevelNoPersistence.ToString();
         _pointsHit = GameLevelPersister.LevelPersistence.HitsQty.ToString();
         _reactionAvg = GameLevelPersister.LevelPersistence.ReactionAvg.ToString() + " sec";
         _reactionFastest = GameLevelPersister.LevelPersistence.ReactionFastest.ToString() + " sec";
@@ -24,5 +24,6 @@ public class BestResults : MonoBehaviour {
         GameObject.Find("PanelResult_PointsHit").GetComponent<Text>().text = _pointsHit;
         GameObject.Find("PanelResult_AvgReaction").GetComponent<Text>().text = _reactionAvg;
         GameObject.Find("PanelResult_FastestReaction").GetComponent<Text>().text = _reactionFastest;
+        */
     }
 }

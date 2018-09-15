@@ -18,8 +18,6 @@ public class GameControler : MonoBehaviour {
     void Start()
     {
         //GameLevelPersister.ResetGame();
-        
-        ActivityLogger.InitializeLog();
         _gameMode_1 = new GameMode_1(this);
         _gameControlerTools = GameObject.Find("GameControlerTools").GetComponent<GameControlerTools>();
         _uIContentManager = GameObject.Find("UIContentManager").GetComponent<UIContentManager>();
@@ -45,24 +43,21 @@ public class GameControler : MonoBehaviour {
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
-        {
             LoadMainMenuScene();
-            ActivityLogger.SaveLog();
-        }
 
         if (_pointsBoard.ActivatedPoint != null 
             && _pointsBoard.ActivatedPoint.activeInHierarchy
             && !_gameMode_1.CurrentLevel.PointsLivingTimer.Active)
             _gameMode_1.CurrentLevel.PointsLivingTimer.Activate();
 
-        if (_gameMode_1.CurrentLevel.PlayStatus != LevelPlayStatuses.inProgress
+        if (_gameMode_1.CurrentLevel.PlayStatus != LevelPlayStatuses.InProgress
             && MusicPR.NextSongTimer.TimeElapsed())
             MusicPR.PlayNextSong(MusicPR.PlayListGameBoard);
     }
 
     public void FixedUpdate()
     {
-        if (_gameMode_1.CurrentLevel.PlayStatus != LevelPlayStatuses.inProgress)
+        if (_gameMode_1.CurrentLevel.PlayStatus != LevelPlayStatuses.InProgress)
             return;
 
         if (_gameMode_1.CurrentLevel.BetweenPointsTimer.TimeElapsed())
@@ -73,9 +68,9 @@ public class GameControler : MonoBehaviour {
         if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win
             || _gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost)
         {
-                _uIContentManager.ActivateResultPanel();
             if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
                 _audioSources[4].Play(); //play fanfare
+            _uIContentManager.ActivateResultPanel();
         }
     }
 
@@ -110,15 +105,7 @@ public class GameControler : MonoBehaviour {
             _pointsBoard.DeactivateActivePoint();
             _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.Lost;
             if (_screenTouch != ScreenTouchTypes.Miss)
-            {
                 _audioSources[2].Play(); //fail sound
-                ActivityLogger.AddLogLine("Point no "
-                        + (_gameMode_1.CurrentLevel.HitsQty + 1)
-                        + " NOT TOUCHED (time elapsed)");
-            }
-            else
-                ActivityLogger.AddLogLine("Point no "
-                    + (_gameMode_1.CurrentLevel.HitsQty + 1) + " MISSED");
         }
     }
 }

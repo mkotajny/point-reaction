@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
-
+using Firebase.Database;
 
 public class GameMode_1 {
 
     GameControler _gameControlerComponent;
     GameLevel[] _gameLevels;
     GameLevel _currentLevel;
-    int _bestLevelNo;
 
 
     int _hitsToWin = 10;
@@ -20,16 +19,10 @@ public class GameMode_1 {
         get { return _currentLevel; }
         set { _currentLevel = value; }
     }
-    public int BestLevelNo
-    {
-        get { return _bestLevelNo;}
-        set { _bestLevelNo = value; }
-    }
     public int HitsToWin { get { return _hitsToWin; } }
 
     public GameMode_1(GameControler gameControler)
     {
-        float minus = 0.01f;
         _gameControlerComponent = gameControler;
         _gameLevels = new GameLevel[49];
 
@@ -42,17 +35,14 @@ public class GameMode_1 {
             else
                 _gameLevels[i] = new GameLevel(i + 1, Mathf.Floor((_gameLevels[i - 1].PointsLivingTimer.Lenght -0.01f) * 100f) / 100f);
         }
-        GameLevelPersister.LevelLoad();
-        _currentLevel = _gameLevels[GameLevelPersister.LevelPersistence.LevelNo];
-        _currentLevel.HitsQty = GameLevelPersister.LevelPersistence.HitsQty;
-        if (_currentLevel.LevelNo < GameLevelPersister.BestLevelNoPersistence)
-            _currentLevel.HitsQty = 0;
-        _bestLevelNo = GameLevelPersister.BestLevelNoPersistence;
+        _currentLevel = _gameLevels[CurrentPlayer.CampaignItem.LvlNo - 1];
+        Debug.Log("debug: GameMode_1: " + _currentLevel.LevelNo.ToString() );
+        _currentLevel.HitsQty = 0;
     }
 
     public void ActivateSinglePoint()
     {
-        if (_currentLevel.PlayStatus == LevelPlayStatuses.inProgress)
+        if (_currentLevel.PlayStatus == LevelPlayStatuses.InProgress )
         {
             _gameControlerComponent.ActivateOneOfPoints();
             _currentLevel.BetweenPointsTimer.Deactivate();
@@ -61,8 +51,24 @@ public class GameMode_1 {
 
     public void LevelUp()
     {
-        _currentLevel = _gameLevels[CurrentLevel.LevelNo + 1];
-        if (_currentLevel.LevelNo > _bestLevelNo)
-            _bestLevelNo = _currentLevel.LevelNo;
+        _currentLevel = _gameLevels[CurrentLevel.LevelNo];
+        CurrentPlayer.CampaignItem.LvlNo = _currentLevel.LevelNo;
+        CurrentPlayer.CampaignItem.HitsLvl = 0;
+        SaveToFireBase(levelWin: true);
+    }
+
+    public void SaveToFireBase(bool levelWin)
+    {
+        string json = JsonUtility.ToJson(new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd")
+            , CurrentPlayer.CampaignItem.PlayerId
+            , CurrentPlayer.CampaignItem.PlayerName
+            , _currentLevel.LevelNo
+            , levelWin ? 0 : _currentLevel.HitsQty
+            , CurrentPlayer.CampaignItem.HitsCmp
+            , CurrentPlayer.CampaignItem.Lives
+            , CurrentPlayer.CampaignItem.Ads
+            , System.Convert.ToDouble(CurrentPlayer.CampaignItem.ReacCmp.ToString("0.00"))));
+
+        FirebasePR.CampaignDbReference.Child(CurrentPlayer.PlayerId).SetRawJsonValueAsync(json);
     }
 }

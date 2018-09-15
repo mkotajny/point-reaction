@@ -3,7 +3,7 @@
 public enum LevelPlayStatuses
 {
     notStarted = 0,
-    inProgress = 1,
+    InProgress = 1,
     Lost = 2,
     Win = 3
 }
@@ -14,9 +14,6 @@ public class GameLevel {
     int _levelNo;
     LevelPlayStatuses _playStatus;
     int _hitsQty;
-    float _reactionSum;
-    float _reactionAvg;
-    float _reactionFastest;
     Timer _pointsLivingTimer;
     Timer _betweenPointsTimer;
 
@@ -26,8 +23,6 @@ public class GameLevel {
         set
         {
             _playStatus = value;
-            if (value == LevelPlayStatuses.Win || value == LevelPlayStatuses.Lost)
-                GameLevelPersister.LevelSave(this);
         }
     }
     public int LevelNo
@@ -39,16 +34,6 @@ public class GameLevel {
     {
         get { return _hitsQty; }
         set { _hitsQty = value; }
-    }
-    public float ReactionAvg
-    {
-        get { return _reactionAvg; }
-        set { _reactionAvg = value; }
-    }
-    public float ReactionFastest
-    {
-        get { return _reactionFastest; }
-        set { _reactionFastest = value; }
     }
     public Timer PointsLivingTimer
     {
@@ -64,7 +49,6 @@ public class GameLevel {
     public GameLevel (int levelNo
         , float pointsLivingTime
         , int hitsQty = 0
-        , float reactionAvg = 0
         , float reactionFastest = 0)
     {
         _levelNo = levelNo;
@@ -72,9 +56,6 @@ public class GameLevel {
         _pointsLivingTimer = new Timer(pointsLivingTime);
         _betweenPointsTimer = new Timer(1);
         _hitsQty = hitsQty;
-        _reactionAvg = reactionAvg;
-        _reactionFastest = reactionFastest;
-        _reactionSum = 0;
     }
 
     public void RegisterHit(int hitsToWin, float hitTime)
@@ -85,14 +66,8 @@ public class GameLevel {
 
         _pointsLivingTimer.Deactivate();
         _hitsQty++;
-        _reactionSum += hitReaction;
-        _reactionAvg = _reactionSum / _hitsQty;
-        if (_reactionFastest == 0 || _reactionFastest > hitReaction)
-            _reactionFastest = hitReaction;
-
-        ActivityLogger.AddLogLine("HIT no " + _hitsQty + ": "  
-            + "hit reaction: " + hitReaction.ToString("0.00") + " seconds; "
-            + "avg reaction: " + _reactionAvg.ToString("0.00") + " seconds");
+        CurrentPlayer.CampaignItem.ReacCmp += hitReaction;
+        CurrentPlayer.CampaignItem.HitsCmp++;
 
         if (_hitsQty == hitsToWin)
             PlayStatus = LevelPlayStatuses.Win;
@@ -102,12 +77,8 @@ public class GameLevel {
 
     public void Restart()
     {
-        ActivityLogger.AddLogLine("Level " + _levelNo + " started");
         _hitsQty = 0;
-        _reactionSum = 0;
-        _reactionAvg = 0;
-        _reactionFastest = 0;
-        _playStatus = LevelPlayStatuses.inProgress;
+        _playStatus = LevelPlayStatuses.InProgress;
         _pointsLivingTimer.Deactivate();
         _betweenPointsTimer.Activate();
     }

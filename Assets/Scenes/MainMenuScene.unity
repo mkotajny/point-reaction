@@ -3165,8 +3165,8 @@ RectTransform:
   m_Father: {fileID: 664667412}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.15, y: 0.25}
-  m_AnchorMax: {x: 0.85, y: 0.75}
+  m_AnchorMin: {x: 0.15, y: 0.35}
+  m_AnchorMax: {x: 0.85, y: 0.7}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -8019,14 +8019,13 @@ GameObject:
   - component: {fileID: 335014261}
   - component: {fileID: 335014263}
   - component: {fileID: 335014262}
-  - component: {fileID: 335014264}
   m_Layer: 5
   m_Name: HeaderText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &335014261
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8087,444 +8086,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 335014260}
---- !u!114 &335014264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 335014260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aabaad2a5fa0c74aa80bd5847f2e560, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Visible: 0
-  UseSimpleActivation: 0
-  ShowingClip: {fileID: 0}
-  HidingClip: {fileID: 0}
-  OnShow:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnHide:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnShowComplete:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnHideComplete:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  IgnoreEventsOnInitialization: 0
-  MenuDependent: 1
-  Prewarm: 1
-  DeactivateWhileInvisible: 0
-  ShowAfter: 0
-  HideAfter: 0
-  HidingDuration: 0.5
-  ShowingDuration: 0.5
-  UseUnscaledTime: 0
-  durationLink: 1
-  ControlledBy: {fileID: 1867098180}
-  MovementSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 9999, y: 9999, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  HidingPosition: 3
-  EdgeGap: 0.25
-  LocalCustomPosition: 1
-  RotationSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 90, z: 90}
-    WantedFloatValue: 0
-    ShowAfter: 0.1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  ShowingDirection: 0
-  HidingDirection: 0
-  ScaleSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  OpacitySection:
-    UseSection: 1
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  TargetFader: {fileID: 335014262}
-  SliceSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  SliceImage: {fileID: 0}
 --- !u!1 &342175981
 GameObject:
   m_ObjectHideFlags: 0
@@ -16196,7 +15757,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player Settings
+  m_Text: Google Play
 --- !u!222 &603585422
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17259,7 +16820,6 @@ MonoBehaviour:
   - {fileID: 1446749301}
   - {fileID: 1720770638}
   - {fileID: 603585423}
-  - {fileID: 723712138}
   - {fileID: 75928509}
   - {fileID: 2099914552}
   - {fileID: 123401636}
@@ -17982,14 +17542,13 @@ GameObject:
   - component: {fileID: 723712137}
   - component: {fileID: 723712136}
   - component: {fileID: 723712135}
-  - component: {fileID: 723712138}
   m_Layer: 5
   m_Name: ButtonBlue_PlayerStats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &723712134
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18098,488 +17657,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 723712133}
---- !u!114 &723712138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 723712133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aabaad2a5fa0c74aa80bd5847f2e560, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Visible: 0
-  UseSimpleActivation: 0
-  ShowingClip: {fileID: 0}
-  HidingClip: {fileID: 0}
-  OnShow:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 723712135}
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnHide:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 723712135}
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnShowComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 723712135}
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnHideComplete:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 723712135}
-        m_MethodName: set_interactable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  IgnoreEventsOnInitialization: 0
-  MenuDependent: 1
-  Prewarm: 1
-  DeactivateWhileInvisible: 0
-  ShowAfter: 0.2
-  HideAfter: 0
-  HidingDuration: 0.5
-  ShowingDuration: 0.5
-  UseUnscaledTime: 0
-  durationLink: 1
-  ControlledBy: {fileID: 664667413}
-  MovementSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 9999, y: 9999, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  HidingPosition: 0
-  EdgeGap: 0.25
-  LocalCustomPosition: 1
-  RotationSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  ShowingDirection: 0
-  HidingDirection: 0
-  ScaleSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  OpacitySection:
-    UseSection: 1
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  TargetFader: {fileID: 723712136}
-  SliceSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  SliceImage: {fileID: 0}
 --- !u!1 &725044319
 GameObject:
   m_ObjectHideFlags: 0
@@ -19916,7 +18993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 160.06538, y: -144}
+  m_AnchoredPosition: {x: 180.06538, y: -74.00001}
   m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &789828760
@@ -22395,7 +21472,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 116, y: -208}
+  m_AnchoredPosition: {x: 136, y: -138}
   m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &904714989
@@ -22930,10 +22007,10 @@ RectTransform:
   m_Father: {fileID: 1803698912}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.2, y: 0.87}
-  m_AnchorMax: {x: 0.8, y: 0.99}
+  m_AnchorMin: {x: 0.2, y: 0.8}
+  m_AnchorMax: {x: 0.8, y: 0.93}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 14.666687, y: 0}
+  m_SizeDelta: {x: -80.33331, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &932376982
 MonoBehaviour:
@@ -23012,7 +22089,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Player Settings
+  m_Text: Google Play
 --- !u!222 &932376986
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25398,7 +24475,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 373.99997, y: -329.37262}
+  m_AnchoredPosition: {x: 373.99997, y: -444.33606}
   m_SizeDelta: {x: 300, y: 75}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1073993693
@@ -32006,7 +31083,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 498.99997, y: -846.611}
+  m_AnchoredPosition: {x: 498.99997, y: -346.29996}
   m_SizeDelta: {x: 350, y: 75}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1303715126
@@ -33104,14 +32181,13 @@ GameObject:
   - component: {fileID: 1352086626}
   - component: {fileID: 1352086625}
   - component: {fileID: 1352086624}
-  - component: {fileID: 1352086627}
   m_Layer: 5
   m_Name: Panel_Section (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1352086623
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33191,444 +32267,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1352086622}
---- !u!114 &1352086627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1352086622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aabaad2a5fa0c74aa80bd5847f2e560, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Visible: 0
-  UseSimpleActivation: 0
-  ShowingClip: {fileID: 0}
-  HidingClip: {fileID: 0}
-  OnShow:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnHide:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnShowComplete:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnHideComplete:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  IgnoreEventsOnInitialization: 0
-  MenuDependent: 1
-  Prewarm: 1
-  DeactivateWhileInvisible: 0
-  ShowAfter: 0
-  HideAfter: 0
-  HidingDuration: 0.5
-  ShowingDuration: 0.5
-  UseUnscaledTime: 0
-  durationLink: 1
-  ControlledBy: {fileID: 1867098180}
-  MovementSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 9999, y: 9999, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  HidingPosition: 0
-  EdgeGap: 0.25
-  LocalCustomPosition: 1
-  RotationSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  ShowingDirection: 0
-  HidingDirection: 0
-  ScaleSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  OpacitySection:
-    UseSection: 1
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  TargetFader: {fileID: 1352086625}
-  SliceSection:
-    UseSection: 0
-    HideType: 3
-    ShowType: 3
-    TypeLink: 1
-    WantedVectorValue: {x: 0, y: 0, z: 0}
-    WantedFloatValue: 0
-    ShowAfter: -1
-    HideAfter: -1
-    ShowingDuration: -1
-    HidingDuration: -1
-    startVectorValue: {x: 0, y: 0, z: 0}
-    startFloatValue: 0
-    hidingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-    showingEasingParams:
-      Custom:
-        Curve:
-          serializedVersion: 2
-          m_Curve:
-          - serializedVersion: 2
-            time: 0
-            value: 0
-            inSlope: 0
-            outSlope: 1
-            tangentMode: 0
-          - serializedVersion: 2
-            time: 1
-            value: 1
-            inSlope: 1
-            outSlope: 0
-            tangentMode: 0
-          m_PreInfinity: 2
-          m_PostInfinity: 2
-          m_RotationOrder: 4
-      EaseIn:
-        EasingPower: 2
-      EaseOut:
-        EasingPower: 2
-      EaseInOut:
-        EasingPower: 2
-      EaseInElastic:
-        ElasticityPower: 0.5
-      EaseOutElastic:
-        ElasticityPower: 0.5
-      EaseInOutElastic:
-        ElasticityPower: 0.5
-  SliceImage: {fileID: 0}
 --- !u!1 &1358138608
 GameObject:
   m_ObjectHideFlags: 0
@@ -35632,7 +34270,7 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.1, y: 0.1}
-  m_AnchorMax: {x: 0.9, y: 0.75}
+  m_AnchorMax: {x: 0.9, y: 0.7}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -42290,7 +40928,7 @@ Prefab:
     - target: {fileID: 224088421242678908, guid: 3fc39fe0f20a66f46a873c2504fe1c64,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -422.98615
+      value: -261.675
       objectReference: {fileID: 0}
     - target: {fileID: 224088421242678908, guid: 3fc39fe0f20a66f46a873c2504fe1c64,
         type: 2}
@@ -42999,7 +41637,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 399, y: -114.59723}
+  m_AnchoredPosition: {x: 399, y: -112.22499}
   m_SizeDelta: {x: 350, y: 75}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1720770635
@@ -43743,7 +42381,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.2, y: 0.8}
-  m_AnchorMax: {x: 0.8, y: 1}
+  m_AnchorMax: {x: 0.8, y: 0.95}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -144.33331, y: 0}
   m_Pivot: {x: 0.5, y: 1}
@@ -44306,8 +42944,8 @@ RectTransform:
   m_Father: {fileID: 1867098181}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.05, y: 0.1}
-  m_AnchorMax: {x: 0.95, y: 0.9}
+  m_AnchorMin: {x: 0.05, y: 0.3}
+  m_AnchorMax: {x: 0.95, y: 0.7}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -45015,8 +43653,8 @@ RectTransform:
   m_Father: {fileID: 1803698912}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.05, y: 0.05}
-  m_AnchorMax: {x: 0.95, y: 0.85}
+  m_AnchorMin: {x: 0.05, y: 0.1}
+  m_AnchorMax: {x: 0.95, y: 0.75}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -45648,7 +44286,6 @@ MonoBehaviour:
   - {fileID: 932376987}
   - {fileID: 1822341941}
   - {fileID: 2088466466}
-  - {fileID: 335014264}
   - {fileID: 789828763}
   - {fileID: 997982232}
   - {fileID: 380170966}
@@ -45656,7 +44293,6 @@ MonoBehaviour:
   - {fileID: 1559826521}
   - {fileID: 1405305023}
   - {fileID: 1094417977}
-  - {fileID: 1352086627}
   - {fileID: 1078858415}
   - {fileID: 1575942641}
   - {fileID: 1325562308}
@@ -49614,8 +48250,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 323.99997, y: -189.3222}
-  m_SizeDelta: {x: 550, y: 250}
+  m_AnchoredPosition: {x: 323.99997, y: -123.766655}
+  m_SizeDelta: {x: 600, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2088466463
 MonoBehaviour:
