@@ -20,6 +20,12 @@ public class SceneControler : MonoBehaviour {
         FirebasePR.InitializeFireBaseDb();
         if (PlayerPrefs.GetInt("InGooglePlay") == 1 && !Social.localUser.authenticated)
             CurrentPlayer.SignInGooglePlay();
+
+        if (CurrentPlayer.LivesTaken > 0)
+        {
+            CurrentPlayer.CampaignItem.Lives = CurrentPlayer.CampaignItem.Lives - CurrentPlayer.LivesTaken;
+            CurrentPlayer.LivesTaken = 0;
+        }
     }
 
     void Update()

@@ -3,76 +3,94 @@ using UnityEngine.UI;
 
 public class UIContentManager : MonoBehaviour {
 
-    public Text _panelResultLevelValue, _levelResultQtyPointsHit, _levelResultReactionAvg, _levelResultText, _resultLevelButtonText;
-
     Text _panelStartLevelValue, _panelStart_PointsLivingTime;
-    public ZUIManager _zuiManager;
     Button _backToMainMenuButton;
+    BonusPanel _bonusPanel;
+    int _selectedVictoryAnimationIndex;
+    
+
+    public Text _panelResultLevelValue, _levelResultText, _resultLevelButtonText, _panelResult_PerfectBonus, _panelResult_AvgReaction;
+    public ZUIManager _zuiManager;
     public GameObject[] backgrounds, victoryAnimations;
-    int _selectedBackgorundIndex, _selectedVictoryAnimationIndex;
-    System.Random _randomizer = new System.Random();
-
-
-    GameObject _levelStartPanel, _levelResultPanel;
+    public UicmUpperPanel UpperPanel;
+    public Menu MenuStart;
+    
+    public GameObject _perfectBonusImage;
     public GameMode_1 GameMode_1;
+    public System.Random Randomizer = new System.Random();
 
-    public void Start()
+    public void Awake()
     {
-        _levelStartPanel = GameObject.Find("Panel_Start");
         _panelStartLevelValue = GameObject.Find("PanelStartLevelValue").GetComponent<Text>();
         _panelStart_PointsLivingTime = GameObject.Find("PanelStart_PointsLivingTime").GetComponent<Text>();
-        _levelResultPanel = GameObject.Find("Panel_Result");
         _backToMainMenuButton = GameObject.Find("ButtonBlue_Back").GetComponent<Button>();
+        UpperPanel = GameObject.Find("UicmUpperPanel").GetComponent<UicmUpperPanel>();
+        _bonusPanel = GameObject.Find("BonusPanel").GetComponent<BonusPanel>();
+        _zuiManager.CurActiveMenu = MenuStart;
     }
 
     public void OpenLevelStartPanel()
     {
-        LoadPanelsWithData();
         victoryAnimations[_selectedVictoryAnimationIndex].SetActive(false);
+        if (GameMode_1.CurrentLevel.LevelNo > 2
+            && GameMode_1.GameLevels[GameMode_1.CurrentLevel.LevelNo - 2].BonusMileStoneLevel > 0
+            && CurrentPlayer.CampaignItem.LvlMilest != GameMode_1.CurrentLevel.LevelNo - 1)
+        {
+            _bonusPanel.ActivatePanel(this);
+            return;
+        }
+
+        GameMode_1.CurrentLevel.Reset();
+        UpperPanel.SetUpperPanelStats(GameMode_1.CurrentLevel);
+        LoadPanelsWithData();
         try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
-        _selectedBackgorundIndex = _randomizer.Next(0, 5);
-        backgrounds[_selectedBackgorundIndex].SetActive(true);
+
+        backgrounds[0].SetActive(true);
     }
 
-
-    public void ActivateResultPanel()
+    public void ActivateResultPanel(bool debug = false)
     {
         _zuiManager.OpenMenu("Menu_Result");
         LoadPanelsWithData();
         if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
         {
-            _selectedVictoryAnimationIndex = _randomizer.Next(0, 8);
+            _selectedVictoryAnimationIndex = Randomizer.Next(0, 8);
             victoryAnimations[_selectedVictoryAnimationIndex].SetActive(true);
-        }
-        if (GameMode_1.CurrentLevel.HitsQty == 10)
             GameMode_1.LevelUp();
-
-        if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost
-            && GameMode_1.CurrentLevel.HitsQty > CurrentPlayer.CampaignItem.HitsLvl)
-        {
-            GameMode_1.SaveToFireBase(levelWin: false);
-            CurrentPlayer.CampaignItem.HitsLvl = GameMode_1.CurrentLevel.HitsQty;
         }
-            
+        GameMode_1.SaveToFireBase();
         _backToMainMenuButton.gameObject.SetActive(true);
     }
 
     public void DeacTivateBackgroundAnimation()
     {
-        backgrounds[_selectedBackgorundIndex].SetActive(false);
+        backgrounds[0].SetActive(false);
     }
 
-    public void LoadPanelsWithData()
+    void LoadPanelsWithData()
     {
         _panelStartLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         _panelStart_PointsLivingTime.text = (GameMode_1.CurrentLevel.PointsLivingTimer.Lenght).ToString() + " sec";
         _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
-        _levelResultQtyPointsHit.text = GameMode_1.CurrentLevel.HitsQty.ToString();
+        _panelResult_PerfectBonus.text = GameMode_1.CurrentLevel.BonusPerfectLevel.ToString();
 
-        if (GameMode_1.CurrentLevel.HitsQty > 0) 
-            _levelResultReactionAvg.text = 0.ToString("0.00") + " sec";
-        else 
-            _levelResultReactionAvg.text = "-";
+        if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win
+            && GameMode_1.CurrentLevel.MissQty == 0)
+        {
+            _perfectBonusImage.SetActive(true);
+            _panelResult_PerfectBonus.text =
+                GameMode_1.CurrentLevel.BonusPerfectLevel.ToString();
+            if (GameMode_1.CurrentLevel.BonusPerfectLevel <= 10)
+                _panelResult_PerfectBonus.text = "+" + _panelResult_PerfectBonus.text;
+        }
+        else
+        {
+            _perfectBonusImage.SetActive(false);
+            _panelResult_PerfectBonus.text = "-";
+        }
+
+        if (CurrentPlayer.CampaignItem.HitsCmp > 0)
+            _panelResult_AvgReaction.text = (CurrentPlayer.CampaignItem.ReacCmp / CurrentPlayer.CampaignItem.HitsCmp).ToString("0.00");
 
         if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
         {

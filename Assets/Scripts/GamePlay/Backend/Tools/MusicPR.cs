@@ -62,7 +62,7 @@ public static class MusicPR  {
                 playList.Add(newSong);
         }
        
-        if (_nextSongTimer == null) _nextSongTimer = new Timer(120);
+        if (_nextSongTimer == null) _nextSongTimer = new Timer(120, false);
         if (_volumeMusic == -1f) SetVolumeMusic();
     }
 

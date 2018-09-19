@@ -36,7 +36,6 @@ public class GameMode_1 {
                 _gameLevels[i] = new GameLevel(i + 1, Mathf.Floor((_gameLevels[i - 1].PointsLivingTimer.Lenght -0.01f) * 100f) / 100f);
         }
         _currentLevel = _gameLevels[CurrentPlayer.CampaignItem.LvlNo - 1];
-        Debug.Log("debug: GameMode_1: " + _currentLevel.LevelNo.ToString() );
         _currentLevel.HitsQty = 0;
     }
 
@@ -53,22 +52,26 @@ public class GameMode_1 {
     {
         _currentLevel = _gameLevels[CurrentLevel.LevelNo];
         CurrentPlayer.CampaignItem.LvlNo = _currentLevel.LevelNo;
-        CurrentPlayer.CampaignItem.HitsLvl = 0;
-        SaveToFireBase(levelWin: true);
     }
 
-    public void SaveToFireBase(bool levelWin)
+    public void SaveToFireBase(bool levelStart = false)
     {
+        CurrentPlayer.LivesTaken = levelStart ? 3 : 0;
+
         string json = JsonUtility.ToJson(new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd")
             , CurrentPlayer.CampaignItem.PlayerId
             , CurrentPlayer.CampaignItem.PlayerName
             , _currentLevel.LevelNo
-            , levelWin ? 0 : _currentLevel.HitsQty
+            , CurrentPlayer.CampaignItem.LvlMilest
             , CurrentPlayer.CampaignItem.HitsCmp
-            , CurrentPlayer.CampaignItem.Lives
+            , CurrentPlayer.CampaignItem.Lives - CurrentPlayer.LivesTaken
             , CurrentPlayer.CampaignItem.Ads
             , System.Convert.ToDouble(CurrentPlayer.CampaignItem.ReacCmp.ToString("0.00"))));
 
-        FirebasePR.CampaignDbReference.Child(CurrentPlayer.PlayerId).SetRawJsonValueAsync(json);
+        FirebasePR.CampaignDbReference.Child(CurrentPlayer.CampaignItem.PlayerId).SetRawJsonValueAsync(json);
+
+        /*if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost
+            && GameMode_1.CurrentLevel.HitsQty > CurrentPlayer.CampaignItem.HitsLvl)*/  //Warunek dla zapisu do Rankingu 
+
     }
 }

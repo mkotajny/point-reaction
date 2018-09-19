@@ -5,7 +5,8 @@ public class CampaignItem {
 
     public string Updated, PlayerId, PlayerName;
     public int LvlNo;
-    public int HitsLvl, HitsCmp, Lives, Ads;
+    public int LvlMilest;
+    public int HitsCmp, Lives, Ads;
     public double ReacCmp;
 
 
@@ -13,7 +14,7 @@ public class CampaignItem {
         , string playerId
         , string playerName
         , int levelNo
-        , int hitsLevel
+        , int levelMilesToneGranted
         , int hitsCampaign
         , int lives
         , int advertisementsWatched
@@ -24,7 +25,7 @@ public class CampaignItem {
         PlayerId = playerId;
         PlayerName = playerName;
         LvlNo = levelNo;
-        HitsLvl = hitsLevel;
+        LvlMilest = levelMilesToneGranted;
         HitsCmp = hitsCampaign;
         Lives = lives;
         Ads = advertisementsWatched;

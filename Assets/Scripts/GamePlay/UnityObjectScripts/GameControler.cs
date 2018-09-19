@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class GameControler : MonoBehaviour {
 
@@ -10,18 +9,28 @@ public class GameControler : MonoBehaviour {
     Button _backToMainMenuButton;
     GameControlerTools _gameControlerTools;
     UIContentManager _uIContentManager;
-    AudioSource[] _audioSources;
     ScreenTouchTypes _screenTouch;
     public int PointsBoardGranurality = 10, PointSpawnTimeRange = 10;
+    public AudioSource[] AudioSources;
 
-    
+    private void Awake()
+    {
+#if UNITY_EDITOR
+        FirebasePR.InitializeFireBaseDb();
+        if (CurrentPlayer.CampaignItem == null)
+            CurrentPlayer.CampaignItem = new CampaignItem("2018-01-01", "MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 5, 0, 0, 30, 0, 0);
+        MusicPR.SetVolumeSfx(1f);
+        MusicPR.SetVolumeMusic(0.5f);
+#endif
+    }
+
     void Start()
     {
         //GameLevelPersister.ResetGame();
         _gameMode_1 = new GameMode_1(this);
         _gameControlerTools = GameObject.Find("GameControlerTools").GetComponent<GameControlerTools>();
         _uIContentManager = GameObject.Find("UIContentManager").GetComponent<UIContentManager>();
-        _audioSources = GameObject.Find("GameControler").GetComponents<AudioSource>();
+        AudioSources = GameObject.Find("GameControler").GetComponents<AudioSource>();
         _backToMainMenuButton = GameObject.Find("ButtonBlue_Back").GetComponent<Button>();
         _uIContentManager.GameMode_1 = _gameMode_1;
         GameOptions.LoadOptions();
@@ -35,7 +44,6 @@ public class GameControler : MonoBehaviour {
             , _gameObjectFactory);
 
         _uIContentManager.OpenLevelStartPanel();
-
         MusicPR.SetVolumeMusic();
         MusicPR.PlayNextSong(MusicPR.PlayListGameBoard);
     }
@@ -59,7 +67,6 @@ public class GameControler : MonoBehaviour {
     {
         if (_gameMode_1.CurrentLevel.PlayStatus != LevelPlayStatuses.InProgress)
             return;
-
         if (_gameMode_1.CurrentLevel.BetweenPointsTimer.TimeElapsed())
             _gameMode_1.ActivateSinglePoint();
 
@@ -69,8 +76,8 @@ public class GameControler : MonoBehaviour {
             || _gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost)
         {
             if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
-                _audioSources[4].Play(); //play fanfare
-            _uIContentManager.ActivateResultPanel();
+                AudioSources[4].Play(); //play fanfare
+            _uIContentManager.ActivateResultPanel(true);
         }
     }
 
@@ -81,7 +88,8 @@ public class GameControler : MonoBehaviour {
 
     public void LevelStart()
     {
-        _gameMode_1.CurrentLevel.Restart();
+        _gameMode_1.SaveToFireBase(levelStart: true);
+        _gameMode_1.CurrentLevel.SpawnPoint();
         _backToMainMenuButton.gameObject.SetActive(false);
     }
 
@@ -90,7 +98,6 @@ public class GameControler : MonoBehaviour {
         SessionVariables.CurrentScene = SessionVariables.PRScenes.MainMenu;
         Initiate.Fade("MainMenuScene", Color.black, 1.0f);
     }
-
 
     void CheckPointTouch()
     {
@@ -102,10 +109,23 @@ public class GameControler : MonoBehaviour {
         if (_gameMode_1.CurrentLevel.PointsLivingTimer.TimeElapsed()
             || _screenTouch == ScreenTouchTypes.Miss)
         {
+            CurrentPlayer.LivesTaken--;
+            _gameMode_1.CurrentLevel.RegisterFail();
             _pointsBoard.DeactivateActivePoint();
-            _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.Lost;
             if (_screenTouch != ScreenTouchTypes.Miss)
-                _audioSources[2].Play(); //fail sound
+                AudioSources[2].Play(); //fail sound
+
+            StartCoroutine(_uIContentManager.UpperPanel.ChangeUpperPanelStats(_screenTouch, _gameMode_1.CurrentLevel));
+
+            if (_gameMode_1.CurrentLevel.MissQty == 3)
+                _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.Lost;
+            else
+                _gameMode_1.CurrentLevel.SpawnPoint();
+        }
+
+        if (_screenTouch == ScreenTouchTypes.Hit)
+        {
+            StartCoroutine(_uIContentManager.UpperPanel.ChangeUpperPanelStats(_screenTouch, _gameMode_1.CurrentLevel));
         }
     }
 }

@@ -1,0 +1,12 @@
+Kolejność wywołań (przy zbiciu ostatniego punktu w lewelu):
+
+CheckPointTouch
+	ScreenTouched
+		RegisterHit
+	ChangeUpperPanelStats
+GameControler-->FixcedUpdate
+activateResultPanel
+	LoadPanelsWithData
+	LevelUp
+	
+	

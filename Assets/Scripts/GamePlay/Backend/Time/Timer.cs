@@ -4,21 +4,25 @@ public class Timer  {
     bool _active;
     float _startTime;
     float _length;
+    bool _pointTimer;
 
     public bool Active { get { return _active; } }
     public float StartTime { get { return _startTime; } }
     public float Lenght { get { return _length; } }
 
-    public Timer(float length)
+    public Timer(float length, bool pointTimer)
     {
         _length = length;
+        _pointTimer = pointTimer;
         Deactivate();
     }
 
     public void Activate()
     {
-        _active = true;
+        if (_pointTimer)
+            Debug.Log("debug: timer length = " + _length.ToString());
         _startTime = Time.time;
+        _active = true;
     }
 
     public void Deactivate()

@@ -8,14 +8,21 @@ public static class CurrentPlayer
     static string _playerId, _playerName;
     static bool _signedIn;
     static CampaignItem _campaignItem;
+    static int _livesTaken;
 
     public static string PlayerId { get { return _playerId; } }
     public static string PlayerName { get { return _playerName; } }
     public static bool SignedIn { get { return _signedIn; } }
+
     public static CampaignItem CampaignItem
     {
         get { return _campaignItem; }
         set { _campaignItem = value; }
+    }
+    public static int LivesTaken
+    {
+        get { return _livesTaken; }
+        set { _livesTaken = value; }
     }
 
 
@@ -87,6 +94,7 @@ public static class CurrentPlayer
 
     public static void GetCurrentPlayerData()
     {
+        _livesTaken = 0;
         _campaignItem = new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd"), _playerId, _playerName, 1, 0, 0, 30, 0, 0);
         if (!CheckInternet.IsConnected()) return;
         FirebasePR.CampaignDbReference
@@ -103,7 +111,7 @@ public static class CurrentPlayer
                                 , childSnapshot.Child("PlayerId").Value.ToString()
                                 , childSnapshot.Child("PlayerName").Value.ToString()
                                 , System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value)
-                                , System.Convert.ToInt32(childSnapshot.Child("HitsLvl").Value)
+                                , System.Convert.ToInt32(childSnapshot.Child("LvlMiles").Value)
                                 , System.Convert.ToInt32(childSnapshot.Child("HitsCmp").Value)
                                 , System.Convert.ToInt32(childSnapshot.Child("Lives").Value)
                                 , System.Convert.ToInt32(childSnapshot.Child("Ads").Value)

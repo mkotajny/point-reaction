@@ -40,7 +40,7 @@ public class PointsBoard {
         , GameObject gameObjectFactory
         )
     {
-        float siblingOffsetX = boardSizeX / (boardGgranularity + 1);
+        float siblingOffsetX = boardSizeX / (boardGgranularity + 1.5f);
         float siblingOffsetZ = boardSizeZ / (boardGgranularity + 1);
 
         _randomizer = new System.Random();
