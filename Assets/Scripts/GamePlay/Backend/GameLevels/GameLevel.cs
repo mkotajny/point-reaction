@@ -17,6 +17,8 @@ public class GameLevel {
     int _missQty;
     int _bonusPerfectLevel;
     int _bonusMilestoneLevel;
+    int _hitsToWin;
+    int _missesToLoose;
     Timer _pointsLivingTimer;
     Timer _betweenPointsTimer;
 
@@ -45,6 +47,8 @@ public class GameLevel {
     }
     public int BonusPerfectLevel { get { return _bonusPerfectLevel; } }
     public int BonusMileStoneLevel{ get { return _bonusMilestoneLevel; }}
+    public int HitsToWin { get { return _hitsToWin; } }
+    public int MissesToLoose { get { return _missesToLoose; } }
     public Timer PointsLivingTimer
     {
         get { return _pointsLivingTimer; }
@@ -73,15 +77,33 @@ public class GameLevel {
         if (levelNo >= 21) _bonusPerfectLevel = 4;
         if (levelNo >= 26) _bonusPerfectLevel = 5;
         if (levelNo >= 31) _bonusPerfectLevel = 10;
+        if (levelNo >= 36) _bonusPerfectLevel = 15;
         if (levelNo >= 41) _bonusPerfectLevel = 20;
-        if (levelNo == 5) _bonusMilestoneLevel = 5;
-        if (levelNo == 10) _bonusMilestoneLevel = 10;
-        if (levelNo == 15) _bonusMilestoneLevel = 15;
-        if (levelNo == 20) _bonusMilestoneLevel = 20;
-        if (levelNo == 25) _bonusMilestoneLevel = 25;
-        if (levelNo == 30) _bonusMilestoneLevel = 35;
-        if (levelNo == 35) _bonusMilestoneLevel = 50;
-        if (levelNo == 40) _bonusMilestoneLevel = 100;
+        if (levelNo == 5) _bonusMilestoneLevel = 3;
+        if (levelNo == 10) _bonusMilestoneLevel = 5;
+        if (levelNo == 15) _bonusMilestoneLevel = 7;
+        if (levelNo == 20) _bonusMilestoneLevel = 10;
+        if (levelNo == 25) _bonusMilestoneLevel = 15;
+        if (levelNo == 30) _bonusMilestoneLevel = 20;
+        if (levelNo == 35) _bonusMilestoneLevel = 30;
+        if (levelNo == 40) _bonusMilestoneLevel = 50;
+        if (levelNo == 45) _bonusMilestoneLevel = 100   ;
+        if (levelNo >= 1) _hitsToWin = 2;
+        if (levelNo >= 2) _hitsToWin = 3;
+        if (levelNo >= 4) _hitsToWin = 4;
+        if (levelNo >= 7) _hitsToWin = 5;
+        if (levelNo >= 11) _hitsToWin = 6;
+        if (levelNo >= 16) _hitsToWin = 8;
+        if (levelNo >= 22) _hitsToWin = 10;
+        if (levelNo >= 30) _hitsToWin = 12;
+        if (levelNo >= 40) _hitsToWin = 15;
+        if (levelNo >= 1) _missesToLoose = 2;
+        if (levelNo >= 11) _missesToLoose = 3;
+        if (levelNo >= 21) _missesToLoose = 4;
+        if (levelNo >= 26) _missesToLoose = 5;
+        if (levelNo >= 31) _missesToLoose = 10;
+        if (levelNo >= 36) _missesToLoose = 15;
+        if (levelNo >= 41) _missesToLoose = 20;
     }
 
     public void RegisterHit(int hitsToWin, float hitTime)
@@ -110,7 +132,6 @@ public class GameLevel {
     {
         _hitsQty = 0;
         _missQty = 0;
-        _playStatus = LevelPlayStatuses.InProgress;
     }
 
     public void SpawnPoint()

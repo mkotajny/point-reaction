@@ -9,10 +9,11 @@ public static class FirebasePR
 {
     static bool _googlePlayInitialized, _firebaseInitialized;
     static Firebase.Auth.FirebaseAuth _firebaseAuth;
-    static DatabaseReference _campaignDbReference;
+    static DatabaseReference _campaignDbReference, _worldRankDbReference;
 
     public static Firebase.Auth.FirebaseAuth FirebaseAuth { get { return _firebaseAuth; } }
     public static DatabaseReference CampaignDbReference { get { return _campaignDbReference; } }
+    public static DatabaseReference WorldRankDbReference { get { return _worldRankDbReference; } }
 
     public static void InitializeGooglePlay()
     {
@@ -35,6 +36,7 @@ public static class FirebasePR
         if (_firebaseInitialized || !CheckInternet.IsConnected())
             return;
         SetDatabaseReference("campaigns");
+        SetDatabaseReference("world_rank");
         _firebaseInitialized = true;
         
     }
@@ -55,6 +57,9 @@ public static class FirebasePR
                 {
                     case "campaigns":
                         _campaignDbReference = FirebaseDatabase.DefaultInstance.GetReference(collectionName);
+                        break;
+                    case "world_rank":
+                        _worldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference(collectionName);
                         break;
                     default:
                         break;

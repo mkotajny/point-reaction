@@ -19,8 +19,8 @@ public class Timer  {
 
     public void Activate()
     {
-        if (_pointTimer)
-            Debug.Log("debug: timer length = " + _length.ToString());
+        /*if (_pointTimer)
+            Debug.Log("debug: timer length = " + _length.ToString());*/
         _startTime = Time.time;
         _active = true;
     }

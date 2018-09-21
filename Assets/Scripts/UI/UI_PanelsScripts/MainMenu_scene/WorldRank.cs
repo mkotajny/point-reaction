@@ -6,7 +6,6 @@ public class WorldRank : MonoBehaviour {
     public GameObject GridWorldRank, PanelWorldRank, PanelMainMenu;
     GameObject _worldRankItemPrefab, _worldRankItemObject;
     bool _worldRankRendered;
-    string _currentPlayerNameText;
     
     void Awake()
     {
@@ -15,7 +14,6 @@ public class WorldRank : MonoBehaviour {
 
     void OnEnable()
     {
-        _currentPlayerNameText = GameObject.Find("PlayerName_background").GetComponent<Text>().text;
         for (int i = 0; i < GridWorldRank.transform.childCount; i++)
             Destroy(GridWorldRank.transform.GetChild(i).gameObject);
 
@@ -35,30 +33,16 @@ public class WorldRank : MonoBehaviour {
                 _worldRankItemObject = Instantiate(_worldRankItemPrefab);
                 _worldRankItemObject.transform.SetParent(GridWorldRank.transform, false);
                 _worldRankItemObject.transform.GetChild(0).GetComponent<Text>().text = (counter).ToString() + ".";
-                _worldRankItemObject.transform.GetChild(1).GetComponent<Text>().text = worldRankItem.PlayerName;
+                _worldRankItemObject.transform.GetChild(1).GetComponent<Text>().text = worldRankItem.PlrName;
                 _worldRankItemObject.transform.GetChild(2).GetComponent<Text>().text =
-                    "Level: " + worldRankItem.LevelNo + "." + worldRankItem.PointsHit
-                    + "\nAvg Reaction: " + worldRankItem.ReactionAvg + "s";
+                    "Level: " + worldRankItem.LvlNo + "." + worldRankItem.PtsHit
+                    + "\nAvg Reaction: " + worldRankItem.ReacAvg + "s";
 
-                if (worldRankItem.PlayerName == _currentPlayerNameText)
+                if (worldRankItem.PlrName == CurrentPlayer.CampaignItem.PlrName)
                 {
                     _worldRankItemObject.transform.GetChild(0).GetComponent<Text>().color = new Color32(255, 255, 0, 255);
                     _worldRankItemObject.transform.GetChild(1).GetComponent<Text>().color = new Color32(255, 255, 0, 255);
-                    /*
-                    int playersPointsFromDisk = PlayerPrefs.GetInt("BestLevelNo") * 1000
-                        + PlayerPrefs.GetInt("PointsHit") * 100
-                        + (100 - System.Convert.ToInt32((PlayerPrefs.GetFloat("ReactionAvg") * 100)));
-
-                    if (playersPointsFromDisk > worldRankItem.CalculateFinalPoints())
-                    {
-                        _worldRankItemObject.transform.GetChild(2).GetComponent<Text>().text =
-                            "Level: " + PlayerPrefs.GetInt("BestLevelNo").ToString() + "." 
-                            + PlayerPrefs.GetInt("PointsHit").ToString()
-                            + "\nAvg Reaction: " + PlayerPrefs.GetFloat("ReactionAvg").ToString() + "s";
-                    }
-                    */
                 }
-
                 counter++;
             }
             _worldRankRendered = true;

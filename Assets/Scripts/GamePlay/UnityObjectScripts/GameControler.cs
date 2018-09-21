@@ -18,7 +18,11 @@ public class GameControler : MonoBehaviour {
 #if UNITY_EDITOR
         FirebasePR.InitializeFireBaseDb();
         if (CurrentPlayer.CampaignItem == null)
-            CurrentPlayer.CampaignItem = new CampaignItem("2018-01-01", "MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 5, 0, 0, 30, 0, 0);
+        {
+            CurrentPlayer.CampaignItem = new CampaignItem("2018-01-01", "MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 1, 0, 1, 5, 0, 0);
+            CurrentPlayer.WorldRankItem = new WorldRankItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 0, 6, 0.62);
+        }
+
         MusicPR.SetVolumeSfx(1f);
         MusicPR.SetVolumeMusic(0.5f);
 #endif
@@ -89,6 +93,7 @@ public class GameControler : MonoBehaviour {
     public void LevelStart()
     {
         _gameMode_1.SaveToFireBase(levelStart: true);
+        _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.InProgress;
         _gameMode_1.CurrentLevel.SpawnPoint();
         _backToMainMenuButton.gameObject.SetActive(false);
     }
@@ -117,7 +122,8 @@ public class GameControler : MonoBehaviour {
 
             StartCoroutine(_uIContentManager.UpperPanel.ChangeUpperPanelStats(_screenTouch, _gameMode_1.CurrentLevel));
 
-            if (_gameMode_1.CurrentLevel.MissQty == 3)
+            if (_gameMode_1.CurrentLevel.MissQty == _gameMode_1.CurrentLevel.MissesToLoose
+                || CurrentPlayer.CampaignItem.Lives == 0)
                 _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.Lost;
             else
                 _gameMode_1.CurrentLevel.SpawnPoint();

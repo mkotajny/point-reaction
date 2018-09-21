@@ -26,8 +26,9 @@ public class UicmUpperPanel : MonoBehaviour {
     public void SetUpperPanelStats(GameLevel level)
     {
         _textCampaignLives.text = CurrentPlayer.CampaignItem.Lives.ToString();
-        _textLevelHits.text = level.HitsQty.ToString() + "/10";
-        _textLevelFails.text = _uiContentManager.GameMode_1.CurrentLevel.MissQty.ToString() + "/3";
+        _textLevelHits.text = level.HitsQty.ToString() + "/" + level.HitsToWin.ToString();
+        _textLevelFails.text = _uiContentManager.GameMode_1.CurrentLevel.MissQty.ToString() + "/" 
+            + (level.MissesToLoose < CurrentPlayer.CampaignItem.Lives ?  level.MissesToLoose: CurrentPlayer.CampaignItem.Lives).ToString();
     }
 
     void DeactivateChangeStats()
@@ -40,7 +41,7 @@ public class UicmUpperPanel : MonoBehaviour {
 
     public IEnumerator ChangeUpperPanelStats(ScreenTouchTypes touchResult, GameLevel level)
     {
-        if (level.HitsQty == 10 && level.MissQty == 0)
+        if (level.HitsQty == level.HitsToWin && level.MissQty == 0)
             CurrentPlayer.CampaignItem.Lives += level.BonusPerfectLevel;
 
         SetUpperPanelStats(level);
@@ -64,7 +65,7 @@ public class UicmUpperPanel : MonoBehaviour {
             _textLevelHitsChange.gameObject.SetActive(true);
             _textAttemptResult.color = _winColor;
             _textAttemptResult.text = "HIT";
-            if (level.HitsQty == 10 && level.MissQty == 0)
+            if (level.HitsQty == level.HitsToWin && level.MissQty == 0)
             {
                 _textCampaignLivesChange.text = "(+" + level.BonusPerfectLevel  + ")";
                 _textCampaignLivesChange.gameObject.SetActive(true);

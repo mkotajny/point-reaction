@@ -18,7 +18,7 @@ public static class WorldRankPersister  {
     {
         if (!CheckInternet.IsConnected()) return;
         _worldRank.Clear();
-        /*FirebasePR.FirebaseDbReference
+        FirebasePR.WorldRankDbReference
             .GetValueAsync().ContinueWith(task =>
             {
                 if (task.IsCompleted)
@@ -27,32 +27,19 @@ public static class WorldRankPersister  {
                     _loadInProgress = true;
                     foreach (var childSnapshot in snapshot.Children)
                     {
-                        WorldRankItem worldRankItem = new WorldRankItem(childSnapshot.Child("PlayerId").Value.ToString()
-                            , childSnapshot.Child("PlayerName").Value.ToString()
-                            , System.Convert.ToInt32(childSnapshot.Child("LevelNo").Value)
-                            , System.Convert.ToInt32(childSnapshot.Child("PointsHit").Value)
-                            , System.Convert.ToDouble(childSnapshot.Child("ReactionAvg").Value));
+                        WorldRankItem worldRankItem = new WorldRankItem(childSnapshot.Child("PlrId").Value.ToString()
+                                , childSnapshot.Child("PlrName").Value.ToString()
+                                , System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value)
+                                , System.Convert.ToInt32(childSnapshot.Child("PtsHit").Value)
+                                , System.Convert.ToDouble(childSnapshot.Child("ReacAvg").Value));
 
                         _worldRank.Add(worldRankItem);
 
                     }
                     if (_worldRank.Count > 1)
-                        _worldRank.Sort((b, a) => a.FinalPoints.CompareTo(b.FinalPoints));
+                        _worldRank.Sort((b, a) => a.FinalPts.CompareTo(b.FinalPts));
                     _loadInProgress = false;
                 }
-            });*/
-    }
-
-
-
-    public static void UpdateCurrentPlayer()
-    {
-        /*string json = JsonUtility.ToJson(new WorldRankItem(CurrentPlayer.PlayerId
-            , CurrentPlayer.PlayerName
-            , PlayerPrefs.GetInt("LevelNo")
-            , PlayerPrefs.GetInt("PointsHit")
-            , System.Convert.ToDouble(PlayerPrefs.GetFloat("ReactionAvg").ToString("0.00"))));
-
-        FirebasePR.FirebaseDbReference.Child(CurrentPlayer.PlayerId).SetRawJsonValueAsync(json);*/
+            });
     }
 }

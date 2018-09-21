@@ -10,3 +10,8 @@ activateResultPanel
 	LevelUp
 	
 	
+- panel informacyjny o pobiciu rekordu
+- przetestować na emulatorze ! (na różnych rozdzielczościach ekranu)
+
+
+

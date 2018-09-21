@@ -53,7 +53,7 @@ public class GameControlerTools : MonoBehaviour {
                         }
 
                         //Point hit
-                        gameMode_1.CurrentLevel.RegisterHit(gameMode_1.HitsToWin, Time.time);
+                        gameMode_1.CurrentLevel.RegisterHit(gameMode_1.CurrentLevel.HitsToWin, Time.time);
                         _audioSources[0].Play();  //shot sound
                         Instantiate(_explosion
                             , hit.collider.gameObject.transform.position

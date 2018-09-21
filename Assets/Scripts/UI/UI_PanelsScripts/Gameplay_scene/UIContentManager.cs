@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class UIContentManager : MonoBehaviour {
 
-    Text _panelStartLevelValue, _panelStart_PointsLivingTime;
+    Text _panelStartLevel, _panelStart_PointsLivingTime, _panelStartHitsToWin, _panelStartMissesToLoose;
     Button _backToMainMenuButton;
     BonusPanel _bonusPanel;
     int _selectedVictoryAnimationIndex;
@@ -21,8 +21,10 @@ public class UIContentManager : MonoBehaviour {
 
     public void Awake()
     {
-        _panelStartLevelValue = GameObject.Find("PanelStartLevelValue").GetComponent<Text>();
+        _panelStartLevel = GameObject.Find("PanelStartLevelValue").GetComponent<Text>();
         _panelStart_PointsLivingTime = GameObject.Find("PanelStart_PointsLivingTime").GetComponent<Text>();
+        _panelStartHitsToWin = GameObject.Find("Panel_HitsToWin_value").GetComponent<Text>();
+        _panelStartMissesToLoose = GameObject.Find("Panel_MistakesToLoose_value").GetComponent<Text>();
         _backToMainMenuButton = GameObject.Find("ButtonBlue_Back").GetComponent<Button>();
         UpperPanel = GameObject.Find("UicmUpperPanel").GetComponent<UicmUpperPanel>();
         _bonusPanel = GameObject.Find("BonusPanel").GetComponent<BonusPanel>();
@@ -32,7 +34,17 @@ public class UIContentManager : MonoBehaviour {
     public void OpenLevelStartPanel()
     {
         victoryAnimations[_selectedVictoryAnimationIndex].SetActive(false);
-        if (GameMode_1.CurrentLevel.LevelNo > 2
+
+        if (CurrentPlayer.CampaignItem.Lives <= 0)  // open game over panel
+        {
+            _backToMainMenuButton.gameObject.SetActive(false);
+            backgrounds[3].SetActive(true);
+            CurrentPlayer.CampaignItem.ResetCampaign();
+            try { _zuiManager.OpenMenu("Menu_GameOver"); } catch { }
+            return;
+        }
+
+        if (GameMode_1.CurrentLevel.LevelNo > 2   // open milestone bonus panel
             && GameMode_1.GameLevels[GameMode_1.CurrentLevel.LevelNo - 2].BonusMileStoneLevel > 0
             && CurrentPlayer.CampaignItem.LvlMilest != GameMode_1.CurrentLevel.LevelNo - 1)
         {
@@ -40,11 +52,11 @@ public class UIContentManager : MonoBehaviour {
             return;
         }
 
+        // open level start panel
         GameMode_1.CurrentLevel.Reset();
         UpperPanel.SetUpperPanelStats(GameMode_1.CurrentLevel);
         LoadPanelsWithData();
         try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
-
         backgrounds[0].SetActive(true);
     }
 
@@ -69,8 +81,11 @@ public class UIContentManager : MonoBehaviour {
 
     void LoadPanelsWithData()
     {
-        _panelStartLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
+        _panelStartLevel.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         _panelStart_PointsLivingTime.text = (GameMode_1.CurrentLevel.PointsLivingTimer.Lenght).ToString() + " sec";
+        _panelStartHitsToWin.text = GameMode_1.CurrentLevel.HitsToWin.ToString();
+        _panelStartMissesToLoose.text = (GameMode_1.CurrentLevel.MissesToLoose < CurrentPlayer.CampaignItem.Lives ? 
+            GameMode_1.CurrentLevel.MissesToLoose : CurrentPlayer.CampaignItem.Lives).ToString();
         _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         _panelResult_PerfectBonus.text = GameMode_1.CurrentLevel.BonusPerfectLevel.ToString();
 

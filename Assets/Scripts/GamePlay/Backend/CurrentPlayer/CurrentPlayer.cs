@@ -8,16 +8,20 @@ public static class CurrentPlayer
     static string _playerId, _playerName;
     static bool _signedIn;
     static CampaignItem _campaignItem;
+    static WorldRankItem _worldRankItem;
     static int _livesTaken;
 
-    public static string PlayerId { get { return _playerId; } }
-    public static string PlayerName { get { return _playerName; } }
     public static bool SignedIn { get { return _signedIn; } }
 
     public static CampaignItem CampaignItem
     {
         get { return _campaignItem; }
         set { _campaignItem = value; }
+    }
+    public static WorldRankItem WorldRankItem
+    {
+        get { return _worldRankItem; }
+        set { _worldRankItem = value; }
     }
     public static int LivesTaken
     {
@@ -91,14 +95,20 @@ public static class CurrentPlayer
 
     }
 
-
     public static void GetCurrentPlayerData()
     {
         _livesTaken = 0;
-        _campaignItem = new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd"), _playerId, _playerName, 1, 0, 0, 30, 0, 0);
         if (!CheckInternet.IsConnected()) return;
+        GetCampaignData();
+        GetWorldRankData();
+    }
+
+    static void GetCampaignData()
+    {
+        _campaignItem = new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd"), _playerId, _playerName, 1, 0, 0, 30, 0, 0);
+
         FirebasePR.CampaignDbReference
-            .OrderByChild("PlayerId")
+            .OrderByChild("PlrId")
             .EqualTo(_playerId)
             .GetValueAsync().ContinueWith(task =>
             {
@@ -107,19 +117,45 @@ public static class CurrentPlayer
                     DataSnapshot snapshot = task.Result;
                     foreach (var childSnapshot in snapshot.Children)
                     {
-                        _campaignItem = new CampaignItem(childSnapshot.Child("Updated").Value.ToString()
-                                , childSnapshot.Child("PlayerId").Value.ToString()
-                                , childSnapshot.Child("PlayerName").Value.ToString()
-                                , System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value)
-                                , System.Convert.ToInt32(childSnapshot.Child("LvlMiles").Value)
-                                , System.Convert.ToInt32(childSnapshot.Child("HitsCmp").Value)
-                                , System.Convert.ToInt32(childSnapshot.Child("Lives").Value)
-                                , System.Convert.ToInt32(childSnapshot.Child("Ads").Value)
-                                , System.Convert.ToDouble(childSnapshot.Child("ReacCmp").Value));
-                        return;
+                        _campaignItem.Updated = childSnapshot.Child("Updated").Value.ToString();
+                        _campaignItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
+                        _campaignItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
+                        _campaignItem.LvlNo = System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value);
+                        _campaignItem.LvlMilest = System.Convert.ToInt32(childSnapshot.Child("LvlMiles").Value);
+                        _campaignItem.HitsCmp = System.Convert.ToInt32(childSnapshot.Child("HitsCmp").Value);
+                        _campaignItem.Lives = System.Convert.ToInt32(childSnapshot.Child("Lives").Value);
+                        _campaignItem.Ads = System.Convert.ToInt32(childSnapshot.Child("Ads").Value);
+                        _campaignItem.ReacCmp = System.Convert.ToDouble(childSnapshot.Child("ReacCmp").Value);
                     }
                 }
+                if (_campaignItem.Lives == 0)
+                    _campaignItem.ResetCampaign();
+                return;
+            });
+    }
+
+    static void GetWorldRankData()
+    {
+        _worldRankItem = new WorldRankItem(_playerId, _playerName, 1, 0, 0);
+
+        FirebasePR.WorldRankDbReference
+            .OrderByChild("PlrId")
+            .EqualTo(_playerId)
+            .GetValueAsync().ContinueWith(task =>
+            {
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (var childSnapshot in snapshot.Children)
+                    {
+                        _worldRankItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
+                        _worldRankItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
+                        _worldRankItem.PtsHit = System.Convert.ToInt32(childSnapshot.Child("PtsHit").Value);
+                        _worldRankItem.ReacAvg = System.Convert.ToInt32(childSnapshot.Child("ReacAvg").Value);
+                        _worldRankItem.CalculateFinalPoints();
+                    }
+                }
+                return;
             });
     }
 }
- 

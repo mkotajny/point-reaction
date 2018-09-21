@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using Firebase.Database;
 
 public class GameMode_1 {
 
@@ -8,7 +7,6 @@ public class GameMode_1 {
     GameLevel _currentLevel;
 
 
-    int _hitsToWin = 10;
     float _pointsStartingLivingSeconds = 3;
     const float _livingSecondsDecrease = .83f;
 
@@ -19,7 +17,6 @@ public class GameMode_1 {
         get { return _currentLevel; }
         set { _currentLevel = value; }
     }
-    public int HitsToWin { get { return _hitsToWin; } }
 
     public GameMode_1(GameControler gameControler)
     {
@@ -56,22 +53,12 @@ public class GameMode_1 {
 
     public void SaveToFireBase(bool levelStart = false)
     {
-        CurrentPlayer.LivesTaken = levelStart ? 3 : 0;
-
-        string json = JsonUtility.ToJson(new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd")
-            , CurrentPlayer.CampaignItem.PlayerId
-            , CurrentPlayer.CampaignItem.PlayerName
-            , _currentLevel.LevelNo
-            , CurrentPlayer.CampaignItem.LvlMilest
-            , CurrentPlayer.CampaignItem.HitsCmp
-            , CurrentPlayer.CampaignItem.Lives - CurrentPlayer.LivesTaken
-            , CurrentPlayer.CampaignItem.Ads
-            , System.Convert.ToDouble(CurrentPlayer.CampaignItem.ReacCmp.ToString("0.00"))));
-
-        FirebasePR.CampaignDbReference.Child(CurrentPlayer.CampaignItem.PlayerId).SetRawJsonValueAsync(json);
-
-        /*if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost
-            && GameMode_1.CurrentLevel.HitsQty > CurrentPlayer.CampaignItem.HitsLvl)*/  //Warunek dla zapisu do Rankingu 
-
+        CurrentPlayer.LivesTaken = (levelStart ?
+            (CurrentPlayer.CampaignItem.Lives > _currentLevel.MissesToLoose ?
+                _currentLevel.MissesToLoose : CurrentPlayer.CampaignItem.Lives)
+            : 0);
+        CurrentPlayer.CampaignItem.SaveToFirebase(_currentLevel);
+        if (!levelStart && CurrentPlayer.CampaignItem.CalculateFinalPoints(_currentLevel.HitsQty) > CurrentPlayer.WorldRankItem.FinalPts)
+            CurrentPlayer.WorldRankItem.SaveToFirebase(_currentLevel.HitsQty);
     }
 }

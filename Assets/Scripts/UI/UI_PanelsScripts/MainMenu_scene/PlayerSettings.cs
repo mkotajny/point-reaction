@@ -44,7 +44,7 @@ public class PlayerSettings : MonoBehaviour {
     {
         if (CurrentPlayer.SignedIn)
         {
-            _playerName.text = CurrentPlayer.PlayerName;
+            _playerName.text = CurrentPlayer.CampaignItem.PlrName;
             _signInButton.gameObject.SetActive(false);
             _signOutButton.gameObject.SetActive(true);
         }

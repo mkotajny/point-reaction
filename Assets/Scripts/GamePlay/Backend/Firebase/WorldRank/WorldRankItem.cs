@@ -1,11 +1,11 @@
 ﻿using System;
-
+using UnityEngine;
 
 public class WorldRankItem {
 
-    public string PlayerId, PlayerName;
-    public int LevelNo, PointsHit, FinalPoints;
-    public double ReactionAvg;
+    public string PlrId, PlrName;
+    public int LvlNo, PtsHit, FinalPts;
+    public double ReacAvg;
 
 
     public WorldRankItem(string playerId
@@ -15,18 +15,39 @@ public class WorldRankItem {
         , double reactionAvg
         )
     {
-        PlayerId = playerId;
-        PlayerName = playerName;
-        LevelNo = levelNo;
-        PointsHit =  pointsHit;
-        ReactionAvg = reactionAvg;
-        FinalPoints = CalculateFinalPoints();
+        PlrId = playerId;
+        PlrName = playerName;
+        LvlNo = levelNo;
+        PtsHit =  pointsHit;
+        ReacAvg = reactionAvg;
+        CalculateFinalPoints();
     }
 
-    public int CalculateFinalPoints()
+    public void CalculateFinalPoints()
     {
-        return LevelNo*1000 
-            + PointsHit*100 
-            + (100-Convert.ToInt32(ReactionAvg*100));
+        if (PtsHit == 0)
+            FinalPts = 0;
+        else
+            FinalPts = LvlNo * 10000 + PtsHit * 1000 + (1000-Convert.ToInt32(ReacAvg * 100));
+    }
+
+    public void SaveToFirebase(int hitsLevel)
+    {
+#if UNITY_EDITOR
+        CurrentPlayer.CampaignItem.HitsCmp = 6;
+        CurrentPlayer.CampaignItem.ReacCmp = 9;
+#endif
+
+        LvlNo = CurrentPlayer.CampaignItem.LvlNo;
+        PtsHit = hitsLevel;
+        if (CurrentPlayer.CampaignItem.ReacCmp == 0)
+            ReacAvg = 0;
+        else
+            ReacAvg = Convert.ToDouble((CurrentPlayer.CampaignItem.ReacCmp / CurrentPlayer.CampaignItem.HitsCmp).ToString("0.00"));
+        CalculateFinalPoints();
+
+        string json = JsonUtility.ToJson(new WorldRankItem(CurrentPlayer.CampaignItem.PlrId
+            , PlrName , LvlNo , PtsHit, ReacAvg));
+        FirebasePR.WorldRankDbReference.Child(CurrentPlayer.CampaignItem.PlrId).SetRawJsonValueAsync(json);
     }
 }

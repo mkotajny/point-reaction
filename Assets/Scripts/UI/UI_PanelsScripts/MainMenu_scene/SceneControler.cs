@@ -15,7 +15,8 @@ public class SceneControler : MonoBehaviour {
     void OnEnable()
     {
         GameObject.Find("VersionNumber_text").GetComponent<Text>().text = "Version " + Application.version;
-        GameObject.Find("PlayerName_background").GetComponent<Text>().text = CurrentPlayer.PlayerName;
+        if (CurrentPlayer.CampaignItem != null)
+            GameObject.Find("PlayerName_background").GetComponent<Text>().text = CurrentPlayer.CampaignItem.PlrName;
 
         FirebasePR.InitializeFireBaseDb();
         if (PlayerPrefs.GetInt("InGooglePlay") == 1 && !Social.localUser.authenticated)
