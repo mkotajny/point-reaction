@@ -150,8 +150,9 @@ public static class CurrentPlayer
                     {
                         _worldRankItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
                         _worldRankItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
+                        _worldRankItem.LvlNo = System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value)       ;
                         _worldRankItem.PtsHit = System.Convert.ToInt32(childSnapshot.Child("PtsHit").Value);
-                        _worldRankItem.ReacAvg = System.Convert.ToInt32(childSnapshot.Child("ReacAvg").Value);
+                        _worldRankItem.ReacAvg = System.Convert.ToDouble(childSnapshot.Child("ReacAvg").Value);
                         _worldRankItem.CalculateFinalPoints();
                     }
                 }

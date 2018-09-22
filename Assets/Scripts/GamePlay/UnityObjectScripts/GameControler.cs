@@ -92,7 +92,7 @@ public class GameControler : MonoBehaviour {
 
     public void LevelStart()
     {
-        _gameMode_1.SaveToFireBase(levelStart: true);
+        _gameMode_1.SaveToFireBase(levelStart: true, uiContentManager: _uIContentManager);
         _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.InProgress;
         _gameMode_1.CurrentLevel.SpawnPoint();
         _backToMainMenuButton.gameObject.SetActive(false);

@@ -25,7 +25,7 @@ public class WorldRankItem {
 
     public void CalculateFinalPoints()
     {
-        if (PtsHit == 0)
+        if (ReacAvg == 0)
             FinalPts = 0;
         else
             FinalPts = LvlNo * 10000 + PtsHit * 1000 + (1000-Convert.ToInt32(ReacAvg * 100));
@@ -46,8 +46,7 @@ public class WorldRankItem {
             ReacAvg = Convert.ToDouble((CurrentPlayer.CampaignItem.ReacCmp / CurrentPlayer.CampaignItem.HitsCmp).ToString("0.00"));
         CalculateFinalPoints();
 
-        string json = JsonUtility.ToJson(new WorldRankItem(CurrentPlayer.CampaignItem.PlrId
-            , PlrName , LvlNo , PtsHit, ReacAvg));
+        string json = JsonUtility.ToJson(this);
         FirebasePR.WorldRankDbReference.Child(CurrentPlayer.CampaignItem.PlrId).SetRawJsonValueAsync(json);
     }
 }

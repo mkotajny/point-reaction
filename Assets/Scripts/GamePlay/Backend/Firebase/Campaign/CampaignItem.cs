@@ -53,9 +53,12 @@ public class CampaignItem {
 
     public int CalculateFinalPoints(int hitsLevel)
     {
+        int finalPoints;
         if (HitsCmp == 0)
-            return 0;
-        return LvlNo * 10000 + hitsLevel * 1000 + (1000 - Convert.ToInt32((ReacCmp/HitsCmp) * 100));
+            finalPoints = 0;
+        else
+            finalPoints = LvlNo * 10000 + hitsLevel * 1000 + (1000 - Convert.ToInt32((ReacCmp/HitsCmp) * 100));
+        return finalPoints;
     }
 
     public void SaveToFirebase(GameLevel level)

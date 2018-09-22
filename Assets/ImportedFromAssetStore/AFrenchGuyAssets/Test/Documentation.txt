@@ -1,0 +1,4 @@
+How to use it:
+Add the prefab Texts List Animation, create your own TextListItemSprite or use the exist one.
+On your controller class, import Afrenchguy namespace, create a list of TextListItem, add all your texts you want with icons from the TextListItemSprite.
+Initialize the TextListAnimation with your list and ... that it!

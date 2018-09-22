@@ -51,7 +51,7 @@ public class GameMode_1 {
         CurrentPlayer.CampaignItem.LvlNo = _currentLevel.LevelNo;
     }
 
-    public void SaveToFireBase(bool levelStart = false)
+    public void SaveToFireBase(bool levelStart, UIContentManager uiContentManager)
     {
         CurrentPlayer.LivesTaken = (levelStart ?
             (CurrentPlayer.CampaignItem.Lives > _currentLevel.MissesToLoose ?
@@ -59,6 +59,9 @@ public class GameMode_1 {
             : 0);
         CurrentPlayer.CampaignItem.SaveToFirebase(_currentLevel);
         if (!levelStart && CurrentPlayer.CampaignItem.CalculateFinalPoints(_currentLevel.HitsQty) > CurrentPlayer.WorldRankItem.FinalPts)
+        {
             CurrentPlayer.WorldRankItem.SaveToFirebase(_currentLevel.HitsQty);
+            uiContentManager.ShowPersonalBestNotification();
+        }
     }
 }

@@ -11,6 +11,7 @@ activateResultPanel
 	
 	
 - panel informacyjny o pobiciu rekordu
+- dodać wpis finansowy do Androida
 - przetestować na emulatorze ! (na różnych rozdzielczościach ekranu)
 
 

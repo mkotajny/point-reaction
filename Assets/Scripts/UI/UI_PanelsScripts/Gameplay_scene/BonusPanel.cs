@@ -25,7 +25,7 @@ public class BonusPanel : MonoBehaviour {
         CurrentPlayer.CampaignItem.LvlMilest = _uIContentManager.GameMode_1.CurrentLevel.LevelNo - 1;
         try { _uIContentManager._zuiManager.OpenMenu("Menu_Bonus"); } catch { }
         _gameControler.AudioSources[5].Play();
-        _uIContentManager.GameMode_1.SaveToFireBase();
+        _uIContentManager.GameMode_1.SaveToFireBase(false, _uIContentManager);
     }
 
 

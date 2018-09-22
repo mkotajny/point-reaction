@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Afrenchguy;
+using System.Collections.Generic;
 
 public class UIContentManager : MonoBehaviour {
 
@@ -7,6 +9,7 @@ public class UIContentManager : MonoBehaviour {
     Button _backToMainMenuButton;
     BonusPanel _bonusPanel;
     int _selectedVictoryAnimationIndex;
+    List<TextListItem> _notificationBarItems = new List<TextListItem>();
     
 
     public Text _panelResultLevelValue, _levelResultText, _resultLevelButtonText, _panelResult_PerfectBonus, _panelResult_AvgReaction;
@@ -14,10 +17,11 @@ public class UIContentManager : MonoBehaviour {
     public GameObject[] backgrounds, victoryAnimations;
     public UicmUpperPanel UpperPanel;
     public Menu MenuStart;
-    
     public GameObject _perfectBonusImage;
     public GameMode_1 GameMode_1;
     public System.Random Randomizer = new System.Random();
+    public Sprite BicepsSprite;
+    public TextsListAnimation NotificationBarAnimation;
 
     public void Awake()
     {
@@ -29,11 +33,13 @@ public class UIContentManager : MonoBehaviour {
         UpperPanel = GameObject.Find("UicmUpperPanel").GetComponent<UicmUpperPanel>();
         _bonusPanel = GameObject.Find("BonusPanel").GetComponent<BonusPanel>();
         _zuiManager.CurActiveMenu = MenuStart;
+        _notificationBarItems.Add(new TextListItem("Personal best !\n(world rank updated)", BicepsSprite));
     }
 
     public void OpenLevelStartPanel()
     {
         victoryAnimations[_selectedVictoryAnimationIndex].SetActive(false);
+
 
         if (CurrentPlayer.CampaignItem.Lives <= 0)  // open game over panel
         {
@@ -58,6 +64,7 @@ public class UIContentManager : MonoBehaviour {
         LoadPanelsWithData();
         try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
         backgrounds[0].SetActive(true);
+        //ShowPersonalBestNotification();
     }
 
     public void ActivateResultPanel(bool debug = false)
@@ -70,8 +77,13 @@ public class UIContentManager : MonoBehaviour {
             victoryAnimations[_selectedVictoryAnimationIndex].SetActive(true);
             GameMode_1.LevelUp();
         }
-        GameMode_1.SaveToFireBase();
+        GameMode_1.SaveToFireBase(false, this);
         _backToMainMenuButton.gameObject.SetActive(true);
+    }
+
+    public void ShowPersonalBestNotification()
+    {
+        NotificationBarAnimation.Init(_notificationBarItems);
     }
 
     public void DeacTivateBackgroundAnimation()
