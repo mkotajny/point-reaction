@@ -48,6 +48,51 @@
         "ads_service": {
           "status": 2
         }
+      },
+      "admob_app_id": "ca-app-pub-9423577850321975~7011202817"
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595888068250:android:f425621536951a50",
+        "android_client_info": {
+          "package_name": "com.google.firebase.unity.database.testapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595888068250-j722a8jv702bcs3af5rc50rv16ct9kvd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.google.firebase.unity.database.testapp",
+            "certificate_hash": "b1fb328c8adf33b62eb987ceaa51f27ab885a0ef"
+          }
+        },
+        {
+          "client_id": "595888068250-s9166b7pfv6k4rfmgnv3ibtm179i84qr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxQ_H1y65-Acv5Wf94O-T-8drAjhiQ4ME"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595888068250-s9166b7pfv6k4rfmgnv3ibtm179i84qr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
       }
     }
   ],

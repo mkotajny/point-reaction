@@ -22,6 +22,8 @@ public class SceneControler : MonoBehaviour {
         if (PlayerPrefs.GetInt("InGooglePlay") == 1 && !Social.localUser.authenticated)
             CurrentPlayer.SignInGooglePlay();
 
+        AdMobPR.Initialize();
+
         if (CurrentPlayer.LivesTaken > 0)
         {
             CurrentPlayer.CampaignItem.Lives = CurrentPlayer.CampaignItem.Lives - CurrentPlayer.LivesTaken;
@@ -33,6 +35,11 @@ public class SceneControler : MonoBehaviour {
     {
         if (MusicPR.NextSongTimer.TimeElapsed())
             MusicPR.PlayNextSong(MusicPR.PlayListMenu);
+    }
+
+    private void OnDestroy()
+    {
+        FirebasePR.SignOutFireBase();
     }
 
 }

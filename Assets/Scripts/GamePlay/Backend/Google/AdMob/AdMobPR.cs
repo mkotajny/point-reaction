@@ -1,0 +1,92 @@
+﻿using GoogleMobileAds.Api;
+using System;
+using UnityEngine;
+
+public static class AdMobPR  {
+
+    static RewardBasedVideoAd _rewardBasedVideo;
+    static AdRequest _request;
+
+#if UNITY_ANDROID
+    static string _appId = "ca-app-pub-3940256099942544~3347511713";
+    static string _adUnitId = "ca-app-pub-3940256099942544/5224354917";   //rewarde-video test unit id
+    //static string _adUnitId = "ca-app-pub-9423577850321975/6791996376";   //real PR add unit id
+    //static string _adUnitId = "ca-app-pub-3940256099942544/6300978111";   //banner test unit ad
+#else
+    static string _appId = "unexpected_platform";
+    static string _adUnitId = "unexpected_platform";
+#endif
+
+
+    public static void Initialize()
+    {
+        if (!CheckInternet.IsConnected())
+            return;
+
+         MobileAds.Initialize(_appId);
+        _rewardBasedVideo = RewardBasedVideoAd.Instance;
+        _rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
+        _rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
+        _rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
+        _rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
+        _rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
+        _rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
+        _rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
+
+        RequestRewardBasedVideo();
+    }
+
+    static void RequestRewardBasedVideo()
+    {
+        if (!CheckInternet.IsConnected())
+            return;
+
+        _request = new AdRequest.Builder()
+            //.AddTestDevice("0CE9D0BDCFD6B8B96D3440ADC1D453EC")
+            .Build();
+        _rewardBasedVideo.LoadAd(_request, _adUnitId);
+    }
+
+
+    public static void ShowRewardBasedVideo()
+    {
+        _rewardBasedVideo.Show();
+    }
+
+    static void HandleRewardBasedVideoLoaded(object sender, EventArgs args)
+    {
+        Debug.Log("debug: AdMob: HandleRewardBasedVideoLoaded event received");
+    }
+
+    static void HandleRewardBasedVideoFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        Debug.Log("debug: AdMob: HandleRewardBasedVideoFailedToLoad event received with message: " + args.Message);
+    }
+
+    static void HandleRewardBasedVideoOpened(object sender, EventArgs args)
+    {
+        Debug.Log("debug: AdMob: HandleRewardBasedVideoOpened event received");
+    }
+
+    static void HandleRewardBasedVideoStarted(object sender, EventArgs args)
+    {
+        Debug.Log("debug: AdMob: HandleRewardBasedVideoStarted event received");
+    }
+
+    static void HandleRewardBasedVideoClosed(object sender, EventArgs args)
+    {
+        Debug.Log("debug: AdMob: HandleRewardBasedVideoClosed event received");
+    }
+
+    static void HandleRewardBasedVideoRewarded(object sender, Reward args)
+    {
+        string type = args.Type;
+        double amount = args.Amount;
+        Debug.Log("debug: AdMob: HandleRewardBasedVideoRewarded event received for " + amount.ToString() + " " + type);
+    }
+
+    static void HandleRewardBasedVideoLeftApplication(object sender, EventArgs args)
+    {
+        Debug.Log("debug: AdMob: HandleRewardBasedVideoLeftApplication event received");
+    }
+}
