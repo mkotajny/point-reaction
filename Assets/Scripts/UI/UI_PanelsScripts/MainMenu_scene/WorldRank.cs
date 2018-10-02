@@ -38,8 +38,8 @@ public class WorldRank : MonoBehaviour {
                     "Level: " + worldRankItem.LvlNo + "." + worldRankItem.PtsHit
                     + "\nAvg Reaction: " + worldRankItem.ReacAvg + "s";
 
-                if (CurrentPlayer.CampaignItem != null
-                    && worldRankItem.PlrName == CurrentPlayer.CampaignItem.PlrName)
+                if (/*CurrentPlayer.CampaignItem != null
+                    &&*/ worldRankItem.PlrName == CurrentPlayer.CampaignItem.PlrName)
                 {
                     _worldRankItemObject.transform.GetChild(0).GetComponent<Text>().color = new Color32(255, 255, 0, 255);
                     _worldRankItemObject.transform.GetChild(1).GetComponent<Text>().color = new Color32(255, 255, 0, 255);

@@ -53,15 +53,15 @@ public class GameControlerTools : MonoBehaviour {
                         }
 
                         //Point hit
-                        gameMode_1.CurrentLevel.RegisterHit(gameMode_1.CurrentLevel.HitsToWin, Time.time);
-                        _audioSources[0].Play();  //shot sound
                         Instantiate(_explosion
                             , hit.collider.gameObject.transform.position
                             , hit.collider.gameObject.transform.rotation);
-                        if (GameOptions.Vibrate)
-                            Handheld.Vibrate();
 
                         hit.collider.gameObject.SetActive(false);
+                        gameMode_1.CurrentLevel.RegisterHit(gameMode_1.CurrentLevel.HitsToWin, Time.time);
+                        _audioSources[0].Play();  //shot sound
+                        if (GameOptions.Vibrate)
+                            Handheld.Vibrate();
                         return ScreenTouchTypes.Hit;
                     }
                 }

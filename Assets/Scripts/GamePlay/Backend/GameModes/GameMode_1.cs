@@ -5,6 +5,7 @@ public class GameMode_1 {
     GameControler _gameControlerComponent;
     GameLevel[] _gameLevels;
     GameLevel _currentLevel;
+    int[] _livesBonuses;
 
 
     float _pointsStartingLivingSeconds = 3;
@@ -17,6 +18,7 @@ public class GameMode_1 {
         get { return _currentLevel; }
         set { _currentLevel = value; }
     }
+    public int[] LivesBonuses { get { return _livesBonuses; } }
 
     public GameMode_1(GameControler gameControler)
     {
@@ -34,6 +36,8 @@ public class GameMode_1 {
         }
         _currentLevel = _gameLevels[CurrentPlayer.CampaignItem.LvlNo - 1];
         _currentLevel.HitsQty = 0;
+        _livesBonuses = new int[] { 3, 5, 7, 10, 15, 20, 30, 50, 100};
+        AdMobPR.InjectGameode(this);
     }
 
     public void ActivateSinglePoint()
@@ -51,7 +55,7 @@ public class GameMode_1 {
         CurrentPlayer.CampaignItem.LvlNo = _currentLevel.LevelNo;
     }
 
-    public void SaveToFireBase(bool levelStart, UIContentManager uiContentManager)
+    public void SaveToFireBase(bool levelStart, UIContentManager uiContentManager = null)
     {
         CurrentPlayer.LivesTaken = (levelStart ?
             (CurrentPlayer.CampaignItem.Lives > _currentLevel.MissesToLoose ?

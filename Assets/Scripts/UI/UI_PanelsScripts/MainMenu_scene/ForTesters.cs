@@ -4,7 +4,7 @@ public class ForTesters : MonoBehaviour {
 
     void OnEnable()
     {
-        AdMobPR.ShowRewardBasedVideo();
+        //AdMobPR.ShowRewardBasedVideo();
     }
 
     public void ActivityLogPreview()

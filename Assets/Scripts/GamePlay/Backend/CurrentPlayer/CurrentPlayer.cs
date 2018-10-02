@@ -10,6 +10,7 @@ public static class CurrentPlayer
     static CampaignItem _campaignItem;
     static WorldRankItem _worldRankItem;
     static int _livesTaken;
+    static bool _bonusProposed;
 
     public static bool SignedIn { get { return _signedIn; } }
 
@@ -27,6 +28,10 @@ public static class CurrentPlayer
     {
         get { return _livesTaken; }
         set { _livesTaken = value; }
+    }
+    public static bool BonusProposed {
+        get { return _bonusProposed; }
+        set { _bonusProposed = value; }
     }
 
 
@@ -91,6 +96,7 @@ public static class CurrentPlayer
     {
         _playerId = userId;
         _playerName = userName;
+        _bonusProposed = false;
         GameObject.Find("PlayerName_background").GetComponent<Text>().text = _playerName;
 
     }
@@ -105,7 +111,7 @@ public static class CurrentPlayer
 
     static void GetCampaignData()
     {
-        _campaignItem = new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd"), _playerId, _playerName, 1, 0, 0, 30, 0, 0);
+        _campaignItem = new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd"), _playerId, _playerName, 1, 0, 30, 0, 0, 0);
 
         FirebasePR.CampaignDbReference
             .OrderByChild("PlrId")
@@ -121,11 +127,11 @@ public static class CurrentPlayer
                         _campaignItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
                         _campaignItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
                         _campaignItem.LvlNo = System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value);
-                        _campaignItem.LvlMilest = System.Convert.ToInt32(childSnapshot.Child("LvlMiles").Value);
                         _campaignItem.HitsCmp = System.Convert.ToInt32(childSnapshot.Child("HitsCmp").Value);
                         _campaignItem.Lives = System.Convert.ToInt32(childSnapshot.Child("Lives").Value);
                         _campaignItem.Ads = System.Convert.ToInt32(childSnapshot.Child("Ads").Value);
                         _campaignItem.ReacCmp = System.Convert.ToDouble(childSnapshot.Child("ReacCmp").Value);
+                        _campaignItem.BnsTaken = System.Convert.ToInt32(childSnapshot.Child("BnsTaken").Value);
                     }
                 }
                 if (_campaignItem.Lives == 0)

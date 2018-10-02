@@ -11,18 +11,20 @@ activateResultPanel
 
 
 
-*************************************************************************************************************************************
-NA CO ZAŁOŻYĆ TICKETY:
 
-STORY:
-- okno "About" : https://10soft.slack.com/archives/C8A0ZAUSJ/p1537858569000100?thread_ts=1537858268.000100&cid=C8A0ZAUSJ
-- dorobić tryb treningowy (offline)
-- przełączenie się z reklam testowych na prawdziwe (przed wejściem na produkcję)
-- tłumaczenia
+		
+- dodać nową kolekcję: Players
+	zapisywać dane o:
+	- dacie pierwszej kampanii
+	- ilości rozegranych kampanii 
+	- fladze , czy gracz został poinformowany o zasadach przyznawania bonusów
+	- iloości obejrzanych reklam
+	- ilości ominiętych reklam
+	- na zakończenie/restart kampanii: dodać przelanie informacji bieżącej kampanii do kolekcji Players
 
-*************************************************************************************************************************************
-	
+- okno informacyjne dla nowych graczy o bonusie 
 
-	
-Use AdRequest.Builder.addTestDevice("0CE9D0BDCFD6B8B96D3440ADC1D453EC") to get test ads on this device.
+- sprawdzić jeszcze raz, czy nie pojawia się czasem info w prawdziwej reklami o ilości monet (lepiej żeby nie)
+- przed releasem wyczyścić wszystkie kampanie
+
 

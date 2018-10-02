@@ -2,28 +2,46 @@
 using System;
 using UnityEngine;
 
+public enum AdmobPRSatuses
+{
+    AdNotStarted,
+    AdInProgress,
+    AdClosedBeforeReward,
+    AdClosedAfterReward
+}
+
 public static class AdMobPR  {
 
     static RewardBasedVideoAd _rewardBasedVideo;
     static AdRequest _request;
+    static AdmobPRSatuses _admobPRSatuses;
+    static GameMode_1 _gameMode_1;
 
 #if UNITY_ANDROID
     static string _appId = "ca-app-pub-3940256099942544~3347511713";
-    static string _adUnitId = "ca-app-pub-3940256099942544/5224354917";   //rewarde-video test unit id
+    static string _adUnitId = "ca-app-pub-3940256099942544/5224354917";   //rewarded-video test unit id
     //static string _adUnitId = "ca-app-pub-9423577850321975/6791996376";   //real PR add unit id
     //static string _adUnitId = "ca-app-pub-3940256099942544/6300978111";   //banner test unit ad
 #else
     static string _appId = "unexpected_platform";
     static string _adUnitId = "unexpected_platform";
 #endif
+    
+    public static AdmobPRSatuses AdmobPRSatuses
+    {
+        get { return _admobPRSatuses; }
+        set { _admobPRSatuses = value; }
+    }
 
+    public static RewardBasedVideoAd RewardBasedVideo { get { return _rewardBasedVideo; }  } 
 
     public static void Initialize()
     {
         if (!CheckInternet.IsConnected())
             return;
 
-         MobileAds.Initialize(_appId);
+        _admobPRSatuses = AdmobPRSatuses.AdNotStarted;
+        MobileAds.Initialize(_appId);
         _rewardBasedVideo = RewardBasedVideoAd.Instance;
         _rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
         _rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
@@ -34,6 +52,10 @@ public static class AdMobPR  {
         _rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
 
         RequestRewardBasedVideo();
+    }
+    public static void InjectGameode(GameMode_1 gameMode_1)
+    {
+        _gameMode_1 = gameMode_1;
     }
 
     static void RequestRewardBasedVideo()
@@ -50,8 +72,22 @@ public static class AdMobPR  {
 
     public static void ShowRewardBasedVideo()
     {
+        _admobPRSatuses = AdmobPRSatuses.AdInProgress;
+        Debug.Log("debug: ShowRewardBasedVideo: chk1a: video loaded, show it ");
         _rewardBasedVideo.Show();
     }
+
+    static void RewardPlayer()
+    {
+        _admobPRSatuses = AdmobPRSatuses.AdClosedAfterReward;
+        CurrentPlayer.CampaignItem.BnsTaken++;
+
+        CurrentPlayer.BonusProposed =
+            (CurrentPlayer.CampaignItem.BnsTaken == CurrentPlayer.CampaignItem.BonusesAvailable())
+            ? CurrentPlayer.BonusProposed = false : CurrentPlayer.BonusProposed = true;
+
+        _gameMode_1.SaveToFireBase(false);
+}
 
     static void HandleRewardBasedVideoLoaded(object sender, EventArgs args)
     {
@@ -75,11 +111,18 @@ public static class AdMobPR  {
 
     static void HandleRewardBasedVideoClosed(object sender, EventArgs args)
     {
+        if (_admobPRSatuses != AdmobPRSatuses.AdClosedAfterReward)
+        {
+            _admobPRSatuses = AdmobPRSatuses.AdClosedBeforeReward;
+            CurrentPlayer.BonusProposed = true;
+        }
         Debug.Log("debug: AdMob: HandleRewardBasedVideoClosed event received");
-    }
+        RequestRewardBasedVideo();
+}
 
     static void HandleRewardBasedVideoRewarded(object sender, Reward args)
     {
+        RewardPlayer();
         string type = args.Type;
         double amount = args.Amount;
         Debug.Log("debug: AdMob: HandleRewardBasedVideoRewarded event received for " + amount.ToString() + " " + type);

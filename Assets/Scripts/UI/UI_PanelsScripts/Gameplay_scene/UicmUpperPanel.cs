@@ -80,12 +80,10 @@ public class UicmUpperPanel : MonoBehaviour {
     public IEnumerator ChangeUpperPanelStats(GameLevel level, int livesIncrease)
     {
         CurrentPlayer.CampaignItem.Lives += livesIncrease;
-
         SetUpperPanelStats(level);
         _textCampaignLivesChange.text = "(+" + livesIncrease.ToString() + ")";
         _textCampaignLivesChange.gameObject.SetActive(true);
         yield return new WaitForSeconds(2f);
         DeactivateChangeStats();
     }
-
 }

@@ -19,7 +19,7 @@ public class GameControler : MonoBehaviour {
         FirebasePR.InitializeFireBaseDb();
         if (CurrentPlayer.CampaignItem == null)
         {
-            CurrentPlayer.CampaignItem = new CampaignItem("2018-01-01", "MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 1, 0, 1, 5, 0, 0);
+            CurrentPlayer.CampaignItem = new CampaignItem("2018-01-01", "MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 1, 0, 5, 0, 0, 0);
             CurrentPlayer.WorldRankItem = new WorldRankItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 0, 6, 0.62);
         }
 

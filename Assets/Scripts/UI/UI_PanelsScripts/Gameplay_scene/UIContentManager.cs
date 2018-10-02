@@ -5,14 +5,16 @@ using System.Collections.Generic;
 
 public class UIContentManager : MonoBehaviour {
 
-    Text _panelStartLevel, _panelStart_PointsLivingTime, _panelStartHitsToWin, _panelStartMissesToLoose;
+    Text _panelStartLevel, _panelStart_PointsLivingTime, _panelStartHitsToWin, _panelStartMissesToLoose, _getBonusButtonText;
     Button _backToMainMenuButton;
-    BonusPanel _bonusPanel;
+    public Button GetBonusButton;
+    BonusPanelScriptContainer _bonusPanel;
     int _selectedVictoryAnimationIndex;
     List<TextListItem> _notificationBarItems = new List<TextListItem>();
     
 
     public Text _panelResultLevelValue, _levelResultText, _resultLevelButtonText, _panelResult_PerfectBonus, _panelResult_AvgReaction;
+
     public ZUIManager _zuiManager;
     public GameObject[] backgrounds, victoryAnimations;
     public UicmUpperPanel UpperPanel;
@@ -25,21 +27,40 @@ public class UIContentManager : MonoBehaviour {
 
     public void Awake()
     {
+        _bonusPanel = GameObject.Find("BonusPanelScriptContainer").GetComponent<BonusPanelScriptContainer>();
         _panelStartLevel = GameObject.Find("PanelStartLevelValue").GetComponent<Text>();
         _panelStart_PointsLivingTime = GameObject.Find("PanelStart_PointsLivingTime").GetComponent<Text>();
         _panelStartHitsToWin = GameObject.Find("Panel_HitsToWin_value").GetComponent<Text>();
         _panelStartMissesToLoose = GameObject.Find("Panel_MistakesToLoose_value").GetComponent<Text>();
         _backToMainMenuButton = GameObject.Find("ButtonBlue_Back").GetComponent<Button>();
+        GetBonusButton = GameObject.Find("ButtonBlue_GetBonus").GetComponent<Button>();
+        _getBonusButtonText = GameObject.Find("ButtonBlue_GetBonus_Text").GetComponent<Text>();
         UpperPanel = GameObject.Find("UicmUpperPanel").GetComponent<UicmUpperPanel>();
-        _bonusPanel = GameObject.Find("BonusPanel").GetComponent<BonusPanel>();
         _zuiManager.CurActiveMenu = MenuStart;
         _notificationBarItems.Add(new TextListItem("Personal best !\n(world rank updated)", BicepsSprite));
+    }
+
+    private void Update()
+    {
+
+        if (AdMobPR.AdmobPRSatuses == AdmobPRSatuses.AdClosedAfterReward)
+        {
+            AdMobPR.AdmobPRSatuses = AdmobPRSatuses.AdNotStarted;
+            _bonusPanel.ActivatePanel(this);
+        }
+
     }
 
     public void OpenLevelStartPanel()
     {
         victoryAnimations[_selectedVictoryAnimationIndex].SetActive(false);
 
+        // open level start panel
+        GameMode_1.CurrentLevel.Reset();
+        UpperPanel.SetUpperPanelStats(GameMode_1.CurrentLevel);
+        LoadPanelsWithData();
+        try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
+        backgrounds[0].SetActive(true);
 
         if (CurrentPlayer.CampaignItem.Lives <= 0)  // open game over panel
         {
@@ -50,21 +71,15 @@ public class UIContentManager : MonoBehaviour {
             return;
         }
 
-        if (GameMode_1.CurrentLevel.LevelNo > 2   // open milestone bonus panel
-            && GameMode_1.GameLevels[GameMode_1.CurrentLevel.LevelNo - 2].BonusMileStoneLevel > 0
-            && CurrentPlayer.CampaignItem.LvlMilest != GameMode_1.CurrentLevel.LevelNo - 1)
-        {
-            _bonusPanel.ActivatePanel(this);
-            return;
-        }
+        GetBonusButton.gameObject.SetActive(false);
 
-        // open level start panel
-        GameMode_1.CurrentLevel.Reset();
-        UpperPanel.SetUpperPanelStats(GameMode_1.CurrentLevel);
-        LoadPanelsWithData();
-        try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
-        backgrounds[0].SetActive(true);
-        //ShowPersonalBestNotification();
+        if (CurrentPlayer.CampaignItem.BnsTaken < CurrentPlayer.CampaignItem.BonusesAvailable())  //activate ad --> bonus
+        {
+            _getBonusButtonText.text = (CurrentPlayer.CampaignItem.BonusesAvailable() - CurrentPlayer.CampaignItem.BnsTaken == 1)
+                ? "Bonus": (CurrentPlayer.CampaignItem.BonusesAvailable() - CurrentPlayer.CampaignItem.BnsTaken).ToString() + " bonuses";
+
+            GetBonusButton.gameObject.SetActive(true);
+        }
     }
 
     public void ActivateResultPanel(bool debug = false)
@@ -89,6 +104,12 @@ public class UIContentManager : MonoBehaviour {
     public void DeacTivateBackgroundAnimation()
     {
         backgrounds[0].SetActive(false);
+    }
+
+    public void GetBonus()
+    {
+        if (AdMobPR.RewardBasedVideo.IsLoaded())
+            AdMobPR.ShowRewardBasedVideo();
     }
 
     void LoadPanelsWithData()

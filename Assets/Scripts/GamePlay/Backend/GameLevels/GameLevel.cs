@@ -16,7 +16,6 @@ public class GameLevel {
     int _hitsQty;
     int _missQty;
     int _bonusPerfectLevel;
-    int _bonusMilestoneLevel;
     int _hitsToWin;
     int _missesToLoose;
     Timer _pointsLivingTimer;
@@ -46,7 +45,6 @@ public class GameLevel {
         set { _missQty = value; }
     }
     public int BonusPerfectLevel { get { return _bonusPerfectLevel; } }
-    public int BonusMileStoneLevel{ get { return _bonusMilestoneLevel; }}
     public int HitsToWin { get { return _hitsToWin; } }
     public int MissesToLoose { get { return _missesToLoose; } }
     public Timer PointsLivingTimer
@@ -79,15 +77,6 @@ public class GameLevel {
         if (levelNo >= 31) _bonusPerfectLevel = 10;
         if (levelNo >= 36) _bonusPerfectLevel = 15;
         if (levelNo >= 41) _bonusPerfectLevel = 20;
-        if (levelNo == 5) _bonusMilestoneLevel = 3;
-        if (levelNo == 10) _bonusMilestoneLevel = 5;
-        if (levelNo == 15) _bonusMilestoneLevel = 7;
-        if (levelNo == 20) _bonusMilestoneLevel = 10;
-        if (levelNo == 25) _bonusMilestoneLevel = 15;
-        if (levelNo == 30) _bonusMilestoneLevel = 20;
-        if (levelNo == 35) _bonusMilestoneLevel = 30;
-        if (levelNo == 40) _bonusMilestoneLevel = 50;
-        if (levelNo == 45) _bonusMilestoneLevel = 100   ;
         if (levelNo >= 1) _hitsToWin = 2;
         if (levelNo >= 2) _hitsToWin = 3;
         if (levelNo >= 4) _hitsToWin = 4;

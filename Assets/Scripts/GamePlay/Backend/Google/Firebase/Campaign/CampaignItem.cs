@@ -6,42 +6,43 @@ public class CampaignItem {
 
     public string Updated, PlrId, PlrName;
     public int LvlNo;
-    public int LvlMilest;
     public int HitsCmp, Lives, Ads;
     public double ReacCmp;
+    public int BnsTaken;
+
 
 
     public CampaignItem(string lastUpdateDate
         , string playerId
         , string playerName
         , int levelNo
-        , int levelMilestoneGranted
         , int hitsCampaign
         , int lives
         , int advertisementsWatched
         , double reactionSumCampaign
+        , int bonusTaken
         )
     {
         Updated = lastUpdateDate;
         PlrId = playerId;
         PlrName = playerName;
         LvlNo = levelNo;
-        LvlMilest = levelMilestoneGranted;
         HitsCmp = hitsCampaign;
         Lives = lives;
         Ads = advertisementsWatched;
         ReacCmp = reactionSumCampaign;
+        BnsTaken = bonusTaken;
     }
 
     public void ResetCampaign()
     {
         Updated = System.DateTime.Now.ToString("yyyy-MM-dd");
         LvlNo = 1;
-        LvlMilest = 0;
         HitsCmp = 0;
         Lives = 30;
         Ads = 0;
         ReacCmp = 0;
+        BnsTaken = 0;
     }
 
     public bool IsNewCampaign()
@@ -67,13 +68,18 @@ public class CampaignItem {
             , PlrId
             , PlrName
             , level.LevelNo
-            , LvlMilest
             , HitsCmp
             , Lives - CurrentPlayer.LivesTaken
             , Ads
-            , System.Convert.ToDouble(ReacCmp.ToString("0.00"))));
+            , Convert.ToDouble(ReacCmp.ToString("0.00"))
+            , BnsTaken));
 
         FirebasePR.CampaignDbReference.Child(PlrId).SetRawJsonValueAsync(json);
+    }
+
+    public int BonusesAvailable()
+    {
+        return (LvlNo-1) / 5;
     }
 
 }
