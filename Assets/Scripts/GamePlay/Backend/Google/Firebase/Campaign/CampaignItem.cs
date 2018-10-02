@@ -5,15 +5,10 @@ using UnityEngine;
 public class CampaignItem {
 
     public string Updated, PlrId, PlrName;
-    public int LvlNo;
-    public int HitsCmp, Lives, Ads;
+    public int LvlNo, HitsCmp, Lives, Ads, BnsTaken;
     public double ReacCmp;
-    public int BnsTaken;
 
-
-
-    public CampaignItem(string lastUpdateDate
-        , string playerId
+    public CampaignItem(string playerId
         , string playerName
         , int levelNo
         , int hitsCampaign
@@ -23,7 +18,7 @@ public class CampaignItem {
         , int bonusTaken
         )
     {
-        Updated = lastUpdateDate;
+        CurrentDateToString();
         PlrId = playerId;
         PlrName = playerName;
         LvlNo = levelNo;
@@ -34,9 +29,14 @@ public class CampaignItem {
         BnsTaken = bonusTaken;
     }
 
+    void CurrentDateToString()
+    {
+        Updated = DateTime.Now.ToString("yyyy-MM-dd");
+    }
+
     public void ResetCampaign()
     {
-        Updated = System.DateTime.Now.ToString("yyyy-MM-dd");
+        CurrentDateToString();
         LvlNo = 1;
         HitsCmp = 0;
         Lives = 30;
@@ -62,20 +62,23 @@ public class CampaignItem {
         return finalPoints;
     }
 
-    public void SaveToFirebase(GameLevel level)
+    public void SaveToFirebase(GameLevel level, bool deleteRow = false)
     {
-        string json = JsonUtility.ToJson(new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd")
-            , PlrId
-            , PlrName
-            , level.LevelNo
-            , HitsCmp
-            , Lives - CurrentPlayer.LivesTaken
-            , Ads
-            , Convert.ToDouble(ReacCmp.ToString("0.00"))
-            , BnsTaken));
 
-        FirebasePR.CampaignDbReference.Child(PlrId).SetRawJsonValueAsync(json);
+        if (!deleteRow)
+        {
+            CurrentDateToString();
+            ReacCmp = Convert.ToDouble(ReacCmp.ToString("0.00"));
+            Lives -= CurrentPlayer.LivesTaken;
+            string json = JsonUtility.ToJson(this);
+            Lives += CurrentPlayer.LivesTaken;
+            FirebasePR.CampaignDbReference.Child(PlrId).SetRawJsonValueAsync(json);
+            return;
+        }
+
+        FirebasePR.CampaignDbReference.Child(PlrId).SetRawJsonValueAsync(null); //delete row
     }
+
 
     public int BonusesAvailable()
     {

@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour {
         }
 #else 
         if (CurrentPlayer.CampaignItem == null)
-            CurrentPlayer.CampaignItem = new CampaignItem("2018-01-01", "MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 1, 0, 5, 0, 0, 0);
+            CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 1, 0, 5, 0, 0, 0);
 #endif
 
 

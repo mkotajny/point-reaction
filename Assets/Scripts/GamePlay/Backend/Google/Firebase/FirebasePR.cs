@@ -9,11 +9,12 @@ public static class FirebasePR
 {
     static bool _googlePlayInitialized, _firebaseInitialized;
     static Firebase.Auth.FirebaseAuth _firebaseAuth;
-    static DatabaseReference _campaignDbReference, _worldRankDbReference;
+    static DatabaseReference _campaignDbReference, _campaignsHistoryDbReference, _worldRankDbReference;
 
     public static Firebase.Auth.FirebaseAuth FirebaseAuth{ get { return _firebaseAuth; }}
     public static DatabaseReference CampaignDbReference { get { return _campaignDbReference; } }
     public static DatabaseReference WorldRankDbReference { get { return _worldRankDbReference; } }
+    public static DatabaseReference CampaignsHistoryDbReference { get { return _campaignsHistoryDbReference; } }
 
     public static void InitializeGooglePlay()
     {
@@ -73,7 +74,9 @@ public static class FirebasePR
                     Firebase.Auth.FirebaseUser newUser = task2.Result;
                     Debug.LogFormat("debug: User signed in successfully: {0} ({1})",
                         newUser.DisplayName, newUser.UserId);
+                    
                     _campaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns");
+                    _campaignsHistoryDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns_history");
                     _worldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
                 });
 

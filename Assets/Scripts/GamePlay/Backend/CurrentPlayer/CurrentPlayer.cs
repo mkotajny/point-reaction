@@ -8,7 +8,9 @@ public static class CurrentPlayer
     static string _playerId, _playerName;
     static bool _signedIn;
     static CampaignItem _campaignItem;
+    static CampaignsHistoryItem _campaignsHistoryItem;
     static WorldRankItem _worldRankItem;
+    
     static int _livesTaken;
     static bool _bonusProposed;
 
@@ -18,6 +20,11 @@ public static class CurrentPlayer
     {
         get { return _campaignItem; }
         set { _campaignItem = value; }
+    }
+    public static CampaignsHistoryItem CampaignsHistoryItem
+    {
+        get { return _campaignsHistoryItem; }
+        set { _campaignsHistoryItem = value; }
     }
     public static WorldRankItem WorldRankItem
     {
@@ -106,12 +113,13 @@ public static class CurrentPlayer
         _livesTaken = 0;
         if (!CheckInternet.IsConnected()) return;
         GetCampaignData();
+        GetCampaignsHistoryData();
         GetWorldRankData();
     }
 
     static void GetCampaignData()
     {
-        _campaignItem = new CampaignItem(System.DateTime.Now.ToString("yyyy-MM-dd"), _playerId, _playerName, 1, 0, 30, 0, 0, 0);
+        _campaignItem = new CampaignItem(_playerId, _playerName, 1, 0, 30, 0, 0, 0);
 
         FirebasePR.CampaignDbReference
             .OrderByChild("PlrId")
@@ -134,8 +142,32 @@ public static class CurrentPlayer
                         _campaignItem.BnsTaken = System.Convert.ToInt32(childSnapshot.Child("BnsTaken").Value);
                     }
                 }
-                if (_campaignItem.Lives == 0)
-                    _campaignItem.ResetCampaign();
+                return;
+            });
+    }
+
+    static void GetCampaignsHistoryData()
+    {
+        _campaignsHistoryItem = new CampaignsHistoryItem(_playerId, _playerName, 0, 0, 0);
+
+        FirebasePR.CampaignsHistoryDbReference
+            .OrderByChild("PlrId")
+            .EqualTo(_playerId)
+            .GetValueAsync().ContinueWith(task =>
+            {
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    foreach (var childSnapshot in snapshot.Children)
+                    {
+                        _campaignsHistoryItem.UpdDt = childSnapshot.Child("UpdDt").Value.ToString();
+                        _campaignsHistoryItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
+                        _campaignsHistoryItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
+                        _campaignsHistoryItem.Cmpgns = System.Convert.ToInt32(childSnapshot.Child("Cmpgns").Value);
+                        _campaignsHistoryItem.AdsWtchd = System.Convert.ToInt32(childSnapshot.Child("AdsWtchd").Value);
+                        _campaignsHistoryItem.AdsSkpd = System.Convert.ToInt32(childSnapshot.Child("AdsSkpd").Value);
+                    }
+                }
                 return;
             });
     }
@@ -165,4 +197,5 @@ public static class CurrentPlayer
                 return;
             });
     }
+
 }

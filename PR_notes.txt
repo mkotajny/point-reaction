@@ -13,18 +13,19 @@ activateResultPanel
 
 
 		
-- dodać nową kolekcję: Players
-	zapisywać dane o:
-	- dacie pierwszej kampanii
-	- ilości rozegranych kampanii 
-	- fladze , czy gracz został poinformowany o zasadach przyznawania bonusów
-	- iloości obejrzanych reklam
-	- ilości ominiętych reklam
-	- na zakończenie/restart kampanii: dodać przelanie informacji bieżącej kampanii do kolekcji Players
-
-- okno informacyjne dla nowych graczy o bonusie 
 
 - sprawdzić jeszcze raz, czy nie pojawia się czasem info w prawdziwej reklami o ilości monet (lepiej żeby nie)
 - przed releasem wyczyścić wszystkie kampanie
+
+
+
+Michał Wróblewski <miwro77@gmail.com>
+Zofia Bartak <zofiabartak@wp.pl>
+
+
+Debug.Log("debug: CheckPointTouch: chk1: " + CurrentPlayer.CampaignItem.Lives.ToString());
+
+
+https://tribaladnetwork.com/about-tier-1tier-2-and-tier-3-countries/
 
 

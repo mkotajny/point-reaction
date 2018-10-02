@@ -68,4 +68,11 @@ public class GameMode_1 {
             uiContentManager.ShowPersonalBestNotification();
         }
     }
+
+    public void GameOver()
+    {
+        CurrentPlayer.CampaignsHistoryItem.SaveToFirebase();
+        CurrentPlayer.CampaignItem.ResetCampaign();
+        CurrentPlayer.CampaignItem.SaveToFirebase(_currentLevel, deleteRow: true);
+    }
 }

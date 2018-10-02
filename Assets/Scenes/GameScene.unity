@@ -9000,6 +9000,49 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!1 &763446699
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 763446700}
+  - component: {fileID: 763446701}
+  m_Layer: 0
+  m_Name: BonusPanelScriptContainer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &763446700
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763446699}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 764091402}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &763446701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 763446699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0f4851c7f5662247aa252d1030a54f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bonusValue: {fileID: 1620771200}
+  _bonusHeader: {fileID: 1253919787}
+  _gameControler: {fileID: 924140989}
 --- !u!1 &764091401
 GameObject:
   m_ObjectHideFlags: 0
@@ -9027,6 +9070,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1991759989}
+  - {fileID: 763446700}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9042,7 +9086,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GetBonusButton: {fileID: 0}
-  _bonusPanel: {fileID: 1956747626}
   _panelResultLevelValue: {fileID: 1381276177}
   _levelResultText: {fileID: 1770269413}
   _resultLevelButtonText: {fileID: 225115438}
@@ -12995,7 +13038,7 @@ Prefab:
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1956747626}
+      objectReference: {fileID: 763446701}
     - target: {fileID: 114164534852303888, guid: 3fc39fe0f20a66f46a873c2504fe1c64,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -27859,7 +27902,6 @@ GameObject:
   - component: {fileID: 1956747624}
   - component: {fileID: 1956747623}
   - component: {fileID: 1956747622}
-  - component: {fileID: 1956747626}
   m_Layer: 5
   m_Name: Panel_Bonus
   m_TagString: Untagged
@@ -28385,20 +28427,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1956747620}
---- !u!114 &1956747626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1956747620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0f4851c7f5662247aa252d1030a54f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bonusValue: {fileID: 1620771200}
-  _bonusHeader: {fileID: 1253919787}
-  _gameControler: {fileID: 924140989}
 --- !u!1 &1987903548
 GameObject:
   m_ObjectHideFlags: 0

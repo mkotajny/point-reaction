@@ -66,7 +66,7 @@ public class UIContentManager : MonoBehaviour {
         {
             _backToMainMenuButton.gameObject.SetActive(false);
             backgrounds[3].SetActive(true);
-            CurrentPlayer.CampaignItem.ResetCampaign();
+            GameMode_1.GameOver();
             try { _zuiManager.OpenMenu("Menu_GameOver"); } catch { }
             return;
         }
