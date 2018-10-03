@@ -39,7 +39,8 @@ public class WorldRankItem {
 #endif
 
         LvlNo = CurrentPlayer.CampaignItem.LvlNo;
-        PtsHit = hitsLevel;
+        if (hitsLevel != 100)
+            PtsHit = hitsLevel;
         if (CurrentPlayer.CampaignItem.ReacCmp == 0)
             ReacAvg = 0;
         else

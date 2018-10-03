@@ -81,10 +81,12 @@ public static class CurrentPlayer
                     return;
                 }
                 Firebase.Auth.FirebaseUser newUser = task.Result;
+                
                 Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
 
-                SetPlayerAttributes(newUser.UserId, newUser.DisplayName);
+                SetPlayerAttributes(newUser.UserId, Social.localUser.userName);
                 GetCurrentPlayerData();
+
                 PlayerPrefs.SetInt("InGooglePlay", 1);
                 _signedIn = true;
             });
@@ -136,7 +138,7 @@ public static class CurrentPlayer
                     {
                         _campaignItem.Updated = childSnapshot.Child("Updated").Value.ToString();
                         _campaignItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
-                        _campaignItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
+                        _campaignItem.PlrName = _playerName;
                         _campaignItem.LvlNo = System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value);
                         _campaignItem.HitsCmp = System.Convert.ToInt32(childSnapshot.Child("HitsCmp").Value);
                         _campaignItem.Lives = System.Convert.ToInt32(childSnapshot.Child("Lives").Value);
@@ -165,7 +167,7 @@ public static class CurrentPlayer
                     {
                         _campaignsHistoryItem.UpdDt = childSnapshot.Child("UpdDt").Value.ToString();
                         _campaignsHistoryItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
-                        _campaignsHistoryItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
+                        _campaignsHistoryItem.PlrName = _playerName;
                         _campaignsHistoryItem.Cmpgns = System.Convert.ToInt32(childSnapshot.Child("Cmpgns").Value);
                         _campaignsHistoryItem.AdsWtchd = System.Convert.ToInt32(childSnapshot.Child("AdsWtchd").Value);
                         _campaignsHistoryItem.AdsSkpd = System.Convert.ToInt32(childSnapshot.Child("AdsSkpd").Value);
@@ -191,7 +193,7 @@ public static class CurrentPlayer
                     foreach (var childSnapshot in snapshot.Children)
                     {
                         _worldRankItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
-                        _worldRankItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
+                        _worldRankItem.PlrName = _playerName;
                         _worldRankItem.LvlNo = System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value)       ;
                         _worldRankItem.PtsHit = System.Convert.ToInt32(childSnapshot.Child("PtsHit").Value);
                         _worldRankItem.ReacAvg = System.Convert.ToDouble(childSnapshot.Child("ReacAvg").Value);
