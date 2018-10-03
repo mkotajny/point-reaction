@@ -117,7 +117,7 @@ public class GameControler : MonoBehaviour {
             || _screenTouch == ScreenTouchTypes.Miss)
         {
             CurrentPlayer.LivesTaken--;
-            _gameMode_1.CurrentLevel.RegisterFail();
+            _gameMode_1.CurrentLevel.RegisterFail(_screenTouch);
             _pointsBoard.DeactivateActivePoint();
             if (_screenTouch != ScreenTouchTypes.Miss)
                 AudioSources[2].Play(); //fail sound

@@ -95,11 +95,18 @@ public class GameLevel {
         if (levelNo >= 41) _missesToLoose = 20;
     }
 
-    public void RegisterHit(int hitsToWin, float hitTime)
+    float CalculateShotReaction(float hitTime)
     {
         float hitReaction = hitTime - _pointsLivingTimer.StartTime;
         if (hitReaction > _pointsLivingTimer.Lenght)
             hitReaction = _pointsLivingTimer.Lenght;
+        return hitReaction;
+    }
+
+
+    public void RegisterHit(int hitsToWin, float hitTime)
+    {
+        float hitReaction = CalculateShotReaction(hitTime);
 
         _pointsLivingTimer.Deactivate();
         _hitsQty++;
@@ -112,8 +119,14 @@ public class GameLevel {
             _betweenPointsTimer.Activate();
     }
 
-    public void RegisterFail()
+    public void RegisterFail(ScreenTouchTypes touchType)
     {
+        if (touchType == ScreenTouchTypes.Miss)
+        {
+            float shotReaction = CalculateShotReaction(Time.time);
+            CurrentPlayer.CampaignItem.ReacCmp += shotReaction;
+            CurrentPlayer.CampaignItem.HitsCmp++;
+        }
         _missQty++;
         CurrentPlayer.CampaignItem.Lives--;
     }
