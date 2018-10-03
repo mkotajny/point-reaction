@@ -12,7 +12,7 @@ public static class CurrentPlayer
     static WorldRankItem _worldRankItem;
     
     static int _livesTaken;
-    static bool _bonusProposed;
+    static bool _bonusInformed;
 
     public static bool SignedIn { get { return _signedIn; } }
 
@@ -36,9 +36,10 @@ public static class CurrentPlayer
         get { return _livesTaken; }
         set { _livesTaken = value; }
     }
-    public static bool BonusProposed {
-        get { return _bonusProposed; }
-        set { _bonusProposed = value; }
+    public static bool BonusInformed
+    {
+        get { return _bonusInformed; }
+        set { _bonusInformed = value; }
     }
 
 
@@ -46,7 +47,9 @@ public static class CurrentPlayer
     {
         if (!CheckInternet.IsConnected()) return;
 
+        FirebasePR.InitializeFireBaseDb();
         FirebasePR.InitializeGooglePlay();
+        AdMobPR.Initialize();
 
         Social.localUser.Authenticate((bool success) =>
         {
@@ -103,7 +106,7 @@ public static class CurrentPlayer
     {
         _playerId = userId;
         _playerName = userName;
-        _bonusProposed = false;
+        _bonusInformed = false;
         GameObject.Find("PlayerName_background").GetComponent<Text>().text = _playerName;
 
     }
@@ -148,7 +151,7 @@ public static class CurrentPlayer
 
     static void GetCampaignsHistoryData()
     {
-        _campaignsHistoryItem = new CampaignsHistoryItem(_playerId, _playerName, 0, 0, 0);
+        _campaignsHistoryItem = new CampaignsHistoryItem(_playerId, _playerName, 0, 0, 0, 0);
 
         FirebasePR.CampaignsHistoryDbReference
             .OrderByChild("PlrId")
@@ -166,6 +169,7 @@ public static class CurrentPlayer
                         _campaignsHistoryItem.Cmpgns = System.Convert.ToInt32(childSnapshot.Child("Cmpgns").Value);
                         _campaignsHistoryItem.AdsWtchd = System.Convert.ToInt32(childSnapshot.Child("AdsWtchd").Value);
                         _campaignsHistoryItem.AdsSkpd = System.Convert.ToInt32(childSnapshot.Child("AdsSkpd").Value);
+                        _campaignsHistoryItem.BnsBtnInf = System.Convert.ToInt32(childSnapshot.Child("BnsBtnInf").Value);
                     }
                 }
                 return;

@@ -71,7 +71,7 @@ public class GameMode_1 {
 
     public void GameOver()
     {
-        CurrentPlayer.CampaignsHistoryItem.SaveToFirebase();
+        CurrentPlayer.CampaignsHistoryItem.EndOfCampaignIntoToFirebase();
         CurrentPlayer.CampaignItem.ResetCampaign();
         CurrentPlayer.CampaignItem.SaveToFirebase(_currentLevel, deleteRow: true);
     }

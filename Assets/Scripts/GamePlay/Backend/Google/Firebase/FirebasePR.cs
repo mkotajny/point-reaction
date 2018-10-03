@@ -7,7 +7,7 @@ using UnityEngine;
 
 public static class FirebasePR
 {
-    static bool _googlePlayInitialized, _firebaseInitialized;
+    static bool _googlePlayInitialized, _firebaseInitialized = false;
     static Firebase.Auth.FirebaseAuth _firebaseAuth;
     static DatabaseReference _campaignDbReference, _campaignsHistoryDbReference, _worldRankDbReference;
 
@@ -72,7 +72,7 @@ public static class FirebasePR
                         return;
                     }
                     Firebase.Auth.FirebaseUser newUser = task2.Result;
-                    Debug.LogFormat("debug: User signed in successfully: {0} ({1})",
+                    Debug.LogFormat("debug: Firebase user signed in successfully: {0} ({1})",
                         newUser.DisplayName, newUser.UserId);
                     
                     _campaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns");

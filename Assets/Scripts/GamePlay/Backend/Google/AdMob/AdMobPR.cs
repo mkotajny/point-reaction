@@ -16,6 +16,7 @@ public static class AdMobPR  {
     static AdRequest _request;
     static AdmobPRSatuses _admobPRSatuses;
     static GameMode_1 _gameMode_1;
+    static bool _initialized = false;
 
 #if UNITY_ANDROID
     static string _appId = "ca-app-pub-3940256099942544~3347511713";
@@ -37,7 +38,7 @@ public static class AdMobPR  {
 
     public static void Initialize()
     {
-        if (!CheckInternet.IsConnected())
+        if (!CheckInternet.IsConnected() || _initialized)
             return;
 
         _admobPRSatuses = AdmobPRSatuses.AdNotStarted;
@@ -50,8 +51,8 @@ public static class AdMobPR  {
         _rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
         _rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
         _rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
-
         RequestRewardBasedVideo();
+        _initialized = true;
     }
     public static void InjectGameode(GameMode_1 gameMode_1)
     {
@@ -81,11 +82,6 @@ public static class AdMobPR  {
     {
         _admobPRSatuses = AdmobPRSatuses.AdClosedAfterReward;
         CurrentPlayer.CampaignItem.BnsTaken++;
-
-        CurrentPlayer.BonusProposed =
-            (CurrentPlayer.CampaignItem.BnsTaken == CurrentPlayer.CampaignItem.BonusesAvailable())
-            ? CurrentPlayer.BonusProposed = false : CurrentPlayer.BonusProposed = true;
-
         _gameMode_1.SaveToFireBase(false);
 }
 
@@ -112,10 +108,7 @@ public static class AdMobPR  {
     static void HandleRewardBasedVideoClosed(object sender, EventArgs args)
     {
         if (_admobPRSatuses != AdmobPRSatuses.AdClosedAfterReward)
-        {
             _admobPRSatuses = AdmobPRSatuses.AdClosedBeforeReward;
-            CurrentPlayer.BonusProposed = true;
-        }
         Debug.Log("debug: AdMob: HandleRewardBasedVideoClosed event received");
         RequestRewardBasedVideo();
 }

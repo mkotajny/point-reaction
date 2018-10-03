@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using PaperPlaneTools;
 
 
 public class SceneControler : MonoBehaviour {
@@ -21,8 +20,6 @@ public class SceneControler : MonoBehaviour {
         FirebasePR.InitializeFireBaseDb();
         if (PlayerPrefs.GetInt("InGooglePlay") == 1 && !Social.localUser.authenticated)
             CurrentPlayer.SignInGooglePlay();
-
-        AdMobPR.Initialize();
 
         if (CurrentPlayer.LivesTaken > 0)
         {

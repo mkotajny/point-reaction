@@ -11,12 +11,18 @@ public static class WorldRankPersister  {
     public static bool LoadInProgress {
         get { return _loadInProgress; }
         set { _loadInProgress = value; }
-    } 
+    }
 
+
+    public static void Reset()
+    {
+        _worldRank = new List<WorldRankItem>();
+    }
 
     public static void LoadWorldRank()
     {
         if (!CheckInternet.IsConnected()) return;
+        _loadInProgress = true;
         _worldRank.Clear();
         FirebasePR.WorldRankDbReference
             .GetValueAsync().ContinueWith(task =>
@@ -24,7 +30,6 @@ public static class WorldRankPersister  {
                 if (task.IsCompleted)
                 {
                     DataSnapshot snapshot = task.Result;
-                    _loadInProgress = true;
                     foreach (var childSnapshot in snapshot.Children)
                     {
                         WorldRankItem worldRankItem = new WorldRankItem(childSnapshot.Child("PlrId").Value.ToString()

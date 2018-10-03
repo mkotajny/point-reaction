@@ -9,24 +9,39 @@ public class WorldRank : MonoBehaviour {
     
     void Awake()
     {
+        if (WorldRankPersister.WorldRank != null)
+        {
+            Debug.Log("debug: WorldRank-->Awake: chk1: Worl Rank cleaned");
+            WorldRankPersister.Reset();
+        }
         _worldRankItemPrefab = Resources.Load("Panel_WorldRank_Item") as GameObject;
     }
 
     void OnEnable()
     {
+        FirebasePR.InitializeFireBaseDb();
         for (int i = 0; i < GridWorldRank.transform.childCount; i++)
             Destroy(GridWorldRank.transform.GetChild(i).gameObject);
 
         _worldRankRendered = false;
-        WorldRankPersister.LoadWorldRank();
+        
     }
 
     private void Update()
     {
+        if (FirebasePR.WorldRankDbReference != null
+            && WorldRankPersister.WorldRank.Count == 0
+            && !WorldRankPersister.LoadInProgress)
+        {
+            Debug.Log("debug: WorldRank-->Update: chk1: World Rank load started");
+            WorldRankPersister.LoadWorldRank();
+        }
+
         if (!_worldRankRendered 
             && WorldRankPersister.WorldRank.Count > 0
             && !WorldRankPersister.LoadInProgress)
         {
+            Debug.Log("debug: WorldRank-->Update: chk2: World Rank render in progress");
             int counter = 1;
             foreach (WorldRankItem worldRankItem in WorldRankPersister.WorldRank)
             {
@@ -38,8 +53,8 @@ public class WorldRank : MonoBehaviour {
                     "Level: " + worldRankItem.LvlNo + "." + worldRankItem.PtsHit
                     + "\nAvg Reaction: " + worldRankItem.ReacAvg + "s";
 
-                if (/*CurrentPlayer.CampaignItem != null
-                    &&*/ worldRankItem.PlrName == CurrentPlayer.CampaignItem.PlrName)
+                if (CurrentPlayer.CampaignItem != null
+                        && worldRankItem.PlrName == CurrentPlayer.CampaignItem.PlrName)
                 {
                     _worldRankItemObject.transform.GetChild(0).GetComponent<Text>().color = new Color32(255, 255, 0, 255);
                     _worldRankItemObject.transform.GetChild(1).GetComponent<Text>().color = new Color32(255, 255, 0, 255);

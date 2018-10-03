@@ -54,15 +54,10 @@ public class UIContentManager : MonoBehaviour {
     public void OpenLevelStartPanel()
     {
         victoryAnimations[_selectedVictoryAnimationIndex].SetActive(false);
+        GetBonusButton.gameObject.SetActive(false);
 
-        // open level start panel
-        GameMode_1.CurrentLevel.Reset();
-        UpperPanel.SetUpperPanelStats(GameMode_1.CurrentLevel);
-        LoadPanelsWithData();
-        try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
-        backgrounds[0].SetActive(true);
-
-        if (CurrentPlayer.CampaignItem.Lives <= 0)  // open game over panel
+        // open game over panel
+        if (CurrentPlayer.CampaignItem.Lives <= 0)  
         {
             _backToMainMenuButton.gameObject.SetActive(false);
             backgrounds[3].SetActive(true);
@@ -71,15 +66,33 @@ public class UIContentManager : MonoBehaviour {
             return;
         }
 
-        GetBonusButton.gameObject.SetActive(false);
-
-        if (CurrentPlayer.CampaignItem.BnsTaken < CurrentPlayer.CampaignItem.BonusesAvailable())  //activate ad --> bonus
-        {
+        //activate ad --> bonus button
+        if (CurrentPlayer.CampaignItem.BnsTaken < CurrentPlayer.CampaignItem.BonusesAvailable())  {
             _getBonusButtonText.text = (CurrentPlayer.CampaignItem.BonusesAvailable() - CurrentPlayer.CampaignItem.BnsTaken == 1)
                 ? "Bonus": (CurrentPlayer.CampaignItem.BonusesAvailable() - CurrentPlayer.CampaignItem.BnsTaken).ToString() + " bonuses";
 
             GetBonusButton.gameObject.SetActive(true);
         }
+
+        // open "info about bonus" panel
+        if ((CurrentPlayer.CampaignItem.LvlNo - 1) % 5 == 0         // milestone level
+            && (CurrentPlayer.CampaignItem.LvlNo - 1) / 5 == 1      //1st milestone
+            && (CurrentPlayer.CampaignsHistoryItem.BnsBtnInf < 2)   // informed not more then 2 times in campaigns history
+            && !CurrentPlayer.BonusInformed)                        // not already informed in current session
+        {
+            try { _zuiManager.OpenMenu("Menu_Info_About_Bonus"); } catch { }
+            CurrentPlayer.BonusInformed = true;
+            CurrentPlayer.CampaignsHistoryItem.BnsBtnInf++;
+            CurrentPlayer.CampaignsHistoryItem.SaveToFirebase();
+            return;
+        }
+
+        // open level start panel
+        GameMode_1.CurrentLevel.Reset();
+        UpperPanel.SetUpperPanelStats(GameMode_1.CurrentLevel);
+        LoadPanelsWithData();
+        try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
+        backgrounds[0].SetActive(true);
     }
 
     public void ActivateResultPanel(bool debug = false)
