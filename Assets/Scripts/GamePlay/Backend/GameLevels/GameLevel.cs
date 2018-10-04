@@ -46,7 +46,11 @@ public class GameLevel {
     }
     public int BonusPerfectLevel { get { return _bonusPerfectLevel; } }
     public int HitsToWin { get { return _hitsToWin; } }
-    public int MissesToLoose { get { return _missesToLoose; } }
+    public int MissesToLoose
+    {
+        get { return _missesToLoose; }
+        set { _missesToLoose = value; }
+    }
     public Timer PointsLivingTimer
     {
         get { return _pointsLivingTimer; }
@@ -134,6 +138,7 @@ public class GameLevel {
     {
         _hitsQty = 0;
         _missQty = 0;
+        _missesToLoose = (_missesToLoose < CurrentPlayer.CampaignItem.Lives) ? _missesToLoose : CurrentPlayer.CampaignItem.Lives;
     }
 
     public void SpawnPoint()

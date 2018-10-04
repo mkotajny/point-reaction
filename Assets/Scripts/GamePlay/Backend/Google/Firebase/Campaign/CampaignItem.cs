@@ -62,7 +62,7 @@ public class CampaignItem {
         return finalPoints;
     }
 
-    public void SaveToFirebase(GameLevel level, bool deleteRow = false)
+    public void SaveToFirebase(bool deleteRow = false)
     {
 
         if (!deleteRow)

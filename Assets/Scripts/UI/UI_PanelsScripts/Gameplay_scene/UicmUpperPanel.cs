@@ -27,8 +27,8 @@ public class UicmUpperPanel : MonoBehaviour {
     {
         _textCampaignLives.text = CurrentPlayer.CampaignItem.Lives.ToString();
         _textLevelHits.text = level.HitsQty.ToString() + "/" + level.HitsToWin.ToString();
-        _textLevelFails.text = _uiContentManager.GameMode_1.CurrentLevel.MissQty.ToString() + "/" 
-            + (level.MissesToLoose < CurrentPlayer.CampaignItem.Lives ?  level.MissesToLoose: CurrentPlayer.CampaignItem.Lives).ToString();
+        _textLevelFails.text = _uiContentManager.GameMode_1.CurrentLevel.MissQty.ToString() + "/" + level.MissesToLoose.ToString();
+             /*(level.MissesToLoose < CurrentPlayer.CampaignItem.Lives ?  level.MissesToLoose: CurrentPlayer.CampaignItem.Lives).ToString()*/
     }
 
     void DeactivateChangeStats()

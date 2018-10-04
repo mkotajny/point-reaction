@@ -61,7 +61,7 @@ public class GameMode_1 {
             (CurrentPlayer.CampaignItem.Lives > _currentLevel.MissesToLoose ?
                 _currentLevel.MissesToLoose : CurrentPlayer.CampaignItem.Lives)
             : 0);
-        CurrentPlayer.CampaignItem.SaveToFirebase(_currentLevel);
+        CurrentPlayer.CampaignItem.SaveToFirebase();
         if (!levelStart && CurrentPlayer.CampaignItem.CalculateFinalPoints(_currentLevel.HitsQty) > CurrentPlayer.WorldRankItem.FinalPts)
         {
             CurrentPlayer.WorldRankItem.SaveToFirebase(_currentLevel.HitsQty);
@@ -73,6 +73,6 @@ public class GameMode_1 {
     {
         CurrentPlayer.CampaignsHistoryItem.EndOfCampaignIntoToFirebase();
         CurrentPlayer.CampaignItem.ResetCampaign();
-        CurrentPlayer.CampaignItem.SaveToFirebase(_currentLevel, deleteRow: true);
+        CurrentPlayer.CampaignItem.SaveToFirebase(deleteRow: true);
     }
 }

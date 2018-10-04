@@ -61,7 +61,6 @@ public class UIContentManager : MonoBehaviour {
         {
             _backToMainMenuButton.gameObject.SetActive(false);
             backgrounds[3].SetActive(true);
-            GameMode_1.GameOver();
             try { _zuiManager.OpenMenu("Menu_GameOver"); } catch { }
             return;
         }
@@ -90,8 +89,8 @@ public class UIContentManager : MonoBehaviour {
         // open level start panel
         GameMode_1.CurrentLevel.Reset();
         UpperPanel.SetUpperPanelStats(GameMode_1.CurrentLevel);
-        LoadPanelsWithData();
         try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
+        LoadPanelsWithData();
         backgrounds[0].SetActive(true);
     }
 
@@ -159,7 +158,7 @@ public class UIContentManager : MonoBehaviour {
             _levelResultText.text = " PASSED !";
             _resultLevelButtonText.text = "Next Level";
         }
-        else
+        else if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost)
         {
             _levelResultText.color = Color.red;
             _levelResultText.text = " Not passed";
