@@ -1,9 +1,19 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using PaperPlaneTools;
 
 public class MainMenu : MonoBehaviour {
 
     public ZUIManager ZuiManager;
+    public Text StartButtonText;
+
+    public void OnEnable()
+    {
+        if (CurrentPlayer.CampaignItem != null
+            && !string.IsNullOrEmpty(CurrentPlayer.CampaignItem.PlrName))
+            StartButtonText.text = "ONLINE Game";
+        else StartButtonText.text = "Game Start";
+    }
 
     public void ForwardToWorldRank()
     {
@@ -18,28 +28,17 @@ public class MainMenu : MonoBehaviour {
 
     public void StartNewGame()
     {
-
-#if !UNITY_EDITOR
-
-        if (CurrentPlayer.CampaignItem == null)
+        if (CurrentPlayer.CampaignItem != null
+            && !string.IsNullOrEmpty(CurrentPlayer.CampaignItem.PlrName))
         {
-            new Alert("You are not Signed in !", "Please Sign in and try again  (press \"Player\" --> \"Player Settings\" --> \"Sign in\").")
-                .SetPositiveButton("OK", () => { }).Show();
-
+            if (CurrentPlayer.CampaignItem.IsNewCampaign())
+            {
+                GetComponent<LoadSceneOnClickScript>().LoadByIndex(1);
+                return;
+            }
+            try { ZuiManager.OpenMenu("Menu_Start"); } catch { }
             return;
         }
-#else 
-        if (CurrentPlayer.CampaignItem == null)
-            CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 1, 0, 5, 0, 0, 0);
-#endif
-
-
-        if (CurrentPlayer.CampaignItem.IsNewCampaign())
-        {
-            GetComponent<LoadSceneOnClickScript>().LoadByIndex(1);
-            return;
-        }
-
-        try { ZuiManager.OpenMenu("Menu_Start"); } catch { }
+        try { ZuiManager.OpenMenu("Menu_Play_Modes"); } catch { }
     }
 }

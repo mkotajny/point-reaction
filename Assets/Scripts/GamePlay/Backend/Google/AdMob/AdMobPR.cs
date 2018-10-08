@@ -74,7 +74,6 @@ public static class AdMobPR  {
     public static void ShowRewardBasedVideo()
     {
         _admobPRSatuses = AdmobPRSatuses.AdInProgress;
-        Debug.Log("debug: ShowRewardBasedVideo: chk1a: video loaded, show it ");
         _rewardBasedVideo.Show();
     }
 

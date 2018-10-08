@@ -59,9 +59,20 @@ public class UIContentManager : MonoBehaviour {
         // open game over panel
         if (CurrentPlayer.CampaignItem.Lives <= 0)  
         {
+            GetBonusButton.gameObject.SetActive(false);
             _backToMainMenuButton.gameObject.SetActive(false);
             backgrounds[3].SetActive(true);
             try { _zuiManager.OpenMenu("Menu_GameOver"); } catch { }
+            return;
+        }
+
+        // open (OFFLINE) game over panel
+        if (CurrentPlayer.TrialMode
+            && CurrentPlayer.CampaignItem.LvlNo == 11)
+        {
+            GetBonusButton.gameObject.SetActive(false);
+            _backToMainMenuButton.gameObject.SetActive(false);
+            try { _zuiManager.OpenMenu("Menu_End_Of_Trial"); } catch { }
             return;
         }
 
@@ -74,7 +85,8 @@ public class UIContentManager : MonoBehaviour {
         }
 
         // open "info about bonus" panel
-        if ((CurrentPlayer.CampaignItem.LvlNo - 1) % 5 == 0         // milestone level
+        if (!CurrentPlayer.TrialMode
+            && (CurrentPlayer.CampaignItem.LvlNo - 1) % 5 == 0         // milestone level
             && (CurrentPlayer.CampaignItem.LvlNo - 1) / 5 == 1      //1st milestone
             && (CurrentPlayer.CampaignsHistoryItem.BnsBtnInf < 2)   // informed not more then 2 times in campaigns history
             && !CurrentPlayer.BonusInformed)                        // not already informed in current session
@@ -120,6 +132,12 @@ public class UIContentManager : MonoBehaviour {
 
     public void GetBonus()
     {
+        if (CurrentPlayer.TrialMode)
+        {
+            CurrentPlayer.CampaignItem.BnsTaken++;
+            _bonusPanel.ActivatePanel(this);
+            return;
+        }
         if (AdMobPR.RewardBasedVideo.IsLoaded())
             AdMobPR.ShowRewardBasedVideo();
     }

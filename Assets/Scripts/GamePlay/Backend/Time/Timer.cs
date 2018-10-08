@@ -20,6 +20,8 @@ public class Timer  {
     public void Activate()
     {
         _startTime = Time.time;
+        //if (_pointTimer) _length = 3;
+
         _active = true;
     }
 

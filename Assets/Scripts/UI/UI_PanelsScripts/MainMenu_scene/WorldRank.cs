@@ -10,10 +10,8 @@ public class WorldRank : MonoBehaviour {
     void Awake()
     {
         if (WorldRankPersister.WorldRank != null)
-        {
-            Debug.Log("debug: WorldRank-->Awake: chk1: Worl Rank cleaned");
             WorldRankPersister.Reset();
-        }
+
         _worldRankItemPrefab = Resources.Load("Panel_WorldRank_Item") as GameObject;
     }
 
@@ -32,16 +30,12 @@ public class WorldRank : MonoBehaviour {
         if (FirebasePR.WorldRankDbReference != null
             && WorldRankPersister.WorldRank.Count == 0
             && !WorldRankPersister.LoadInProgress)
-        {
-            Debug.Log("debug: WorldRank-->Update: chk1: World Rank load started");
             WorldRankPersister.LoadWorldRank();
-        }
 
         if (!_worldRankRendered 
             && WorldRankPersister.WorldRank.Count > 0
             && !WorldRankPersister.LoadInProgress)
         {
-            Debug.Log("debug: WorldRank-->Update: chk2: World Rank render in progress");
             int counter = 1;
             foreach (WorldRankItem worldRankItem in WorldRankPersister.WorldRank)
             {

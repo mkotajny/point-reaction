@@ -64,6 +64,8 @@ public class CampaignItem {
 
     public void SaveToFirebase(bool deleteRow = false)
     {
+        if (CurrentPlayer.TrialMode)
+            return;
 
         if (!deleteRow)
         {

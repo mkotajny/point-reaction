@@ -34,6 +34,8 @@ public class CampaignsHistoryItem
 
     public void EndOfCampaignIntoToFirebase()
     {
+        if (CurrentPlayer.TrialMode)
+            return;
         CurrentDateToString();
         Cmpgns++;
         AdsWtchd += CurrentPlayer.CampaignItem.BnsTaken;
@@ -44,6 +46,8 @@ public class CampaignsHistoryItem
 
     public void SaveToFirebase()
     {
+        if (CurrentPlayer.TrialMode)
+            return;
         CurrentDateToString();
         string json = JsonUtility.ToJson(this);
         FirebasePR.CampaignsHistoryDbReference.Child(PlrId).SetRawJsonValueAsync(json);

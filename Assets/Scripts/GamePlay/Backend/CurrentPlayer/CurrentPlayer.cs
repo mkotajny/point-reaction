@@ -1,16 +1,14 @@
-﻿ using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using GooglePlayGames;
 using Firebase.Database;
 
 public static class CurrentPlayer
 {
-    static string _playerId, _playerName;
-    static bool _signedIn;
+    static bool _signedIn, _trialMode;
     static CampaignItem _campaignItem;
     static CampaignsHistoryItem _campaignsHistoryItem;
-    static WorldRankItem _worldRankItem;
-    
+    static WorldRankItem _worldRankItem;    
     static int _livesTaken;
     static bool _bonusInformed;
 
@@ -40,6 +38,11 @@ public static class CurrentPlayer
     {
         get { return _bonusInformed; }
         set { _bonusInformed = value; }
+    }
+    public static bool TrialMode
+    {
+        get { return _trialMode; }
+        set { _trialMode = value; }
     }
 
 
@@ -84,8 +87,8 @@ public static class CurrentPlayer
                 
                 Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
 
-                SetPlayerAttributes(newUser.UserId, Social.localUser.userName);
-                GetCurrentPlayerData();
+                GetCurrentPlayerData(newUser.UserId);
+                SetPlayerAttributes(Social.localUser.userName);
 
                 PlayerPrefs.SetInt("InGooglePlay", 1);
                 _signedIn = true;
@@ -97,38 +100,47 @@ public static class CurrentPlayer
     {
         FirebasePR.FirebaseAuth.SignOut();
         PlayGamesPlatform.Instance.SignOut();
-        _playerId = null;
-        _playerName = string.Empty;
+        _campaignItem.PlrId = string.Empty;
+        _campaignItem.PlrName = string.Empty;
         _signedIn = false;
         GameObject.Find("PlayerName_background").GetComponent<Text>().text = string.Empty;
         PlayerPrefs.SetInt("InGooglePlay", 0);
     }
 
-    static void SetPlayerAttributes(string userId, string userName)
+    static void SetPlayerAttributes(string userName)
     {
-        _playerId = userId;
-        _playerName = userName;
+        _campaignItem.PlrName = userName;
         _bonusInformed = false;
-        GameObject.Find("PlayerName_background").GetComponent<Text>().text = _playerName;
+        GameObject.Find("PlayerName_background").GetComponent<Text>().text = _campaignItem.PlrName;
 
     }
 
-    public static void GetCurrentPlayerData()
+    public static void GetCurrentPlayerData(string userId)
     {
         _livesTaken = 0;
+        _trialMode = false;
         if (!CheckInternet.IsConnected()) return;
-        GetCampaignData();
-        GetCampaignsHistoryData();
-        GetWorldRankData();
+        GetCampaignData(userId);
+        GetCampaignsHistoryData(userId);
+        GetWorldRankData(userId);
     }
 
-    static void GetCampaignData()
+    public static void SetTrialMode()
     {
-        _campaignItem = new CampaignItem(_playerId, _playerName, 1, 0, 30, 0, 0, 0);
+        _trialMode = true;
+        if (_campaignItem == null
+            || (_trialMode 
+            && ( _campaignItem.LvlNo == 11 || _campaignItem.Lives == 0)))
+        _campaignItem = new CampaignItem(string.Empty, string.Empty, 1, 0, 10, 0, 0, 0);
+    }
+
+    static void GetCampaignData(string playerId)
+    {
+        _campaignItem = new CampaignItem(playerId, string.Empty, 1, 0, 30, 0, 0, 0);
 
         FirebasePR.CampaignDbReference
             .OrderByChild("PlrId")
-            .EqualTo(_playerId)
+            .EqualTo(playerId)
             .GetValueAsync().ContinueWith(task =>
             {
                 if (task.IsCompleted)
@@ -138,7 +150,7 @@ public static class CurrentPlayer
                     {
                         _campaignItem.Updated = childSnapshot.Child("Updated").Value.ToString();
                         _campaignItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
-                        _campaignItem.PlrName = _playerName;
+                        _campaignItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
                         _campaignItem.LvlNo = System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value);
                         _campaignItem.HitsCmp = System.Convert.ToInt32(childSnapshot.Child("HitsCmp").Value);
                         _campaignItem.Lives = System.Convert.ToInt32(childSnapshot.Child("Lives").Value);
@@ -151,13 +163,13 @@ public static class CurrentPlayer
             });
     }
 
-    static void GetCampaignsHistoryData()
+    static void GetCampaignsHistoryData(string playerId)
     {
-        _campaignsHistoryItem = new CampaignsHistoryItem(_playerId, _playerName, 0, 0, 0, 0);
+        _campaignsHistoryItem = new CampaignsHistoryItem(playerId, string.Empty, 0, 0, 0, 0);
 
         FirebasePR.CampaignsHistoryDbReference
             .OrderByChild("PlrId")
-            .EqualTo(_playerId)
+            .EqualTo(playerId)
             .GetValueAsync().ContinueWith(task =>
             {
                 if (task.IsCompleted)
@@ -167,7 +179,7 @@ public static class CurrentPlayer
                     {
                         _campaignsHistoryItem.UpdDt = childSnapshot.Child("UpdDt").Value.ToString();
                         _campaignsHistoryItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
-                        _campaignsHistoryItem.PlrName = _playerName;
+                        _campaignsHistoryItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
                         _campaignsHistoryItem.Cmpgns = System.Convert.ToInt32(childSnapshot.Child("Cmpgns").Value);
                         _campaignsHistoryItem.AdsWtchd = System.Convert.ToInt32(childSnapshot.Child("AdsWtchd").Value);
                         _campaignsHistoryItem.AdsSkpd = System.Convert.ToInt32(childSnapshot.Child("AdsSkpd").Value);
@@ -178,13 +190,13 @@ public static class CurrentPlayer
             });
     }
 
-    static void GetWorldRankData()
+    static void GetWorldRankData(string playerId)
     {
-        _worldRankItem = new WorldRankItem(_playerId, _playerName, 1, 0, 0);
+        _worldRankItem = new WorldRankItem(playerId, string.Empty, 1, 0, 0);
 
         FirebasePR.WorldRankDbReference
             .OrderByChild("PlrId")
-            .EqualTo(_playerId)
+            .EqualTo(playerId)
             .GetValueAsync().ContinueWith(task =>
             {
                 if (task.IsCompleted)
@@ -193,7 +205,7 @@ public static class CurrentPlayer
                     foreach (var childSnapshot in snapshot.Children)
                     {
                         _worldRankItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
-                        _worldRankItem.PlrName = _playerName;
+                        _worldRankItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
                         _worldRankItem.LvlNo = System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value)       ;
                         _worldRankItem.PtsHit = System.Convert.ToInt32(childSnapshot.Child("PtsHit").Value);
                         _worldRankItem.ReacAvg = System.Convert.ToDouble(childSnapshot.Child("ReacAvg").Value);
