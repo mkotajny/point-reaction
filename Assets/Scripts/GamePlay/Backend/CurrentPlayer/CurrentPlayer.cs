@@ -87,6 +87,7 @@ public static class CurrentPlayer
                 
                 Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
 
+                AdMobPR.RequestRewardBasedVideo();
                 GetCurrentPlayerData(newUser.UserId);
                 SetPlayerAttributes(Social.localUser.userName);
 
@@ -128,9 +129,6 @@ public static class CurrentPlayer
     public static void SetTrialMode()
     {
         _trialMode = true;
-        if (_campaignItem == null
-            || (_trialMode 
-            && ( _campaignItem.LvlNo == 11 || _campaignItem.Lives == 0)))
         _campaignItem = new CampaignItem(string.Empty, string.Empty, 1, 0, 10, 0, 0, 0);
     }
 
