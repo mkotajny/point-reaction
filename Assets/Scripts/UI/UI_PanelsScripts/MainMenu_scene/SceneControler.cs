@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class SceneControler : MonoBehaviour {
 
+    public Button ButtonStart;
 
     private void Awake()
     {
@@ -13,13 +14,21 @@ public class SceneControler : MonoBehaviour {
 
     void OnEnable()
     {
+        //PlayerPrefs.SetInt("InGooglePlay", 0);
+
+        if (CheckInternet.IsConnected()
+            && PlayerPrefs.GetInt("InGooglePlay") == 1
+            && !Social.localUser.authenticated)
+        {
+            ButtonStart.interactable = false;
+            CurrentPlayer.SignInGooglePlay();
+        }
+
         GameObject.Find("VersionNumber_text").GetComponent<Text>().text = "Version " + Application.version;
         if (CurrentPlayer.CampaignItem != null)
             GameObject.Find("PlayerName_background").GetComponent<Text>().text = CurrentPlayer.CampaignItem.PlrName;
 
         FirebasePR.InitializeFireBaseDb();
-        if (PlayerPrefs.GetInt("InGooglePlay") == 1 && !Social.localUser.authenticated)
-            CurrentPlayer.SignInGooglePlay();
 
         if (CurrentPlayer.LivesTaken > 0)
         {
@@ -33,10 +42,4 @@ public class SceneControler : MonoBehaviour {
         if (MusicPR.NextSongTimer.TimeElapsed())
             MusicPR.PlayNextSong(MusicPR.PlayListMenu);
     }
-
-    private void OnDestroy()
-    {
-        FirebasePR.SignOutFireBase();
-    }
-
 }

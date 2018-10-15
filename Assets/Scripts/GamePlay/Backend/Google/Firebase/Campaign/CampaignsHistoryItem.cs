@@ -41,7 +41,7 @@ public class CampaignsHistoryItem
         AdsWtchd += CurrentPlayer.CampaignItem.BnsTaken;
         AdsSkpd += CurrentPlayer.CampaignItem.BonusesAvailable() - CurrentPlayer.CampaignItem.BnsTaken;
         string json = JsonUtility.ToJson(this);
-        FirebasePR.CampaignsHistoryDbReference.Child(PlrId).SetRawJsonValueAsync(json);
+        FirebasePR.CampaignsHistoryDbReference/*.Child(PlrId)*/.SetRawJsonValueAsync(json);
     }
 
     public void SaveToFirebase()
@@ -50,6 +50,6 @@ public class CampaignsHistoryItem
             return;
         CurrentDateToString();
         string json = JsonUtility.ToJson(this);
-        FirebasePR.CampaignsHistoryDbReference.Child(PlrId).SetRawJsonValueAsync(json);
+        FirebasePR.CampaignsHistoryDbReference/*.Child(PlrId)*/.SetRawJsonValueAsync(json);
     }
 }

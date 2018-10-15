@@ -50,7 +50,6 @@ public static class CurrentPlayer
     {
         if (!CheckInternet.IsConnected()) return;
 
-        FirebasePR.InitializeFireBaseDb();
         FirebasePR.InitializeGooglePlay();
         AdMobPR.Initialize();
 
@@ -88,7 +87,12 @@ public static class CurrentPlayer
                 Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
 
                 AdMobPR.RequestRewardBasedVideo();
-                GetCurrentPlayerData(newUser.UserId);
+
+                FirebasePR.CampaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns/" + newUser.UserId);
+                FirebasePR.CampaignsHistoryDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns_history/" + newUser.UserId);
+                FirebasePR.WorldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
+
+                GetCurrentPlayerData(newUser.UserId, Social.localUser.userName);
                 SetPlayerAttributes(Social.localUser.userName);
 
                 PlayerPrefs.SetInt("InGooglePlay", 1);
@@ -116,81 +120,71 @@ public static class CurrentPlayer
 
     }
 
-    public static void GetCurrentPlayerData(string userId)
+    public static void GetCurrentPlayerData(string userId, string userName)
     {
         _livesTaken = 0;
         _trialMode = false;
         if (!CheckInternet.IsConnected()) return;
-        GetCampaignData(userId);
-        GetCampaignsHistoryData(userId);
-        GetWorldRankData(userId);
+        GetCampaignData(userId, userName);
+        GetCampaignsHistoryData(userId, userName);
+        GetWorldRankData(userId, userName);
     }
 
     public static void SetTrialMode()
     {
         _trialMode = true;
-        _campaignItem = new CampaignItem(string.Empty, string.Empty, 1, 0, 10, 0, 0, 0);
+        _campaignItem = new CampaignItem(string.Empty, string.Empty, 1, 0, 10, 0, 0, 0, 0);
     }
 
-    static void GetCampaignData(string playerId)
+    static void GetCampaignData(string playerId, string userName)
     {
-        _campaignItem = new CampaignItem(playerId, string.Empty, 1, 0, 30, 0, 0, 0);
-
+        _campaignItem = new CampaignItem(playerId, userName, 1, 0, 30, 0, 0, 0, 0);
         FirebasePR.CampaignDbReference
-            .OrderByChild("PlrId")
-            .EqualTo(playerId)
             .GetValueAsync().ContinueWith(task =>
             {
                 if (task.IsCompleted)
                 {
                     DataSnapshot snapshot = task.Result;
-                    foreach (var childSnapshot in snapshot.Children)
-                    {
-                        _campaignItem.Updated = childSnapshot.Child("Updated").Value.ToString();
-                        _campaignItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
-                        _campaignItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
-                        _campaignItem.LvlNo = System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value);
-                        _campaignItem.HitsCmp = System.Convert.ToInt32(childSnapshot.Child("HitsCmp").Value);
-                        _campaignItem.Lives = System.Convert.ToInt32(childSnapshot.Child("Lives").Value);
-                        _campaignItem.Ads = System.Convert.ToInt32(childSnapshot.Child("Ads").Value);
-                        _campaignItem.ReacCmp = System.Convert.ToDouble(childSnapshot.Child("ReacCmp").Value);
-                        _campaignItem.BnsTaken = System.Convert.ToInt32(childSnapshot.Child("BnsTaken").Value);
-                    }
+                    _campaignItem.Updated = snapshot.Child("Updated").Value.ToString();
+                    _campaignItem.PlrId = snapshot.Child("PlrId").Value.ToString();
+                    _campaignItem.PlrName = snapshot.Child("PlrName").Value.ToString();
+                    _campaignItem.LvlNo = System.Convert.ToInt32(snapshot.Child("LvlNo").Value);
+                    _campaignItem.HitsCmp = System.Convert.ToInt32(snapshot.Child("HitsCmp").Value);
+                    _campaignItem.Lives = System.Convert.ToInt32(snapshot.Child("Lives").Value);
+                    _campaignItem.Ads = System.Convert.ToInt32(snapshot.Child("Ads").Value);
+                    _campaignItem.ReacCmp = System.Convert.ToDouble(snapshot.Child("ReacCmp").Value);
+                    _campaignItem.BnsTaken = System.Convert.ToInt32(snapshot.Child("BnsTaken").Value);
+                    _campaignItem.BnsLastMlstn = System.Convert.ToInt32(snapshot.Child("BnsLastMlstn").Value);
                 }
                 return;
             });
     }
 
-    static void GetCampaignsHistoryData(string playerId)
+    static void GetCampaignsHistoryData(string playerId, string userName)
     {
-        _campaignsHistoryItem = new CampaignsHistoryItem(playerId, string.Empty, 0, 0, 0, 0);
+        _campaignsHistoryItem = new CampaignsHistoryItem(playerId, userName, 0, 0, 0, 0);
 
         FirebasePR.CampaignsHistoryDbReference
-            .OrderByChild("PlrId")
-            .EqualTo(playerId)
             .GetValueAsync().ContinueWith(task =>
             {
                 if (task.IsCompleted)
                 {
                     DataSnapshot snapshot = task.Result;
-                    foreach (var childSnapshot in snapshot.Children)
-                    {
-                        _campaignsHistoryItem.UpdDt = childSnapshot.Child("UpdDt").Value.ToString();
-                        _campaignsHistoryItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
-                        _campaignsHistoryItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
-                        _campaignsHistoryItem.Cmpgns = System.Convert.ToInt32(childSnapshot.Child("Cmpgns").Value);
-                        _campaignsHistoryItem.AdsWtchd = System.Convert.ToInt32(childSnapshot.Child("AdsWtchd").Value);
-                        _campaignsHistoryItem.AdsSkpd = System.Convert.ToInt32(childSnapshot.Child("AdsSkpd").Value);
-                        _campaignsHistoryItem.BnsBtnInf = System.Convert.ToInt32(childSnapshot.Child("BnsBtnInf").Value);
-                    }
+                    _campaignsHistoryItem.UpdDt = snapshot.Child("UpdDt").Value.ToString();
+                    _campaignsHistoryItem.PlrId = snapshot.Child("PlrId").Value.ToString();
+                    _campaignsHistoryItem.PlrName = snapshot.Child("PlrName").Value.ToString();
+                    _campaignsHistoryItem.Cmpgns = System.Convert.ToInt32(snapshot.Child("Cmpgns").Value);
+                    _campaignsHistoryItem.AdsWtchd = System.Convert.ToInt32(snapshot.Child("AdsWtchd").Value);
+                    _campaignsHistoryItem.AdsSkpd = System.Convert.ToInt32(snapshot.Child("AdsSkpd").Value);
+                    _campaignsHistoryItem.BnsBtnInf = System.Convert.ToInt32(snapshot.Child("BnsBtnInf").Value);
                 }
                 return;
             });
     }
 
-    static void GetWorldRankData(string playerId)
+    static void GetWorldRankData(string playerId, string userName)
     {
-        _worldRankItem = new WorldRankItem(playerId, string.Empty, 1, 0, 0);
+        _worldRankItem = new WorldRankItem(playerId, userName, 1, 0, 0);
 
         FirebasePR.WorldRankDbReference
             .OrderByChild("PlrId")
@@ -213,5 +207,4 @@ public static class CurrentPlayer
                 return;
             });
     }
-
 }

@@ -77,12 +77,9 @@ public class UIContentManager : MonoBehaviour {
         }
 
         //activate ad --> bonus button
-        if (CurrentPlayer.CampaignItem.BnsTaken < CurrentPlayer.CampaignItem.BonusesAvailable())  {
-            _getBonusButtonText.text = (CurrentPlayer.CampaignItem.BonusesAvailable() - CurrentPlayer.CampaignItem.BnsTaken == 1)
-                ? "Bonus": (CurrentPlayer.CampaignItem.BonusesAvailable() - CurrentPlayer.CampaignItem.BnsTaken).ToString() + " bonuses";
-
+        if (CurrentPlayer.CampaignItem.BnsTaken < CurrentPlayer.CampaignItem.BonusesAvailable()
+            && !CurrentPlayer.CampaignItem.BonusTakenInCurrentMilestone())
             GetBonusButton.gameObject.SetActive(true);
-        }
 
         // open "info about bonus" panel
         if (!CurrentPlayer.TrialMode

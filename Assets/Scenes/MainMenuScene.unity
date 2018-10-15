@@ -9333,6 +9333,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ZuiManager: {fileID: 1741962791}
   StartButtonText: {fileID: 280536945}
+  ButtonStart: {fileID: 1132956599}
 --- !u!114 &1062541956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11973,6 +11974,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ZuiManager: {fileID: 0}
   StartButtonText: {fileID: 0}
+  ButtonStart: {fileID: 0}
 --- !u!114 &1245338564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12707,6 +12709,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73e787d12ffe10743a90af52783f9260, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ButtonStart: {fileID: 1132956599}
 --- !u!1 &1325562304
 GameObject:
   m_ObjectHideFlags: 0

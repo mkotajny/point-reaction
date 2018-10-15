@@ -6,6 +6,7 @@ public class MainMenu : MonoBehaviour {
 
     public ZUIManager ZuiManager;
     public Text StartButtonText;
+    public Button ButtonStart;
 
     public void OnEnable()
     {
@@ -13,6 +14,18 @@ public class MainMenu : MonoBehaviour {
             && !string.IsNullOrEmpty(CurrentPlayer.CampaignItem.PlrName))
             StartButtonText.text = "ONLINE Game";
         else StartButtonText.text = "Game Start";
+    }
+
+    public void Update()
+    {
+
+        if (StartButtonText.text == "Game Start"
+            && CurrentPlayer.CampaignItem != null
+            && !string.IsNullOrEmpty(CurrentPlayer.CampaignItem.PlrName))
+        {
+            StartButtonText.text = "ONLINE Game";
+            ButtonStart.interactable = true;
+        }
     }
 
     public void ForwardToWorldRank()

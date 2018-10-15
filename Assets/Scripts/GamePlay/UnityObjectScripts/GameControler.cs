@@ -19,7 +19,7 @@ public class GameControler : MonoBehaviour {
         FirebasePR.InitializeFireBaseDb();
         if (CurrentPlayer.CampaignItem == null)
         {
-            CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 11, 0, 30, 0, 0, 0);
+            CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 11, 0, 30, 0, 0, 0, 0);
             CurrentPlayer.TrialMode = true; 
             CurrentPlayer.WorldRankItem = new WorldRankItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 0, 6, 0.62);
         }
@@ -31,7 +31,6 @@ public class GameControler : MonoBehaviour {
 
     void Start()
     {
-        //GameLevelPersister.ResetGame();
         _gameMode_1 = new GameMode_1(this);
         _gameControlerTools = GameObject.Find("GameControlerTools").GetComponent<GameControlerTools>();
         _uIContentManager = GameObject.Find("UIContentManager").GetComponent<UIContentManager>();

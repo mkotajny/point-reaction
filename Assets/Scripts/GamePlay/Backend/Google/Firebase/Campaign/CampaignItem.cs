@@ -5,7 +5,7 @@ using UnityEngine;
 public class CampaignItem {
 
     public string Updated, PlrId, PlrName;
-    public int LvlNo, HitsCmp, Lives, Ads, BnsTaken;
+    public int LvlNo, HitsCmp, Lives, Ads, BnsTaken, BnsLastMlstn;
     public double ReacCmp;
 
     public CampaignItem(string playerId
@@ -16,6 +16,7 @@ public class CampaignItem {
         , int advertisementsWatched
         , double reactionSumCampaign
         , int bonusTaken
+        , int bonusLastMilestone
         )
     {
         CurrentDateToString();
@@ -27,6 +28,7 @@ public class CampaignItem {
         Ads = advertisementsWatched;
         ReacCmp = reactionSumCampaign;
         BnsTaken = bonusTaken;
+        BnsLastMlstn = bonusLastMilestone;
     }
 
     void CurrentDateToString()
@@ -74,17 +76,26 @@ public class CampaignItem {
             Lives -= CurrentPlayer.LivesTaken;
             string json = JsonUtility.ToJson(this);
             Lives += CurrentPlayer.LivesTaken;
-            FirebasePR.CampaignDbReference.Child(PlrId).SetRawJsonValueAsync(json);
+            Debug.Log("debug: SaveToFirebase: chk1: firebase credentials: "
+                + FirebasePR.FirebaseAuth.CurrentUser.UserId + "/"
+                + FirebasePR.FirebaseAuth.CurrentUser.DisplayName);
+
+            FirebasePR.CampaignDbReference/*.Child(CurrentPlayer.CampaignItem.PlrId)*/.SetRawJsonValueAsync(json);
             return;
         }
 
-        FirebasePR.CampaignDbReference.Child(PlrId).SetRawJsonValueAsync(null); //delete row
+        FirebasePR.CampaignDbReference/*.Child(PlrId)*/.SetRawJsonValueAsync(null); //delete row
     }
 
 
     public int BonusesAvailable()
     {
         return (LvlNo-1) / 5;
+    }
+
+    public bool BonusTakenInCurrentMilestone()
+    {
+        return (LvlNo - 1) / 5 == BnsLastMlstn;
     }
 
 }

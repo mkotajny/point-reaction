@@ -9,12 +9,24 @@ public static class FirebasePR
 {
     static bool _googlePlayInitialized, _firebaseInitialized = false;
     static Firebase.Auth.FirebaseAuth _firebaseAuth;
-    static DatabaseReference _campaignDbReference, _campaignsHistoryDbReference, _worldRankDbReference;
+    public static DatabaseReference _campaignDbReference, _campaignsHistoryDbReference, _worldRankDbReference;
 
     public static Firebase.Auth.FirebaseAuth FirebaseAuth{ get { return _firebaseAuth; }}
-    public static DatabaseReference CampaignDbReference { get { return _campaignDbReference; } }
-    public static DatabaseReference WorldRankDbReference { get { return _worldRankDbReference; } }
-    public static DatabaseReference CampaignsHistoryDbReference { get { return _campaignsHistoryDbReference; } }
+    public static DatabaseReference CampaignDbReference
+    {
+        get { return _campaignDbReference; }
+        set { _campaignDbReference = value; }
+    }
+    public static DatabaseReference WorldRankDbReference
+    {
+        get { return _worldRankDbReference; }
+        set { _worldRankDbReference = value; }
+    }
+    public static DatabaseReference CampaignsHistoryDbReference
+    {
+        get { return _campaignsHistoryDbReference; }
+        set { _campaignsHistoryDbReference = value; }
+    }
 
     public static void InitializeGooglePlay()
     {
@@ -35,12 +47,12 @@ public static class FirebasePR
     {
         if (_firebaseInitialized || !CheckInternet.IsConnected())
             return;
-        SetDatabaseReferences();
+        SetNotSignedInDatabaseReferences();
         _firebaseInitialized = true;
 
     }
 
-    static void SetDatabaseReferences()
+    public static void SetNotSignedInDatabaseReferences()
     {
         FirebaseApp app;
 
@@ -75,8 +87,6 @@ public static class FirebasePR
                     Debug.LogFormat("debug: Firebase user signed in successfully: {0} ({1})",
                         newUser.DisplayName, newUser.UserId);
                     
-                    _campaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns");
-                    _campaignsHistoryDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns_history");
                     _worldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
                 });
 

@@ -1,3 +1,5 @@
+37.109.57.53
+
 Kolejność wywołań (przy zbiciu ostatniego punktu w lewelu):
 
 CheckPointTouch
@@ -11,21 +13,9 @@ activateResultPanel
 
 
 
+Debug.Log("debug: SignInGooglePlay: chk1: firebase credentials: "
+    + FirebasePR.FirebaseAuth.CurrentUser.UserId + "/"
+    + FirebasePR.FirebaseAuth.CurrentUser.DisplayName);
 
-		
-
-- sprawdzić jeszcze raz, czy nie pojawia się czasem info w prawdziwej reklami o ilości monet (lepiej żeby nie)
-- przed releasem wyczyścić wszystkie kampanie
-
-
-
-Michał Wróblewski <miwro77@gmail.com>
-Zofia Bartak <zofiabartak@wp.pl>
-
-
-Debug.Log("debug: CheckPointTouch: chk1: " + CurrentPlayer.CampaignItem.Lives.ToString());
-
-
-https://tribaladnetwork.com/about-tier-1tier-2-and-tier-3-countries/
-
-
+        Debug.Log("debug: OpenLevelStartPanel: chk1: " + ((CurrentPlayer.CampaignItem.LvlNo - 1) / 5).ToString() );
+									
