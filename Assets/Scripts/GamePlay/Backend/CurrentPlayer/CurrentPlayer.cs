@@ -6,7 +6,7 @@ using Firebase.Database;
 public static class CurrentPlayer
 {
     static bool _signedIn, _trialMode;
-    static CampaignItem _campaignItem;
+    static CampaignItem _campaignItem, _campaignItemCopy;
     static CampaignsHistoryItem _campaignsHistoryItem;
     static WorldRankItem _worldRankItem;    
     static int _livesTaken;
@@ -132,8 +132,18 @@ public static class CurrentPlayer
 
     public static void SetTrialMode()
     {
-        _trialMode = true;
+        if (_campaignItem != null)
+            _campaignItemCopy = new CampaignItem(_campaignItem.PlrId, _campaignItem.PlrName, _campaignItem.LvlNo, _campaignItem.HitsCmp
+                , _campaignItem.Lives, _campaignItem.Ads, _campaignItem.ReacCmp, _campaignItem.BnsTaken, _campaignItem.BnsLastMlstn);
         _campaignItem = new CampaignItem(string.Empty, string.Empty, 1, 0, 10, 0, 0, 0, 0);
+        _trialMode = true;
+    }
+    public static void EndTrialMode()
+    {
+        if (_campaignItemCopy != null)
+            _campaignItem = new CampaignItem(_campaignItemCopy.PlrId, _campaignItemCopy.PlrName, _campaignItemCopy.LvlNo, _campaignItemCopy.HitsCmp
+            , _campaignItemCopy.Lives, _campaignItemCopy.Ads, _campaignItemCopy.ReacCmp, _campaignItemCopy.BnsTaken, _campaignItemCopy.BnsLastMlstn);
+        _trialMode = false;
     }
 
     static void GetCampaignData(string playerId, string userName)

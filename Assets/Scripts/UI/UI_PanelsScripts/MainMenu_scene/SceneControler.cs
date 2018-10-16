@@ -4,25 +4,20 @@ using UnityEngine.UI;
 
 public class SceneControler : MonoBehaviour {
 
-    public Button ButtonStart;
 
     private void Awake()
     {
+        if (CurrentPlayer.TrialMode)
+            CurrentPlayer.EndTrialMode();
+
         MusicPR.PlayNextSong(MusicPR.PlayListMenu);
         MusicPR.SetVolumeSfx();
+
     }
 
     void OnEnable()
     {
         //PlayerPrefs.SetInt("InGooglePlay", 0);
-
-        if (CheckInternet.IsConnected()
-            && PlayerPrefs.GetInt("InGooglePlay") == 1
-            && !Social.localUser.authenticated)
-        {
-            ButtonStart.interactable = false;
-            CurrentPlayer.SignInGooglePlay();
-        }
 
         GameObject.Find("VersionNumber_text").GetComponent<Text>().text = "Version " + Application.version;
         if (CurrentPlayer.CampaignItem != null)
