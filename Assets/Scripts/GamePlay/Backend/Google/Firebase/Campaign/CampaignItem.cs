@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-
+using PaperPlaneTools;
 
 public class CampaignItem {
 
@@ -66,6 +66,18 @@ public class CampaignItem {
 
     public void SaveToFirebase(bool deleteRow = false)
     {
+        if (!CheckInternet.IsConnected())
+        {
+            new Alert("No internet !", "Please connect with the internet and run the game again.")
+                .SetPositiveButton("OK", () => 
+                {
+                    SessionVariables.CurrentScene = SessionVariables.PRScenes.Quit;
+                    Initiate.Fade("BlackScene", Color.black, 1.0f);
+                }).Show();
+
+            return;
+        }
+
         if (CurrentPlayer.TrialMode)
             return;
 

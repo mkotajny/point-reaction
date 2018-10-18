@@ -27,7 +27,7 @@ public class BonusPanelScriptContainer : MonoBehaviour {
         Debug.Log("debug: BonusPanel: chk2: " + ((CurrentPlayer.CampaignItem.LvlNo - 1) / 5).ToString());
         CurrentPlayer.CampaignItem.BnsLastMlstn = (CurrentPlayer.CampaignItem.LvlNo - 1) / 5;
         Debug.Log("debug: BonusPanel: chk3");
-        try { _uIContentManager._zuiManager.OpenMenu("Menu_Bonus"); } catch { }
+        try { _uIContentManager.ZuiManager.OpenMenu("Menu_Bonus"); } catch { }
         _uIContentManager.GameMode_1.SaveToFireBase(false, _uIContentManager);
     }
 

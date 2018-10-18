@@ -50,6 +50,7 @@ public static class CurrentPlayer
     {
         if (!CheckInternet.IsConnected()) return;
 
+        //FirebasePR.InitializeFireBaseDb();
         FirebasePR.InitializeGooglePlay();
         AdMobPR.Initialize();
 

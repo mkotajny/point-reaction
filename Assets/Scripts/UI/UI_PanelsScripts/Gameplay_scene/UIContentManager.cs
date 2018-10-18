@@ -15,7 +15,7 @@ public class UIContentManager : MonoBehaviour {
 
     public Text _panelResultLevelValue, _levelResultText, _resultLevelButtonText, _panelResult_PerfectBonus, _panelResult_AvgReaction;
 
-    public ZUIManager _zuiManager;
+    public ZUIManager ZuiManager;
     public GameObject[] backgrounds, victoryAnimations;
     public UicmUpperPanel UpperPanel;
     public Menu MenuStart;
@@ -36,7 +36,7 @@ public class UIContentManager : MonoBehaviour {
         GetBonusButton = GameObject.Find("ButtonBlue_GetBonus").GetComponent<Button>();
         _getBonusButtonText = GameObject.Find("ButtonBlue_GetBonus_Text").GetComponent<Text>();
         UpperPanel = GameObject.Find("UicmUpperPanel").GetComponent<UicmUpperPanel>();
-        _zuiManager.CurActiveMenu = MenuStart;
+        ZuiManager.CurActiveMenu = MenuStart;
         _notificationBarItems.Add(new TextListItem("Personal best !\n(world rank updated)", BicepsSprite));
     }
 
@@ -62,7 +62,7 @@ public class UIContentManager : MonoBehaviour {
             GetBonusButton.gameObject.SetActive(false);
             _backToMainMenuButton.gameObject.SetActive(false);
             backgrounds[3].SetActive(true);
-            try { _zuiManager.OpenMenu("Menu_GameOver"); } catch { }
+            try { ZuiManager.OpenMenu("Menu_GameOver"); } catch { }
             return;
         }
 
@@ -72,7 +72,7 @@ public class UIContentManager : MonoBehaviour {
         {
             GetBonusButton.gameObject.SetActive(false);
             _backToMainMenuButton.gameObject.SetActive(false);
-            try { _zuiManager.OpenMenu("Menu_End_Of_Trial"); } catch { }
+            try { ZuiManager.OpenMenu("Menu_End_Of_Trial"); } catch { }
             return;
         }
 
@@ -88,7 +88,7 @@ public class UIContentManager : MonoBehaviour {
             && (CurrentPlayer.CampaignsHistoryItem.BnsBtnInf < 2)   // informed not more then 2 times in campaigns history
             && !CurrentPlayer.BonusInformed)                        // not already informed in current session
         {
-            try { _zuiManager.OpenMenu("Menu_Info_About_Bonus"); } catch { }
+            try { ZuiManager.OpenMenu("Menu_Info_About_Bonus"); } catch { }
             CurrentPlayer.BonusInformed = true;
             CurrentPlayer.CampaignsHistoryItem.BnsBtnInf++;
             CurrentPlayer.CampaignsHistoryItem.SaveToFirebase();
@@ -98,14 +98,14 @@ public class UIContentManager : MonoBehaviour {
         // open level start panel
         GameMode_1.CurrentLevel.Reset();
         UpperPanel.SetUpperPanelStats(GameMode_1.CurrentLevel);
-        try { _zuiManager.OpenMenu("Menu_Start"); } catch { }
+        try { ZuiManager.OpenMenu("Menu_Start"); } catch { }
         LoadPanelsWithData();
         backgrounds[0].SetActive(true);
     }
 
     public void ActivateResultPanel(bool debug = false)
     {
-        _zuiManager.OpenMenu("Menu_Result");
+        ZuiManager.OpenMenu("Menu_Result");
         LoadPanelsWithData();
         if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
         {

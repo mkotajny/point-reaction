@@ -1351,7 +1351,7 @@ RectTransform:
   m_Children:
   - {fileID: 1258508079}
   m_Father: {fileID: 276373680}
-  m_RootOrder: 8
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -3943,9 +3943,9 @@ RectTransform:
   - {fileID: 94929113}
   - {fileID: 344657825}
   - {fileID: 630628494}
+  - {fileID: 49015113}
   - {fileID: 1732086582}
   - {fileID: 1933147254}
-  - {fileID: 49015113}
   - {fileID: 1435718838}
   - {fileID: 1776919259}
   m_Father: {fileID: 174609609}
@@ -10238,7 +10238,7 @@ MonoBehaviour:
   _resultLevelButtonText: {fileID: 225115438}
   _panelResult_PerfectBonus: {fileID: 1456059013}
   _panelResult_AvgReaction: {fileID: 800158423}
-  _zuiManager: {fileID: 1793286991}
+  ZuiManager: {fileID: 1793286991}
   backgrounds:
   - {fileID: 1639981061}
   - {fileID: 1669359998}
@@ -16540,7 +16540,7 @@ RectTransform:
   - {fileID: 1015079329}
   - {fileID: 1777680398}
   m_Father: {fileID: 1515816426}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -17542,7 +17542,7 @@ RectTransform:
   m_Children:
   - {fileID: 306731870}
   m_Father: {fileID: 1515816426}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -27173,8 +27173,8 @@ RectTransform:
   m_Children:
   - {fileID: 151648835}
   - {fileID: 1082111236}
-  - {fileID: 979950352}
   - {fileID: 1006524455}
+  - {fileID: 979950352}
   m_Father: {fileID: 630628494}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -28825,7 +28825,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 276373680}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -32759,7 +32759,7 @@ RectTransform:
   - {fileID: 951756451}
   - {fileID: 1664564531}
   m_Father: {fileID: 276373680}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.95}
   m_AnchorMax: {x: 1, y: 1}

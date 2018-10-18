@@ -19,6 +19,11 @@ public class SceneControler : MonoBehaviour {
     {
         //PlayerPrefs.SetInt("InGooglePlay", 0);
 
+        if (CheckInternet.IsConnected()
+            && PlayerPrefs.GetInt("InGooglePlay") == 1
+            && !Social.localUser.authenticated)
+            CurrentPlayer.SignInGooglePlay();
+
         GameObject.Find("VersionNumber_text").GetComponent<Text>().text = "Version " + Application.version;
         if (CurrentPlayer.CampaignItem != null)
             GameObject.Find("PlayerName_background").GetComponent<Text>().text = CurrentPlayer.CampaignItem.PlrName;
@@ -36,5 +41,9 @@ public class SceneControler : MonoBehaviour {
     {
         if (MusicPR.NextSongTimer.TimeElapsed())
             MusicPR.PlayNextSong(MusicPR.PlayListMenu);
+
+        if (!FirebasePR.FirebaseInitialized
+            && CheckInternet.IsConnected())
+            FirebasePR.InitializeFireBaseDb();
     }
 }

@@ -27,6 +27,7 @@ public static class FirebasePR
         get { return _campaignsHistoryDbReference; }
         set { _campaignsHistoryDbReference = value; }
     }
+    public static bool FirebaseInitialized { get { return _firebaseInitialized; } }
 
     public static void InitializeGooglePlay()
     {
