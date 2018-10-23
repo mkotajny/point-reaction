@@ -19,10 +19,12 @@ public class SceneControler : MonoBehaviour {
     {
         //PlayerPrefs.SetInt("InGooglePlay", 0);
 
+        /*
         if (CheckInternet.IsConnected()
             && PlayerPrefs.GetInt("InGooglePlay") == 1
             && !Social.localUser.authenticated)
             CurrentPlayer.SignInGooglePlay();
+            */
 
         GameObject.Find("VersionNumber_text").GetComponent<Text>().text = "Version " + Application.version;
         if (CurrentPlayer.CampaignItem != null)

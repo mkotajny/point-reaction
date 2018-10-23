@@ -4,6 +4,7 @@ using PaperPlaneTools;
 
 public class PlayerSettings : MonoBehaviour {
 
+    public GameObject ModalPanel;
     Text _playerName;
     Button _signInButton, _signOutButton;
 
@@ -35,7 +36,10 @@ public class PlayerSettings : MonoBehaviour {
         }
 
         if (signIn)
+        {
+            ModalPanel.SetActive(true);
             CurrentPlayer.SignInGooglePlay();
+        }
         else
             CurrentPlayer.SignOutGooglePlay();
     }

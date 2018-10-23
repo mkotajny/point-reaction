@@ -50,15 +50,17 @@ public static class CurrentPlayer
     {
         if (!CheckInternet.IsConnected()) return;
 
-        //FirebasePR.InitializeFireBaseDb();
+        ProgressBarPR.Activate("Connecting with Google Play ...");
         FirebasePR.InitializeGooglePlay();
         AdMobPR.Initialize();
 
         Social.localUser.Authenticate((bool success) =>
         {
+            ProgressBarPR.AddProgress(.2f);
             if (!success)
             {
                 Debug.LogError("debug: SignInOnClick: Failed to Sign into Play Games Services.");
+                ProgressBarPR.SetFail("Failed to Sign into Play Games Services.");
                 return;
             }
 
@@ -66,6 +68,7 @@ public static class CurrentPlayer
             if (string.IsNullOrEmpty(authCode))
             {
                 Debug.LogError("debug: SignInOnClick: Signed into Play Games Services but failed to get the server auth code.");
+                ProgressBarPR.SetFail("Failed to get google play auth code.");
                 return;
             }
             Debug.LogFormat("debug: SignInOnClick: Auth code is: {0}", authCode);
@@ -73,14 +76,17 @@ public static class CurrentPlayer
             Firebase.Auth.Credential credential = Firebase.Auth.PlayGamesAuthProvider.GetCredential(authCode);
             FirebasePR.FirebaseAuth.SignInWithCredentialAsync(credential).ContinueWith(task =>
             {
+                ProgressBarPR.AddProgress(.2f);
                 if (task.IsCanceled)
                 {
                     Debug.LogError("debug: SignInOnClick was canceled.");
+                    ProgressBarPR.SetFail("SignInOnClick was canceled.");
                     return;
                 }
                 if (task.IsFaulted)
                 {
                     Debug.LogError("debug: SignInOnClick encountered an error: " + task.Exception);
+                    ProgressBarPR.SetFail("SignInOnClick encountered an system exception.");
                     return;
                 }
                 Firebase.Auth.FirebaseUser newUser = task.Result;
@@ -166,6 +172,7 @@ public static class CurrentPlayer
                     _campaignItem.ReacCmp = System.Convert.ToDouble(snapshot.Child("ReacCmp").Value);
                     _campaignItem.BnsTaken = System.Convert.ToInt32(snapshot.Child("BnsTaken").Value);
                     _campaignItem.BnsLastMlstn = System.Convert.ToInt32(snapshot.Child("BnsLastMlstn").Value);
+                    ProgressBarPR.AddProgress(.2f);
                 }
                 return;
             });
@@ -188,6 +195,7 @@ public static class CurrentPlayer
                     _campaignsHistoryItem.AdsWtchd = System.Convert.ToInt32(snapshot.Child("AdsWtchd").Value);
                     _campaignsHistoryItem.AdsSkpd = System.Convert.ToInt32(snapshot.Child("AdsSkpd").Value);
                     _campaignsHistoryItem.BnsBtnInf = System.Convert.ToInt32(snapshot.Child("BnsBtnInf").Value);
+                    ProgressBarPR.AddProgress(.2f);
                 }
                 return;
             });
@@ -213,6 +221,7 @@ public static class CurrentPlayer
                         _worldRankItem.PtsHit = System.Convert.ToInt32(childSnapshot.Child("PtsHit").Value);
                         _worldRankItem.ReacAvg = System.Convert.ToDouble(childSnapshot.Child("ReacAvg").Value);
                         _worldRankItem.CalculateFinalPoints();
+                        ProgressBarPR.AddProgress(.2f);
                     }
                 }
                 return;
