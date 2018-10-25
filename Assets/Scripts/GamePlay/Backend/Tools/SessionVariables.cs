@@ -2,6 +2,7 @@
 public static class SessionVariables  {
     public enum PRScenes
     {
+        GameLoading,
         MainMenu,
         GameBoard,
         Quit

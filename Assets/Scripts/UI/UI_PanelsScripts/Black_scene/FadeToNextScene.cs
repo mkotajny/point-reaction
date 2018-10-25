@@ -1,19 +1,23 @@
 using UnityEngine;
-using System.Collections;
-using System.Threading;
 
 public class FadeToNextScene : MonoBehaviour {
     public void Start()
     {
         Initiate.areWeFading = false;
-        if (SessionVariables.CurrentScene == SessionVariables.PRScenes.MainMenu)
-                Initiate.Fade("MainMenuScene", Color.black, 1.0f);
-        else //QUIT
+        switch (SessionVariables.CurrentScene)  
         {
-            Application.Quit();
-            #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
-            #endif
+            case SessionVariables.PRScenes.GameLoading:
+                Initiate.Fade("GameLoadingScene", Color.black, 1.0f);
+                break;
+            case SessionVariables.PRScenes.MainMenu:
+                Initiate.Fade("MainMenuScene", Color.black, 1.0f);
+                break;
+            default:
+                Application.Quit();
+                #if UNITY_EDITOR
+                    UnityEditor.EditorApplication.isPlaying = false;
+                #endif
+                break;
         }
     }
 }

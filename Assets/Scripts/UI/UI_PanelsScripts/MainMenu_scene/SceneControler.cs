@@ -12,25 +12,14 @@ public class SceneControler : MonoBehaviour {
 
         MusicPR.PlayNextSong(MusicPR.PlayListMenu);
         MusicPR.SetVolumeSfx();
-
     }
 
     void OnEnable()
     {
-        //PlayerPrefs.SetInt("InGooglePlay", 0);
-
-        /*
-        if (CheckInternet.IsConnected()
-            && PlayerPrefs.GetInt("InGooglePlay") == 1
-            && !Social.localUser.authenticated)
-            CurrentPlayer.SignInGooglePlay();
-            */
 
         GameObject.Find("VersionNumber_text").GetComponent<Text>().text = "Version " + Application.version;
         if (CurrentPlayer.CampaignItem != null)
             GameObject.Find("PlayerName_background").GetComponent<Text>().text = CurrentPlayer.CampaignItem.PlrName;
-
-        FirebasePR.InitializeFireBaseDb();
 
         if (CurrentPlayer.LivesTaken > 0)
         {

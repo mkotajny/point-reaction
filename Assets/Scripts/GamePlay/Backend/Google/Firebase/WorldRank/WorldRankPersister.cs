@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using Firebase.Database;
 
 public static class WorldRankPersister  {
@@ -21,7 +20,9 @@ public static class WorldRankPersister  {
 
     public static void LoadWorldRank()
     {
-        if (!CheckInternet.IsConnected()) return;
+        if (!CheckInternet.IsConnected() || _worldRank.Count > 0)
+            return;
+
         _loadInProgress = true;
         _worldRank.Clear();
         FirebasePR.WorldRankDbReference
@@ -29,6 +30,7 @@ public static class WorldRankPersister  {
             {
                 if (task.IsCompleted)
                 {
+                    if (_worldRank.Count > 0) return;
                     DataSnapshot snapshot = task.Result;
                     foreach (var childSnapshot in snapshot.Children)
                     {
@@ -44,6 +46,7 @@ public static class WorldRankPersister  {
                     if (_worldRank.Count > 1)
                         _worldRank.Sort((b, a) => a.FinalPts.CompareTo(b.FinalPts));
                     _loadInProgress = false;
+                    ProgressBarPR.AddProgress("Load full World rank");
                 }
             });
     }

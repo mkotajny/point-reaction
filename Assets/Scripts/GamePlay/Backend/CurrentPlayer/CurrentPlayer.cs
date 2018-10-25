@@ -50,13 +50,12 @@ public static class CurrentPlayer
     {
         if (!CheckInternet.IsConnected()) return;
 
-        ProgressBarPR.Activate("Connecting with Google Play ...");
         FirebasePR.InitializeGooglePlay();
         AdMobPR.Initialize();
 
         Social.localUser.Authenticate((bool success) =>
         {
-            ProgressBarPR.AddProgress(.2f);
+            ProgressBarPR.AddProgress("authentication start");
             if (!success)
             {
                 Debug.LogError("debug: SignInOnClick: Failed to Sign into Play Games Services.");
@@ -76,7 +75,7 @@ public static class CurrentPlayer
             Firebase.Auth.Credential credential = Firebase.Auth.PlayGamesAuthProvider.GetCredential(authCode);
             FirebasePR.FirebaseAuth.SignInWithCredentialAsync(credential).ContinueWith(task =>
             {
-                ProgressBarPR.AddProgress(.2f);
+                ProgressBarPR.AddProgress("signed with credentials");
                 if (task.IsCanceled)
                 {
                     Debug.LogError("debug: SignInOnClick was canceled.");
@@ -94,14 +93,12 @@ public static class CurrentPlayer
                 Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
 
                 AdMobPR.RequestRewardBasedVideo();
-
                 FirebasePR.CampaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns/" + newUser.UserId);
                 FirebasePR.CampaignsHistoryDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns_history/" + newUser.UserId);
                 FirebasePR.WorldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
-
                 GetCurrentPlayerData(newUser.UserId, Social.localUser.userName);
                 SetPlayerAttributes(Social.localUser.userName);
-
+                WorldRankPersister.LoadWorldRank();
                 PlayerPrefs.SetInt("InGooglePlay", 1);
                 _signedIn = true;
             });
@@ -123,8 +120,7 @@ public static class CurrentPlayer
     {
         _campaignItem.PlrName = userName;
         _bonusInformed = false;
-        GameObject.Find("PlayerName_background").GetComponent<Text>().text = _campaignItem.PlrName;
-
+        try { GameObject.Find("PlayerName_background").GetComponent<Text>().text = _campaignItem.PlrName; } catch { }
     }
 
     public static void GetCurrentPlayerData(string userId, string userName)
@@ -162,17 +158,20 @@ public static class CurrentPlayer
                 if (task.IsCompleted)
                 {
                     DataSnapshot snapshot = task.Result;
-                    _campaignItem.Updated = snapshot.Child("Updated").Value.ToString();
-                    _campaignItem.PlrId = snapshot.Child("PlrId").Value.ToString();
-                    _campaignItem.PlrName = snapshot.Child("PlrName").Value.ToString();
-                    _campaignItem.LvlNo = System.Convert.ToInt32(snapshot.Child("LvlNo").Value);
-                    _campaignItem.HitsCmp = System.Convert.ToInt32(snapshot.Child("HitsCmp").Value);
-                    _campaignItem.Lives = System.Convert.ToInt32(snapshot.Child("Lives").Value);
-                    _campaignItem.Ads = System.Convert.ToInt32(snapshot.Child("Ads").Value);
-                    _campaignItem.ReacCmp = System.Convert.ToDouble(snapshot.Child("ReacCmp").Value);
-                    _campaignItem.BnsTaken = System.Convert.ToInt32(snapshot.Child("BnsTaken").Value);
-                    _campaignItem.BnsLastMlstn = System.Convert.ToInt32(snapshot.Child("BnsLastMlstn").Value);
-                    ProgressBarPR.AddProgress(.2f);
+                    if (snapshot != null)
+                    {
+                        _campaignItem.Updated = snapshot.Child("Updated").Value.ToString();
+                        _campaignItem.PlrId = snapshot.Child("PlrId").Value.ToString();
+                        _campaignItem.PlrName = snapshot.Child("PlrName").Value.ToString();
+                        _campaignItem.LvlNo = System.Convert.ToInt32(snapshot.Child("LvlNo").Value);
+                        _campaignItem.HitsCmp = System.Convert.ToInt32(snapshot.Child("HitsCmp").Value);
+                        _campaignItem.Lives = System.Convert.ToInt32(snapshot.Child("Lives").Value);
+                        _campaignItem.Ads = System.Convert.ToInt32(snapshot.Child("Ads").Value);
+                        _campaignItem.ReacCmp = System.Convert.ToDouble(snapshot.Child("ReacCmp").Value);
+                        _campaignItem.BnsTaken = System.Convert.ToInt32(snapshot.Child("BnsTaken").Value);
+                        _campaignItem.BnsLastMlstn = System.Convert.ToInt32(snapshot.Child("BnsLastMlstn").Value);
+                    }
+                    ProgressBarPR.AddProgress("get campaign data");
                 }
                 return;
             });
@@ -188,14 +187,17 @@ public static class CurrentPlayer
                 if (task.IsCompleted)
                 {
                     DataSnapshot snapshot = task.Result;
-                    _campaignsHistoryItem.UpdDt = snapshot.Child("UpdDt").Value.ToString();
-                    _campaignsHistoryItem.PlrId = snapshot.Child("PlrId").Value.ToString();
-                    _campaignsHistoryItem.PlrName = snapshot.Child("PlrName").Value.ToString();
-                    _campaignsHistoryItem.Cmpgns = System.Convert.ToInt32(snapshot.Child("Cmpgns").Value);
-                    _campaignsHistoryItem.AdsWtchd = System.Convert.ToInt32(snapshot.Child("AdsWtchd").Value);
-                    _campaignsHistoryItem.AdsSkpd = System.Convert.ToInt32(snapshot.Child("AdsSkpd").Value);
-                    _campaignsHistoryItem.BnsBtnInf = System.Convert.ToInt32(snapshot.Child("BnsBtnInf").Value);
-                    ProgressBarPR.AddProgress(.2f);
+                    if (snapshot != null)
+                    {
+                        _campaignsHistoryItem.UpdDt = snapshot.Child("UpdDt").Value.ToString();
+                        _campaignsHistoryItem.PlrId = snapshot.Child("PlrId").Value.ToString();
+                        _campaignsHistoryItem.PlrName = snapshot.Child("PlrName").Value.ToString();
+                        _campaignsHistoryItem.Cmpgns = System.Convert.ToInt32(snapshot.Child("Cmpgns").Value);
+                        _campaignsHistoryItem.AdsWtchd = System.Convert.ToInt32(snapshot.Child("AdsWtchd").Value);
+                        _campaignsHistoryItem.AdsSkpd = System.Convert.ToInt32(snapshot.Child("AdsSkpd").Value);
+                        _campaignsHistoryItem.BnsBtnInf = System.Convert.ToInt32(snapshot.Child("BnsBtnInf").Value);
+                    }
+                    ProgressBarPR.AddProgress("get campaign history data");
                 }
                 return;
             });
@@ -213,16 +215,19 @@ public static class CurrentPlayer
                 if (task.IsCompleted)
                 {
                     DataSnapshot snapshot = task.Result;
-                    foreach (var childSnapshot in snapshot.Children)
+                    if (snapshot != null)
                     {
-                        _worldRankItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
-                        _worldRankItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
-                        _worldRankItem.LvlNo = System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value)       ;
-                        _worldRankItem.PtsHit = System.Convert.ToInt32(childSnapshot.Child("PtsHit").Value);
-                        _worldRankItem.ReacAvg = System.Convert.ToDouble(childSnapshot.Child("ReacAvg").Value);
-                        _worldRankItem.CalculateFinalPoints();
-                        ProgressBarPR.AddProgress(.2f);
-                    }
+                        foreach (var childSnapshot in snapshot.Children)
+                        {
+                            _worldRankItem.PlrId = childSnapshot.Child("PlrId").Value.ToString();
+                            _worldRankItem.PlrName = childSnapshot.Child("PlrName").Value.ToString();
+                            _worldRankItem.LvlNo = System.Convert.ToInt32(childSnapshot.Child("LvlNo").Value);
+                            _worldRankItem.PtsHit = System.Convert.ToInt32(childSnapshot.Child("PtsHit").Value);
+                            _worldRankItem.ReacAvg = System.Convert.ToDouble(childSnapshot.Child("ReacAvg").Value);
+                            _worldRankItem.CalculateFinalPoints();
+                            ProgressBarPR.AddProgress("get players World Rank data");
+                        }
+                    } else ProgressBarPR.AddProgress("get players World Rank data");
                 }
                 return;
             });

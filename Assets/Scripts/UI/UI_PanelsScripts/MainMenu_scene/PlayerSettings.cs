@@ -24,6 +24,12 @@ public class PlayerSettings : MonoBehaviour {
     {
         if (_signInButton.gameObject.activeInHierarchy == CurrentPlayer.SignedIn)
             SwitchGoogleSignButtons();
+
+        if (ProgressBarPR.ProgressStatus == ProgressBarPrStatuses.Succeded)
+        {
+            ModalPanel.SetActive(false);
+            ProgressBarPR.Deactivate();
+        }
     }
 
     public void GooglePlaySignInOut(bool signIn = true)
@@ -38,6 +44,7 @@ public class PlayerSettings : MonoBehaviour {
         if (signIn)
         {
             ModalPanel.SetActive(true);
+            ProgressBarPR.Activate("Loading ...", 5);
             CurrentPlayer.SignInGooglePlay();
         }
         else

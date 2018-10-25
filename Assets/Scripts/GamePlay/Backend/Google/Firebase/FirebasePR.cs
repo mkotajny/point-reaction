@@ -89,6 +89,8 @@ public static class FirebasePR
                         newUser.DisplayName, newUser.UserId);
                     
                     _worldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
+                    ProgressBarPR.AddProgress("Signed to Firebase without google play");
+                    WorldRankPersister.LoadWorldRank();
                 });
 
             }

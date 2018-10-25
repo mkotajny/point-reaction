@@ -17,12 +17,9 @@ public class WorldRank : MonoBehaviour {
 
     void OnEnable()
     {
-        //FirebasePR.InitializeFireBaseDb();
         for (int i = 0; i < GridWorldRank.transform.childCount; i++)
             Destroy(GridWorldRank.transform.GetChild(i).gameObject);
-
-        _worldRankRendered = false;
-        
+        _worldRankRendered = false;        
     }
 
     private void Update()

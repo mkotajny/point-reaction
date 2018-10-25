@@ -88,15 +88,15 @@ public class CampaignItem {
             Lives -= CurrentPlayer.LivesTaken;
             string json = JsonUtility.ToJson(this);
             Lives += CurrentPlayer.LivesTaken;
-            Debug.Log("debug: SaveToFirebase: chk1: firebase credentials: "
+            /*Debug.Log("debug: SaveToFirebase: chk1: firebase credentials: "
                 + FirebasePR.FirebaseAuth.CurrentUser.UserId + "/"
-                + FirebasePR.FirebaseAuth.CurrentUser.DisplayName);
+                + FirebasePR.FirebaseAuth.CurrentUser.DisplayName);*/
 
-            FirebasePR.CampaignDbReference/*.Child(CurrentPlayer.CampaignItem.PlrId)*/.SetRawJsonValueAsync(json);
+            FirebasePR.CampaignDbReference.SetRawJsonValueAsync(json);
             return;
         }
 
-        FirebasePR.CampaignDbReference/*.Child(PlrId)*/.SetRawJsonValueAsync(null); //delete row
+        FirebasePR.CampaignDbReference.SetRawJsonValueAsync(null); //delete row
     }
 
 
