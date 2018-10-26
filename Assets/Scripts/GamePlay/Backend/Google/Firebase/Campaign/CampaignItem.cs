@@ -45,6 +45,7 @@ public class CampaignItem {
         Ads = 0;
         ReacCmp = 0;
         BnsTaken = 0;
+        BnsLastMlstn = 0;
     }
 
     public bool IsNewCampaign()
