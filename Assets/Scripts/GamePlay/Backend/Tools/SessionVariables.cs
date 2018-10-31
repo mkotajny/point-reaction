@@ -15,4 +15,20 @@ public static class SessionVariables  {
         get { return _currentScene; }
         set { _currentScene = value; }
     }
+
+    public static void SetSessionForEditor()
+    {
+#if UNITY_EDITOR
+        FirebasePR.InitializeFireBaseDb();
+        if (CurrentPlayer.CampaignItem == null)
+        {
+            CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 11, 0, 10, 0, 0, 0, 0);
+            CurrentPlayer.WorldRankItem = new WorldRankItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 0, 6, 0.62);
+            //CurrentPlayer.TrialMode = true;
+        }
+
+        MusicPR.SetVolumeSfx(1f);
+        MusicPR.SetVolumeMusic(0.5f);
+#endif
+    }
 }

@@ -1,17 +1,21 @@
 ﻿using System.Collections.Generic;
 using Firebase.Database;
+using UnityEngine;
 
-public static class WorldRankPersister  {
+public static class WorldRankPersister
+{
 
     static List<WorldRankItem> _worldRank = new List<WorldRankItem>();
     static bool _loadInProgress = false;
+    static int _currentPlayerPosition;
 
-    public static List<WorldRankItem> WorldRank { get { return _worldRank; }  }
-    public static bool LoadInProgress {
+    public static List<WorldRankItem> WorldRank { get { return _worldRank; } }
+    public static bool LoadInProgress
+    {
         get { return _loadInProgress; }
         set { _loadInProgress = value; }
     }
-
+    public static int CurrentPlayerPosition { get { return _currentPlayerPosition; } }
 
     public static void Reset()
     {
@@ -20,9 +24,7 @@ public static class WorldRankPersister  {
 
     public static void LoadWorldRank()
     {
-        if (!CheckInternet.IsConnected() || _worldRank.Count > 0)
-            return;
-
+        if (!CheckInternet.IsConnected() || _worldRank.Count > 0) return;
         _loadInProgress = true;
         _worldRank.Clear();
         FirebasePR.WorldRankDbReference
@@ -41,13 +43,54 @@ public static class WorldRankPersister  {
                                 , System.Convert.ToDouble(childSnapshot.Child("ReacAvg").Value));
 
                         _worldRank.Add(worldRankItem);
-
                     }
-                    if (_worldRank.Count > 1)
-                        _worldRank.Sort((b, a) => a.FinalPts.CompareTo(b.FinalPts));
+                    if (_worldRank.Count > 1) SortRank();
                     _loadInProgress = false;
                     ProgressBarPR.AddProgress("Load full World rank");
                 }
             });
+    }
+
+    public static void UpdateCurrentPlayer()
+    {
+        if (_currentPlayerPosition == 0)
+        {
+            _worldRank.Add(CurrentPlayer.WorldRankItem);
+        }
+        else
+        {
+            foreach (WorldRankItem eachWorldRankItem in _worldRank)
+            {
+                if (eachWorldRankItem.PlrId == CurrentPlayer.WorldRankItem.PlrId)
+                {
+                    eachWorldRankItem.LvlNo = CurrentPlayer.WorldRankItem.LvlNo;
+                    eachWorldRankItem.PtsHit = CurrentPlayer.WorldRankItem.PtsHit;
+                    eachWorldRankItem.ReacAvg = CurrentPlayer.WorldRankItem.ReacAvg;
+                    break;
+                }
+            }
+        }
+        SortRank();
+    }
+
+    static void SortRank()
+    {
+        _worldRank.Sort((b, a) => a.FinalPts.CompareTo(b.FinalPts));
+        SetCurrentPlayerPosition();
+    }
+
+    static void SetCurrentPlayerPosition()
+    {
+        if (CurrentPlayer.WorldRankItem.ReacAvg == 0) return;
+        int counter = 0;
+        foreach (WorldRankItem eachWorldRankItem in _worldRank)
+        {
+            counter++;
+            if (eachWorldRankItem.PlrId == CurrentPlayer.WorldRankItem.PlrId)
+            {
+                _currentPlayerPosition = counter;
+                break;
+            }
+        }
     }
 }

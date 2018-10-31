@@ -32,7 +32,7 @@ public class ProgressBar : MonoBehaviour {
         {
             case ProgressBarPrStatuses.InProgress:
                 
-                _fillSpeed = BarSlider.fillAmount < ProgressBarPR.CurrentProgressValue ? 0.5f : 0.075f * (1f - ProgressBarPR.CurrentProgressValue + 0.01f);
+                _fillSpeed = BarSlider.fillAmount < ProgressBarPR.CurrentProgressValue ? 0.5f : 0.05f * (1f - ProgressBarPR.CurrentProgressValue + 0.01f);
                 BarSlider.fillAmount += Application.GetStreamProgressForLevel(0) * Time.deltaTime * _fillSpeed;
                 float v = BarSlider.fillAmount * 100;
                 LoadingPercent.text = "" + v.ToString("F0") + " %";

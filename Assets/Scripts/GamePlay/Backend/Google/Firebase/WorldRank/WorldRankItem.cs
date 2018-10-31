@@ -48,8 +48,9 @@ public class WorldRankItem {
         else
             ReacAvg = Convert.ToDouble((CurrentPlayer.CampaignItem.ReacCmp / CurrentPlayer.CampaignItem.HitsCmp).ToString("0.00"));
         CalculateFinalPoints();
-
+        
         string json = JsonUtility.ToJson(this);
         FirebasePR.WorldRankDbReference.Child(CurrentPlayer.CampaignItem.PlrId).SetRawJsonValueAsync(json);
+        WorldRankPersister.UpdateCurrentPlayer();
     }
 }

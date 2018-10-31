@@ -15,18 +15,8 @@ public class GameControler : MonoBehaviour {
 
     private void Awake()
     {
-#if UNITY_EDITOR
-        FirebasePR.InitializeFireBaseDb();
-        if (CurrentPlayer.CampaignItem == null)
-        {
-            CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 11, 0, 30, 0, 0, 0, 0);
-            CurrentPlayer.TrialMode = true; 
-            CurrentPlayer.WorldRankItem = new WorldRankItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 0, 6, 0.62);
-        }
-
-        MusicPR.SetVolumeSfx(1f);
-        MusicPR.SetVolumeMusic(0.5f);
-#endif
+        int test = 5;
+        SessionVariables.SetSessionForEditor();
     }
 
     void Start()

@@ -51,7 +51,7 @@ public static class ProgressBarPR {
             return;
 
         _currentProgressValue += 1f / _progressStagesQty;
-        Debug.Log("debug: AddProgress: chk1: current progress (" + progressComment + "): " + _currentProgressValue.ToString());
+        //Debug.Log("debug: AddProgress: chk1: current progress (" + progressComment + "): " + _currentProgressValue.ToString());
 
         if (_currentProgressValue > 1)
             _currentProgressValue = 1;

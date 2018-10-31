@@ -7,6 +7,7 @@ public class LoadingSceneControler : MonoBehaviour {
     private void Awake()
     {
         int progressStages = 1;
+        WorldRankPersister.Reset();
         _progressBarPanel = GameObject.Find("Panel_InProgress");
 
         if (CheckInternet.IsConnected())
@@ -15,7 +16,7 @@ public class LoadingSceneControler : MonoBehaviour {
             progressStages += 1;
             if (PlayerPrefs.GetInt("InGooglePlay") == 1)
             {
-                progressStages += 5;
+                progressStages += 4;
                 CurrentPlayer.SignInGooglePlay();
             }
         }

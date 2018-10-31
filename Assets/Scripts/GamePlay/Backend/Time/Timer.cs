@@ -35,10 +35,10 @@ public class Timer  {
     {
         if (_active && Time.time > StartTime + _length)
         {
-            if (_pointTimer)
+            /*if (_pointTimer)
                 Debug.Log("debug: point timer elapsed: length=" + _length.ToString() 
                     + "; StartTime=" + StartTime.ToString()
-                    + "; CurrentTime=" + Time.time.ToString());
+                    + "; CurrentTime=" + Time.time.ToString());*/
 
             Deactivate();
             return true;

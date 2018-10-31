@@ -8,7 +8,7 @@ public static class CurrentPlayer
     static bool _signedIn, _trialMode;
     static CampaignItem _campaignItem, _campaignItemCopy;
     static CampaignsHistoryItem _campaignsHistoryItem;
-    static WorldRankItem _worldRankItem;    
+    static WorldRankItem _worldRankItem;
     static int _livesTaken;
     static bool _bonusInformed;
 
@@ -55,7 +55,6 @@ public static class CurrentPlayer
 
         Social.localUser.Authenticate((bool success) =>
         {
-            ProgressBarPR.AddProgress("authentication start");
             if (!success)
             {
                 Debug.LogError("debug: SignInOnClick: Failed to Sign into Play Games Services.");
@@ -98,7 +97,6 @@ public static class CurrentPlayer
                 FirebasePR.WorldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
                 GetCurrentPlayerData(newUser.UserId, Social.localUser.userName);
                 SetPlayerAttributes(Social.localUser.userName);
-                WorldRankPersister.LoadWorldRank();
                 PlayerPrefs.SetInt("InGooglePlay", 1);
                 _signedIn = true;
             });
@@ -151,7 +149,7 @@ public static class CurrentPlayer
 
     static void GetCampaignData(string playerId, string userName)
     {
-        _campaignItem = new CampaignItem(playerId, userName, 1, 0, 30, 0, 0, 0, 0);
+        _campaignItem = new CampaignItem(playerId, userName, 1, 0, 10, 0, 0, 0, 0);
         FirebasePR.CampaignDbReference
             .GetValueAsync().ContinueWith(task =>
             {
@@ -206,7 +204,6 @@ public static class CurrentPlayer
     static void GetWorldRankData(string playerId, string userName)
     {
         _worldRankItem = new WorldRankItem(playerId, userName, 1, 0, 0);
-
         FirebasePR.WorldRankDbReference
             .OrderByChild("PlrId")
             .EqualTo(playerId)

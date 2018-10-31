@@ -41,7 +41,7 @@ public class CampaignItem {
         CurrentDateToString();
         LvlNo = 1;
         HitsCmp = 0;
-        Lives = 30;
+        Lives = 10;
         Ads = 0;
         ReacCmp = 0;
         BnsTaken = 0;
@@ -50,7 +50,7 @@ public class CampaignItem {
 
     public bool IsNewCampaign()
     {
-        if (LvlNo == 1 && HitsCmp == 0 && Lives == 30)
+        if (LvlNo == 1 && HitsCmp == 0 && Lives == 10)
             return true;
         return false;
     }
