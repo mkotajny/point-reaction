@@ -15,7 +15,11 @@ public static class WorldRankPersister
         get { return _loadInProgress; }
         set { _loadInProgress = value; }
     }
-    public static int CurrentPlayerPosition { get { return _currentPlayerPosition; } }
+    public static int CurrentPlayerPosition
+    {
+        get { return _currentPlayerPosition; }
+        set { _currentPlayerPosition = value; }
+    }
 
     public static void Reset()
     {
@@ -24,7 +28,11 @@ public static class WorldRankPersister
 
     public static void LoadWorldRank()
     {
-        if (!CheckInternet.IsConnected() || _worldRank.Count > 0) return;
+        if (_worldRank.Count > 0)
+        {
+            SetCurrentPlayerPosition();
+            return;
+        }
         _loadInProgress = true;
         _worldRank.Clear();
         FirebasePR.WorldRankDbReference
@@ -66,6 +74,7 @@ public static class WorldRankPersister
                     eachWorldRankItem.LvlNo = CurrentPlayer.WorldRankItem.LvlNo;
                     eachWorldRankItem.PtsHit = CurrentPlayer.WorldRankItem.PtsHit;
                     eachWorldRankItem.ReacAvg = CurrentPlayer.WorldRankItem.ReacAvg;
+                    eachWorldRankItem.CalculateFinalPoints();
                     break;
                 }
             }
@@ -76,12 +85,14 @@ public static class WorldRankPersister
     static void SortRank()
     {
         _worldRank.Sort((b, a) => a.FinalPts.CompareTo(b.FinalPts));
-        SetCurrentPlayerPosition();
+        if (CurrentPlayer.WorldRankItem != null)
+            SetCurrentPlayerPosition();
     }
 
     static void SetCurrentPlayerPosition()
     {
-        if (CurrentPlayer.WorldRankItem.ReacAvg == 0) return;
+        if (CurrentPlayer.WorldRankItem.ReacAvg == 0)
+            return;
         int counter = 0;
         foreach (WorldRankItem eachWorldRankItem in _worldRank)
         {

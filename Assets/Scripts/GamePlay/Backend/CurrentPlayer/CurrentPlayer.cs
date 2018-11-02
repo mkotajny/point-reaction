@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using GooglePlayGames;
 using Firebase.Database;
+using Firebase.Unity.Editor;
 
 public static class CurrentPlayer
 {
@@ -90,7 +91,6 @@ public static class CurrentPlayer
                 Firebase.Auth.FirebaseUser newUser = task.Result;
                 
                 Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
-
                 AdMobPR.RequestRewardBasedVideo();
                 FirebasePR.CampaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns/" + newUser.UserId);
                 FirebasePR.CampaignsHistoryDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns_history/" + newUser.UserId);
@@ -110,6 +110,7 @@ public static class CurrentPlayer
         _campaignItem.PlrId = string.Empty;
         _campaignItem.PlrName = string.Empty;
         _signedIn = false;
+        WorldRankPersister.CurrentPlayerPosition = 0;
         GameObject.Find("PlayerName_background").GetComponent<Text>().text = string.Empty;
         PlayerPrefs.SetInt("InGooglePlay", 0);
     }
@@ -223,6 +224,7 @@ public static class CurrentPlayer
                             _worldRankItem.ReacAvg = System.Convert.ToDouble(childSnapshot.Child("ReacAvg").Value);
                             _worldRankItem.CalculateFinalPoints();
                             ProgressBarPR.AddProgress("get players World Rank data");
+                            WorldRankPersister.LoadWorldRank();  // as worldRankItem.ReacAvg is required for calculating Player's position in the world rank
                         }
                     } else ProgressBarPR.AddProgress("get players World Rank data");
                 }

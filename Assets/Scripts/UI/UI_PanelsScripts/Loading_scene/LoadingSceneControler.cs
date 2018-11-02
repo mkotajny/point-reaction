@@ -6,20 +6,22 @@ public class LoadingSceneControler : MonoBehaviour {
 
     private void Awake()
     {
-        int progressStages = 1;
-        WorldRankPersister.Reset();
         _progressBarPanel = GameObject.Find("Panel_InProgress");
+
+        int progressStages = 1;
+
+        WorldRankPersister.Reset();
+
 
         if (CheckInternet.IsConnected())
         {
-            FirebasePR.InitializeFireBaseDb();
             progressStages += 1;
             if (PlayerPrefs.GetInt("InGooglePlay") == 1)
-            {
                 progressStages += 4;
-                CurrentPlayer.SignInGooglePlay();
-            }
+
+            FirebasePR.InitializeFireBaseDb();
         }
+            
         ProgressBarPR.Activate("Loading ...", progressStages);
 
         if (progressStages == 1)
