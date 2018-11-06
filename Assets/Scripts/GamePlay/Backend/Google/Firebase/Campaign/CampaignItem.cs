@@ -5,7 +5,7 @@ using PaperPlaneTools;
 public class CampaignItem {
 
     public string Updated, PlrId, PlrName;
-    public int LvlNo, HitsCmp, Lives, Ads, BnsTaken, BnsLastMlstn;
+    public int LvlNo, HitsCmp, Lives, BnsTaken, BnsLastMlstn;
     public double ReacCmp;
 
     public CampaignItem(string playerId
@@ -13,7 +13,6 @@ public class CampaignItem {
         , int levelNo
         , int hitsCampaign
         , int lives
-        , int advertisementsWatched
         , double reactionSumCampaign
         , int bonusTaken
         , int bonusLastMilestone
@@ -25,7 +24,6 @@ public class CampaignItem {
         LvlNo = levelNo;
         HitsCmp = hitsCampaign;
         Lives = lives;
-        Ads = advertisementsWatched;
         ReacCmp = reactionSumCampaign;
         BnsTaken = bonusTaken;
         BnsLastMlstn = bonusLastMilestone;
@@ -42,7 +40,6 @@ public class CampaignItem {
         LvlNo = 1;
         HitsCmp = 0;
         Lives = 10;
-        Ads = 0;
         ReacCmp = 0;
         BnsTaken = 0;
         BnsLastMlstn = 0;

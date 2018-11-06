@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using GooglePlayGames;
 using Firebase.Database;
-using Firebase.Unity.Editor;
+using System;
 
 public static class CurrentPlayer
 {
@@ -10,6 +10,7 @@ public static class CurrentPlayer
     static CampaignItem _campaignItem, _campaignItemCopy;
     static CampaignsHistoryItem _campaignsHistoryItem;
     static WorldRankItem _worldRankItem;
+    static ActivityLogIem _activityLog;
     static int _livesTaken;
     static bool _bonusInformed;
 
@@ -29,6 +30,11 @@ public static class CurrentPlayer
     {
         get { return _worldRankItem; }
         set { _worldRankItem = value; }
+    }
+    public static ActivityLogIem ActivityLog
+    {
+        get { return _activityLog; }
+        set { _activityLog = value; }
     }
     public static int LivesTaken
     {
@@ -95,8 +101,10 @@ public static class CurrentPlayer
                 FirebasePR.CampaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns/" + newUser.UserId);
                 FirebasePR.CampaignsHistoryDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns_history/" + newUser.UserId);
                 FirebasePR.WorldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
+                FirebasePR.ActivityLogDbReference = FirebaseDatabase.DefaultInstance.GetReference("activity_log/" + DateTime.Now.ToString("yyyy-MM"));
                 GetCurrentPlayerData(newUser.UserId, Social.localUser.userName);
                 SetPlayerAttributes(Social.localUser.userName);
+                _activityLog = new ActivityLogIem();
                 PlayerPrefs.SetInt("InGooglePlay", 1);
                 _signedIn = true;
             });
@@ -136,21 +144,21 @@ public static class CurrentPlayer
     {
         if (_campaignItem != null)
             _campaignItemCopy = new CampaignItem(_campaignItem.PlrId, _campaignItem.PlrName, _campaignItem.LvlNo, _campaignItem.HitsCmp
-                , _campaignItem.Lives, _campaignItem.Ads, _campaignItem.ReacCmp, _campaignItem.BnsTaken, _campaignItem.BnsLastMlstn);
-        _campaignItem = new CampaignItem(string.Empty, string.Empty, 1, 0, 10, 0, 0, 0, 0);
+                , _campaignItem.Lives, _campaignItem.ReacCmp, _campaignItem.BnsTaken, _campaignItem.BnsLastMlstn);
+        _campaignItem = new CampaignItem(string.Empty, string.Empty, 1, 0, 10, 0, 0, 0);
         _trialMode = true;
     }
     public static void EndTrialMode()
     {
         if (_campaignItemCopy != null)
             _campaignItem = new CampaignItem(_campaignItemCopy.PlrId, _campaignItemCopy.PlrName, _campaignItemCopy.LvlNo, _campaignItemCopy.HitsCmp
-            , _campaignItemCopy.Lives, _campaignItemCopy.Ads, _campaignItemCopy.ReacCmp, _campaignItemCopy.BnsTaken, _campaignItemCopy.BnsLastMlstn);
+            , _campaignItemCopy.Lives, _campaignItemCopy.ReacCmp, _campaignItemCopy.BnsTaken, _campaignItemCopy.BnsLastMlstn);
         _trialMode = false;
     }
 
     static void GetCampaignData(string playerId, string userName)
     {
-        _campaignItem = new CampaignItem(playerId, userName, 1, 0, 10, 0, 0, 0, 0);
+        _campaignItem = new CampaignItem(playerId, userName, 1, 0, 10, 0, 0, 0);
         FirebasePR.CampaignDbReference
             .GetValueAsync().ContinueWith(task =>
             {
@@ -165,7 +173,6 @@ public static class CurrentPlayer
                         _campaignItem.LvlNo = System.Convert.ToInt32(snapshot.Child("LvlNo").Value);
                         _campaignItem.HitsCmp = System.Convert.ToInt32(snapshot.Child("HitsCmp").Value);
                         _campaignItem.Lives = System.Convert.ToInt32(snapshot.Child("Lives").Value);
-                        _campaignItem.Ads = System.Convert.ToInt32(snapshot.Child("Ads").Value);
                         _campaignItem.ReacCmp = System.Convert.ToDouble(snapshot.Child("ReacCmp").Value);
                         _campaignItem.BnsTaken = System.Convert.ToInt32(snapshot.Child("BnsTaken").Value);
                         _campaignItem.BnsLastMlstn = System.Convert.ToInt32(snapshot.Child("BnsLastMlstn").Value);

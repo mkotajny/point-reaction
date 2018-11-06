@@ -7,11 +7,8 @@ public class LoadingSceneControler : MonoBehaviour {
     private void Awake()
     {
         _progressBarPanel = GameObject.Find("Panel_InProgress");
-
         int progressStages = 1;
-
         WorldRankPersister.Reset();
-
 
         if (CheckInternet.IsConnected())
         {

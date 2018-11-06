@@ -22,8 +22,9 @@ public static class SessionVariables  {
         FirebasePR.InitializeFireBaseDb();
         if (CurrentPlayer.CampaignItem == null)
         {
-            CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 11, 0, 10, 0, 0, 0, 0);
+            CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 11, 10, 0, 0, 0, 0);
             CurrentPlayer.WorldRankItem = new WorldRankItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 0, 6, 0.62);
+            CurrentPlayer.ActivityLog = new ActivityLogIem();
             //CurrentPlayer.TrialMode = true;
         }
 

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+
 public class GameControler : MonoBehaviour {
 
     GameMode_1 _gameMode_1;
@@ -15,7 +16,6 @@ public class GameControler : MonoBehaviour {
 
     private void Awake()
     {
-        int test = 5;
         SessionVariables.SetSessionForEditor();
     }
 
@@ -70,7 +70,12 @@ public class GameControler : MonoBehaviour {
             || _gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost)
         {
             if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
+            {
                 AudioSources[4].Play(); //play fanfare
+                CurrentPlayer.ActivityLog.Add(LogCategories.LevelPassed, CurrentPlayer.CampaignItem.PlrName + " has passed the level no " + CurrentPlayer.CampaignItem.LvlNo.ToString());
+            }
+            else CurrentPlayer.ActivityLog.Add(LogCategories.LevelFailed, CurrentPlayer.CampaignItem.PlrName + " has NOT passed the level no " + CurrentPlayer.CampaignItem.LvlNo.ToString());
+
             _uIContentManager.ActivateResultPanel(true);
         }
     }

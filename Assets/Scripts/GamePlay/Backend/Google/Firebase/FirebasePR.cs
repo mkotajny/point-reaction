@@ -9,7 +9,8 @@ public static class FirebasePR
 {
     static bool _googlePlayInitialized, _firebaseInitialized = false;
     static Firebase.Auth.FirebaseAuth _firebaseAuth;
-    public static DatabaseReference _campaignDbReference, _campaignsHistoryDbReference, _worldRankDbReference;
+    public static DatabaseReference _campaignDbReference, _campaignsHistoryDbReference
+        , _worldRankDbReference, _activityLogDbReference;
 
     public static Firebase.Auth.FirebaseAuth FirebaseAuth{ get { return _firebaseAuth; }}
     public static DatabaseReference CampaignDbReference
@@ -26,6 +27,11 @@ public static class FirebasePR
     {
         get { return _campaignsHistoryDbReference; }
         set { _campaignsHistoryDbReference = value; }
+    }
+    public static DatabaseReference ActivityLogDbReference
+    {
+        get { return _activityLogDbReference; }
+        set { _activityLogDbReference = value; }
     }
     public static bool FirebaseInitialized { get { return _firebaseInitialized; } }
 

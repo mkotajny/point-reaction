@@ -12,23 +12,10 @@ activateResultPanel
 	LevelUp
 
 
+	
 
-Debug.Log("debug: SignInGooglePlay: chk1: firebase credentials: "
-    + FirebasePR.FirebaseAuth.CurrentUser.UserId + "/"
-    + FirebasePR.FirebaseAuth.CurrentUser.DisplayName);
-
-        Debug.Log("debug: OpenLevelStartPanel: chk1: " + ((CurrentPlayer.CampaignItem.LvlNo - 1) / 5).ToString() );
-									
-									
-									
-								
-- dostępy do bazy danych gry (firebase są) są ograniczone specjalnymi poziomami uprawnień (do tej pory każdy kto miał link do bazy mógł odczytywać z niej oraz zapisywać do niej dowolne dane)
-- bonus można wybrać tylko raz w kamieniu milowym
-- klawisz start w menu głównym wyszarza się aż do zakończenia procesu automatycznego logowania się
+Debug.Log("debug: query=***" + query + "***");
 
 
 
-son_pl_1
-
-
-undicon
+- przetestować działanie całej gry point reaction
