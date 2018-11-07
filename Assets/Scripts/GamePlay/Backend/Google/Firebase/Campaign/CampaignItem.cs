@@ -64,6 +64,8 @@ public class CampaignItem {
 
     public void SaveToFirebase(bool deleteRow = false)
     {
+        if (SessionVariables.TrialMode) return;
+
         if (!CheckInternet.IsConnected())
         {
             new Alert("No internet !", "Please connect with the internet and run the game again.")
@@ -72,12 +74,8 @@ public class CampaignItem {
                     SessionVariables.CurrentScene = SessionVariables.PRScenes.Quit;
                     Initiate.Fade("BlackScene", Color.black, 1.0f);
                 }).Show();
-
             return;
         }
-
-        if (SessionVariables.TrialMode)
-            return;
 
         if (!deleteRow)
         {

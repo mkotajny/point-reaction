@@ -17,7 +17,6 @@ public static class SessionVariables  {
     public static void SetSession()
     {
         ActivityLog = new ActivityLogIem();
-
         #if UNITY_EDITOR
             SetSessionForEditor();
         #endif
@@ -25,13 +24,12 @@ public static class SessionVariables  {
 
     static void SetSessionForEditor()
     {
-        FirebasePR.InitializeFireBaseDb();
+        //FirebasePR.InitializeFireBaseDb();
         if (CurrentPlayer.CampaignItem == null)
         {
-            CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 11, 10, 0, 0, 0, 0);
+            CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 1, 0, 10, 0, 0, 0);
             CurrentPlayer.WorldRankItem = new WorldRankItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 0, 6, 0.62);
-            ActivityLog = new ActivityLogIem();
-            //CurrentPlayer.TrialMode = true;
+            TrialMode = true;
         }
         MusicPR.SetVolumeSfx(1f);
         MusicPR.SetVolumeMusic(0.5f);

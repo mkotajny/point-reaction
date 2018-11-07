@@ -3,6 +3,9 @@ using UnityEngine;
 
 public enum LogCategories
 {
+    AdLoadFailed,
+    ThreeAdLoadsFailed,
+    BonusWithoudAdvert,
     LevelPassed,
     LevelFailed
 }
@@ -14,12 +17,13 @@ public class ActivityLogIem
 
     public ActivityLogIem()
     {
-        PlrId = CurrentPlayer.CampaignItem.PlrId;
+        if (CurrentPlayer.CampaignItem != null) PlrId = CurrentPlayer.CampaignItem.PlrId;
+        else PlrId = string.Empty;
     }
 
-    public void Add(LogCategories logItemCategory, string logItemDescription)
+    public void Send(LogCategories logItemCategory, string logItemDescription)
     {
-        if (!CheckInternet.IsConnected())
+        if (!CheckInternet.IsConnected() || SessionVariables.TrialMode)
             return;
 
         Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
@@ -37,8 +41,11 @@ public class ActivityLogIem
         string logCategoryText;
         switch (logItemCategory)
         {
-            case LogCategories.LevelFailed: logCategoryText = "Level failed"; break;
-            case LogCategories.LevelPassed: logCategoryText = "Level passed"; break;
+            case LogCategories.AdLoadFailed: logCategoryText = "Load of advert failed"; break;
+            case LogCategories.ThreeAdLoadsFailed: logCategoryText = "3 failed advert loads"; break;
+            case LogCategories.BonusWithoudAdvert: logCategoryText = "Bonus without advert"; break;
+            case LogCategories.LevelPassed: logCategoryText = "level passed"; break;
+            case LogCategories.LevelFailed: logCategoryText = "level failed"; break;
             default: logCategoryText = ""; break;
         }
         return logCategoryText;

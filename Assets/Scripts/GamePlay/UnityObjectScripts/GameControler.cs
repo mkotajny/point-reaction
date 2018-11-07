@@ -72,9 +72,9 @@ public class GameControler : MonoBehaviour {
             if (_gameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
             {
                 AudioSources[4].Play(); //play fanfare
-                SessionVariables.ActivityLog.Add(LogCategories.LevelPassed, CurrentPlayer.CampaignItem.PlrName + " has passed the level no " + CurrentPlayer.CampaignItem.LvlNo.ToString());
+                SessionVariables.ActivityLog.Send(LogCategories.LevelPassed, CurrentPlayer.CampaignItem.PlrName + " has passed the level no " + CurrentPlayer.CampaignItem.LvlNo.ToString());
             }
-            else SessionVariables.ActivityLog.Add(LogCategories.LevelFailed, CurrentPlayer.CampaignItem.PlrName + " has NOT passed the level no " + CurrentPlayer.CampaignItem.LvlNo.ToString());
+            else SessionVariables.ActivityLog.Send(LogCategories.LevelFailed, CurrentPlayer.CampaignItem.PlrName + " has NOT passed the level no " + CurrentPlayer.CampaignItem.LvlNo.ToString());
 
             _uIContentManager.ActivateResultPanel(true);
         }

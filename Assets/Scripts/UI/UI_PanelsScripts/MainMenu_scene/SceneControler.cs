@@ -6,7 +6,6 @@ public class SceneControler : MonoBehaviour {
 
     private void Awake()
     {
-        SessionVariables.SetSession();
         if (SessionVariables.TrialMode)
             SessionVariables.EndTrialMode();
 

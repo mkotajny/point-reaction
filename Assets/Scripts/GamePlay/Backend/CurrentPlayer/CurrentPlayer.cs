@@ -18,7 +18,6 @@ public static class CurrentPlayer
         if (!CheckInternet.IsConnected()) return;
 
         FirebasePR.InitializeGooglePlay();
-        AdMobPR.Initialize();
 
         Social.localUser.Authenticate((bool success) =>
         {
@@ -118,6 +117,8 @@ public static class CurrentPlayer
                         CampaignItem.ReacCmp = System.Convert.ToDouble(snapshot.Child("ReacCmp").Value);
                         CampaignItem.BnsTaken = System.Convert.ToInt32(snapshot.Child("BnsTaken").Value);
                         CampaignItem.BnsLastMlstn = System.Convert.ToInt32(snapshot.Child("BnsLastMlstn").Value);
+                        SessionVariables.ActivityLog = new ActivityLogIem();
+                        AdMobPR.Initialize();
                     }
                     ProgressBarPR.AddProgress("get campaign data");
                 }

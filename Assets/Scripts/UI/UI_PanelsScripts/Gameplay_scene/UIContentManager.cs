@@ -7,19 +7,18 @@ public class UIContentManager : MonoBehaviour {
 
     Text _panelStartLevel, _panelStart_PointsLivingTime, _panelStartHitsToWin, _panelStartMissesToLoose, _getBonusButtonText;
     Button _backToMainMenuButton;
-    public Button GetBonusButton;
     BonusPanelScriptContainer _bonusPanel;
     int _selectedVictoryAnimationIndex;
     List<TextListItem> _notificationBarItems = new List<TextListItem>();
     
 
     public Text _panelResultLevelValue, _levelResultText, _resultLevelButtonText, _panelResult_PerfectBonus, _panelResult_AvgReaction;
-
+    public Button GetBonusButton;
     public ZUIManager ZuiManager;
     public GameObject[] backgrounds, victoryAnimations;
     public UicmUpperPanel UpperPanel;
     public Menu MenuStart;
-    public GameObject _perfectBonusImage;
+    public GameObject _perfectBonusImage, GetBonusButtonEffects;
     public GameMode_1 GameMode_1;
     public System.Random Randomizer = new System.Random();
     public Sprite BicepsSprite;
@@ -33,22 +32,48 @@ public class UIContentManager : MonoBehaviour {
         _panelStartHitsToWin = GameObject.Find("Panel_HitsToWin_value").GetComponent<Text>();
         _panelStartMissesToLoose = GameObject.Find("Panel_MistakesToLoose_value").GetComponent<Text>();
         _backToMainMenuButton = GameObject.Find("ButtonBlue_Back").GetComponent<Button>();
-        GetBonusButton = GameObject.Find("ButtonBlue_GetBonus").GetComponent<Button>();
         _getBonusButtonText = GameObject.Find("ButtonBlue_GetBonus_Text").GetComponent<Text>();
+        _notificationBarItems.Add(new TextListItem("Personal best !\n(world rank updated)", BicepsSprite));
+        GetBonusButton = GameObject.Find("ButtonBlue_GetBonus").GetComponent<Button>();
         UpperPanel = GameObject.Find("UicmUpperPanel").GetComponent<UicmUpperPanel>();
         ZuiManager.CurActiveMenu = MenuStart;
-        _notificationBarItems.Add(new TextListItem("Personal best !\n(world rank updated)", BicepsSprite));
-    }
+}
 
     private void Update()
     {
 
         if (AdMobPR.AdmobPRSatuses == AdmobPRSatuses.AdClosedAfterReward)
         {
-            AdMobPR.AdmobPRSatuses = AdmobPRSatuses.AdNotStarted;
+            AdMobPR.AdmobPRSatuses = AdmobPRSatuses.StartingPoint;
             _bonusPanel.ActivatePanel(this);
         }
 
+        if (GetBonusButton.IsActive())
+        {
+            if (!GetBonusButtonEffects.activeInHierarchy && (AdMobPR.RewardBasedVideo.IsLoaded() || AdMobPR.LoadingAddAttempts > 1))
+            {
+                GetBonusButtonEffects.SetActive(true);
+                Debug.Log("debug: UiContentManager-->Update: chk1: bonus button effects activated");
+            }
+            if (GetBonusButtonEffects.activeInHierarchy && !AdMobPR.RewardBasedVideo.IsLoaded() && AdMobPR.LoadingAddAttempts <= 1)
+            {
+                GetBonusButtonEffects.SetActive(false);
+                Debug.Log("debug: UiContentManager-->Update: chk2: bonus button effects deactivated");
+            }
+        }
+
+        if (AdMobPR.LoadingAdTimer != null && AdMobPR.LoadingAdTimer.TimeElapsed())
+        {
+            if (AdMobPR.LoadingAddAttempts < 3)
+            {
+                Debug.Log("debug: 30 seconds of loading Advertisement elapsed, attempt no " + (AdMobPR.LoadingAddAttempts + 1).ToString() + " started.");
+                AdMobPR.RequestRewardBasedVideo();
+            } else
+            {
+                SessionVariables.ActivityLog.Send(LogCategories.ThreeAdLoadsFailed, "Three attempts of loading Advert. failed");
+                AdMobPR.LoadingAdTimer.Deactivate();
+            }
+        }
     }
 
     public void OpenLevelStartPanel()
@@ -129,14 +154,22 @@ public class UIContentManager : MonoBehaviour {
 
     public void GetBonus()
     {
-        if (SessionVariables.TrialMode)
+        if (!SessionVariables.TrialMode && AdMobPR.RewardBasedVideo.IsLoaded())
+        {
+            AdMobPR.ShowRewardBasedVideo();
+            return;
+        }
+        if (SessionVariables.TrialMode || AdMobPR.LoadingAddAttempts > 1)
         {
             CurrentPlayer.CampaignItem.BnsTaken++;
+            if (AdMobPR.LoadingAddAttempts > 1)
+                SessionVariables.ActivityLog.Send(LogCategories.BonusWithoudAdvert, "Player gets bonus without fail-loaded advert");
+            if (!SessionVariables.TrialMode) AdMobPR.RequestRewardBasedVideo(restartAttempts: true);
+            
             _bonusPanel.ActivatePanel(this);
             return;
         }
-        if (AdMobPR.RewardBasedVideo.IsLoaded())
-            AdMobPR.ShowRewardBasedVideo();
+        if (AdMobPR.LoadingAddAttempts == 1) ZuiManager.OpenMenu("Menu_LoadAdInProgress");
     }
 
     void LoadPanelsWithData()
