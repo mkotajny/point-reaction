@@ -1,72 +1,62 @@
 ﻿using UnityEngine;
 
-public class GameMode_1 {
+public class GameMode_1
+{
+    private float _pointsStartingLivingSeconds = 3;
+    private const float _livingSecondsDecrease = .83f;
 
-    GameControler _gameControlerComponent;
-    GameLevel[] _gameLevels;
-    GameLevel _currentLevel;
-    int[] _livesBonuses;
-
-
-    float _pointsStartingLivingSeconds = 3;
-    const float _livingSecondsDecrease = .83f;
-
-    public GameControler GameControlerComponent { get { return _gameControlerComponent; } }
-    public GameLevel[] GameLevels { get { return _gameLevels; } }
-    public GameLevel CurrentLevel
-    {
-        get { return _currentLevel; }
-        set { _currentLevel = value; }
-    }
-    public int[] LivesBonuses { get { return _livesBonuses; } }
+    public GameControler GameControlerComponent { get; private set; }
+    public GameLevel[] GameLevels { get; private set; }
+    public GameLevel CurrentLevel { get; set; }
+    public int[] LivesBonuses { get; private set; }
 
     public GameMode_1(GameControler gameControler)
     {
-        _gameControlerComponent = gameControler;
-        _gameLevels = new GameLevel[49];
+        GameControlerComponent = gameControler;
+        GameLevels = new GameLevel[49];
 
-        for (int i = 0; i < _gameLevels.Length ; i++)
+        for (int i = 0; i < GameLevels.Length ; i++)
         {
             if (i == 0)
-                _gameLevels[i] = new GameLevel(i + 1, _pointsStartingLivingSeconds);
+                GameLevels[i] = new GameLevel(i + 1, _pointsStartingLivingSeconds);
             else if (i < 10)
-                _gameLevels[i] = new GameLevel(i + 1, Mathf.Floor(_gameLevels[i - 1].PointsLivingTimer.Lenght * _livingSecondsDecrease * 100f) / 100f);
+                GameLevels[i] = new GameLevel(i + 1, Mathf.Floor(GameLevels[i - 1].PointsLivingTimer.Lenght * _livingSecondsDecrease * 100f) / 100f);
             else
-                _gameLevels[i] = new GameLevel(i + 1, Mathf.Floor((_gameLevels[i - 1].PointsLivingTimer.Lenght -0.01f) * 100f) / 100f);
+                GameLevels[i] = new GameLevel(i + 1, Mathf.Floor((GameLevels[i - 1].PointsLivingTimer.Lenght -0.01f) * 100f) / 100f);
         }
-        _currentLevel = _gameLevels[CurrentPlayer.CampaignItem.LvlNo - 1];
-        _currentLevel.HitsQty = 0;
-        _livesBonuses = new int[] { 3, 5, 7, 10, 15, 20, 30, 50, 100};
+        CurrentLevel = GameLevels[CurrentPlayer.CampaignItem.LvlNo - 1];
+        CurrentLevel.HitsQty = 0;
+        LivesBonuses = new int[] { 3, 5, 7, 10, 15, 20, 30, 50, 100};
         AdMobPR.InjectGameode(this);
     }
 
     public void ActivateSinglePoint()
     {
-        if (_currentLevel.PlayStatus == LevelPlayStatuses.InProgress )
+        if (CurrentLevel.PlayStatus == LevelPlayStatuses.InProgress )
         {
-            _gameControlerComponent.ActivateOneOfPoints();
-            _currentLevel.BetweenPointsTimer.Deactivate();
+            GameControlerComponent.ActivateOneOfPoints();
+            CurrentLevel.BetweenPointsTimer.Deactivate();
         }
     }
 
     public void LevelUp()
     {
-        _currentLevel = _gameLevels[CurrentLevel.LevelNo];
-        CurrentPlayer.CampaignItem.LvlNo = _currentLevel.LevelNo;
+        CurrentLevel = GameLevels[CurrentLevel.LevelNo];
+        CurrentPlayer.CampaignItem.LvlNo = CurrentLevel.LevelNo;
     }
 
     public void SaveToFireBase(bool levelStart, UIContentManager uiContentManager = null)
     {
         CurrentPlayer.LivesTaken = (levelStart ?
-            (CurrentPlayer.CampaignItem.Lives > _currentLevel.MissesToLoose ?
-                _currentLevel.MissesToLoose : CurrentPlayer.CampaignItem.Lives)
+            (CurrentPlayer.CampaignItem.Lives > CurrentLevel.MissesToLoose ?
+                CurrentLevel.MissesToLoose : CurrentPlayer.CampaignItem.Lives)
             : 0);
         CurrentPlayer.CampaignItem.SaveToFirebase();
         if (!CurrentPlayer.TrialMode
             && !levelStart 
-            && CurrentPlayer.CampaignItem.CalculateFinalPoints(_currentLevel.HitsQty) > CurrentPlayer.WorldRankItem.FinalPts)
+            && CurrentPlayer.CampaignItem.CalculateFinalPoints(CurrentLevel.HitsQty) > CurrentPlayer.WorldRankItem.FinalPts)
         {
-            CurrentPlayer.WorldRankItem.SaveToFirebase(_currentLevel.HitsQty);
+            CurrentPlayer.WorldRankItem.SaveToFirebase(CurrentLevel.HitsQty);
             uiContentManager.ShowPersonalBestNotification();
         }
     }

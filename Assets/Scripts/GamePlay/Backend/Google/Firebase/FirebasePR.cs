@@ -8,11 +8,10 @@ using UnityEngine;
 public static class FirebasePR
 {
     static bool _googlePlayInitialized, _firebaseInitialized = false;
-    static Firebase.Auth.FirebaseAuth _firebaseAuth;
     public static DatabaseReference _campaignDbReference, _campaignsHistoryDbReference
         , _worldRankDbReference, _activityLogDbReference;
 
-    public static Firebase.Auth.FirebaseAuth FirebaseAuth{ get { return _firebaseAuth; }}
+    public static Firebase.Auth.FirebaseAuth FirebaseAuth { get; private set; }
     public static DatabaseReference CampaignDbReference
     {
         get { return _campaignDbReference; }
@@ -64,7 +63,7 @@ public static class FirebasePR
         FirebaseApp app;
 
         DependencyStatus dependencyStatus = DependencyStatus.UnavailableOther;
-        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith(task => {
+        FirebaseApp.CheckAndFixDependenciesAsync().ContinueWith((System.Threading.Tasks.Task<DependencyStatus> task) => {
             dependencyStatus = task.Result;
             if (dependencyStatus == DependencyStatus.Available)
             {
@@ -72,14 +71,14 @@ public static class FirebasePR
 
                 app.SetEditorDatabaseUrl("https://point-reaction-44fca.firebaseio.com/");
                 if (app.Options.DatabaseUrl != null) app.SetEditorDatabaseUrl(app.Options.DatabaseUrl);
-                _firebaseAuth = Firebase.Auth.FirebaseAuth.DefaultInstance;
+                FirebaseAuth = Firebase.Auth.FirebaseAuth.DefaultInstance;
 
                 app.SetEditorP12FileName("point-reaction-44fca8.p12");
                 app.SetEditorServiceAccountEmail("f6b8d282bea8e75e5a665ddad81fd8dd446bf3d8@point-reaction-44fca.iam.gserviceaccount.com");
                 app.SetEditorP12Password("notasecret");
 
 
-                _firebaseAuth.SignInWithEmailAndPasswordAsync("10softpl@gmail.com", "ikarbeskidy2001").ContinueWith(task2 => {
+                FirebaseAuth.SignInWithEmailAndPasswordAsync("10softpl@gmail.com", "ikarbeskidy2001").ContinueWith((System.Threading.Tasks.Task<Firebase.Auth.FirebaseUser> task2) => {
                     if (task2.IsCanceled)
                     {
                         Debug.LogError("debug: SignInWithEmailAndPasswordAsync was canceled.");
@@ -93,7 +92,7 @@ public static class FirebasePR
                     Firebase.Auth.FirebaseUser newUser = task2.Result;
                     Debug.LogFormat("debug: Firebase user signed in successfully: {0} ({1})",
                         newUser.DisplayName, newUser.UserId);
-                    
+
                     _worldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
                     ProgressBarPR.AddProgress("Signed to Firebase without google play");
 
@@ -109,6 +108,6 @@ public static class FirebasePR
 
     public static void SignOutFireBase()
     {
-        _firebaseAuth.SignOut();
+        FirebaseAuth.SignOut();
     }
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using PaperPlaneTools;
 
 public class LoadSceneOnClickScript : MonoBehaviour {
 

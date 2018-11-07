@@ -9,36 +9,31 @@ public enum ProgressBarPrStatuses
 }
 
 public static class ProgressBarPR {
-
-    static bool _activated;
-    static int _progressStagesQty;
-    static float _currentProgressValue;
     static ProgressBarPrStatuses _progressStatus = ProgressBarPrStatuses.Deactivated;
-    static string _statusComment;
 
-    public static bool Activated { get { return _activated; } }
-    public static int ProgressStagesQty { get { return _progressStagesQty; } }
-    public static float CurrentProgressValue { get { return _currentProgressValue; } }
+    public static bool Activated { get; private set; }
+    public static int ProgressStagesQty { get; private set; }
+    public static float CurrentProgressValue { get; private set; }
     public static ProgressBarPrStatuses ProgressStatus { get { return _progressStatus; } }
-    public static string StatusComment { get { return _statusComment; } }
+    public static string StatusComment { get; private set; }
 
     public static void Activate(string statusComment, int progressStagesQty)
     {
-        _currentProgressValue = 0;
-        _activated = true;
-        _statusComment = statusComment;
-        _progressStagesQty = progressStagesQty;
+        CurrentProgressValue = 0;
+        Activated = true;
+        StatusComment = statusComment;
+        ProgressStagesQty = progressStagesQty;
         _progressStatus = ProgressBarPrStatuses.InProgress;
     }
     public static void Deactivate()
     {
-        _activated = false;
+        Activated = false;
         _progressStatus = ProgressBarPrStatuses.Deactivated;
     }
     public static void SetFail(string statusComment)
     {
         _progressStatus = ProgressBarPrStatuses.Failed;
-        _statusComment = "ERROR! " + statusComment;
+        StatusComment = "ERROR! " + statusComment;
     }
     public static void SetSuccess()
     {
@@ -50,10 +45,10 @@ public static class ProgressBarPR {
         if (_progressStatus != ProgressBarPrStatuses.InProgress)
             return;
 
-        _currentProgressValue += 1f / _progressStagesQty;
-        Debug.Log("debug: AddProgress: chk1: current progress (" + progressComment + "): " + _currentProgressValue.ToString());
+        CurrentProgressValue += 1f / ProgressStagesQty;
+        Debug.Log("debug: AddProgress: chk1: current progress (" + progressComment + "): " + CurrentProgressValue.ToString());
 
-        if (_currentProgressValue > 1)
-            _currentProgressValue = 1;
+        if (CurrentProgressValue > 1)
+            CurrentProgressValue = 1;
     }
 }

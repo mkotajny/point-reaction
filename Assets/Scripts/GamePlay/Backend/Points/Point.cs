@@ -1,24 +1,12 @@
 ﻿using UnityEngine;
 
-public class Point {
+public class Point
+{
+    private readonly GameObject _gameObjectFactory;
 
-    float _positionX, _positionZ;
-    GameObject _pointGameObject, _gameObjectFactory;
-
-    public float PositionX 
-    {
-        get { return _positionX; }
-        set { _positionX = value; }
-    }
-    public float PositionZ
-    {
-        get { return _positionZ; }
-        set { _positionZ = value; }
-    }
-    public GameObject PointGameObject
-    {
-        get { return _pointGameObject; }
-    }
+    public float PositionX { get; set; }
+    public float PositionZ { get; set; }
+    public GameObject PointGameObject { get; private set; }
     public GameObject GameObjectFactory
     {
         get { return _gameObjectFactory;}
@@ -26,13 +14,12 @@ public class Point {
 
     public Point (float positionX, float positionZ, GameObject gameObjectFactory)
     {
-        _positionX = positionX;
-        _positionZ = positionZ;
+        PositionX = positionX;
+        PositionZ = positionZ;
         _gameObjectFactory = gameObjectFactory;
 
-        _pointGameObject = 
-            gameObjectFactory.GetComponent<GameObjectFactory>().GeneratePoint(_positionX, PositionZ);
-        _pointGameObject.SetActive(false);
+        PointGameObject = 
+            gameObjectFactory.GetComponent<GameObjectFactory>().GeneratePoint(PositionX, PositionZ);
+        PointGameObject.SetActive(false);
     }
 }
-

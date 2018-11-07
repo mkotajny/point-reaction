@@ -8,13 +8,7 @@ public static class SessionVariables  {
         Quit
     }
 
-    static PRScenes _currentScene;
-
-    public static PRScenes CurrentScene
-    {
-        get { return _currentScene; }
-        set { _currentScene = value; }
-    }
+    public static PRScenes CurrentScene { get; set; }
 
     public static void SetSessionForEditor()
     {

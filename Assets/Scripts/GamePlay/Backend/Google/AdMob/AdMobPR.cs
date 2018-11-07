@@ -11,29 +11,22 @@ public enum AdmobPRSatuses
 }
 
 public static class AdMobPR  {
-
-    static RewardBasedVideoAd _rewardBasedVideo;
     static AdRequest _request;
-    static AdmobPRSatuses _admobPRSatuses;
     static GameMode_1 _gameMode_1;
     static bool _initialized = false;
 
 #if UNITY_ANDROID
     static string _appId = "ca-app-pub-9423577850321975~7011202817";
     static string _adUnitId = "ca-app-pub-3940256099942544/5224354917";   //rewarded-video ANDROID test unit id
-    //static string _adUnitId = "ca-app-pub-9423577850321975/6791996376";   //real PR add unit id
+                                                                          //static string _adUnitId = "ca-app-pub-9423577850321975/6791996376";   //real PR add unit id
 #else
     static string _appId = "unexpected_platform";
     static string _adUnitId = "unexpected_platform";
 #endif
-    
-    public static AdmobPRSatuses AdmobPRSatuses
-    {
-        get { return _admobPRSatuses; }
-        set { _admobPRSatuses = value; }
-    }
 
-    public static RewardBasedVideoAd RewardBasedVideo { get { return _rewardBasedVideo; }  } 
+    public static AdmobPRSatuses AdmobPRSatuses { get; set; }
+
+    public static RewardBasedVideoAd RewardBasedVideo { get; private set; }
 
     public static void Initialize()
     {
@@ -41,16 +34,16 @@ public static class AdMobPR  {
         if (!CheckInternet.IsConnected() || _initialized)
             return;
 
-        _admobPRSatuses = AdmobPRSatuses.AdNotStarted;
+        AdmobPRSatuses = AdmobPRSatuses.AdNotStarted;
         MobileAds.Initialize(_appId);
-        _rewardBasedVideo = RewardBasedVideoAd.Instance;
-        _rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
-        _rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
-        _rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
-        _rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
-        _rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
-        _rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
-        _rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
+        RewardBasedVideo = RewardBasedVideoAd.Instance;
+        RewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
+        RewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
+        RewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
+        RewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
+        RewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
+        RewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
+        RewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
         //RequestRewardBasedVideo();
         _initialized = true;
     }
@@ -69,19 +62,19 @@ public static class AdMobPR  {
         _request = new AdRequest.Builder()
             //.AddTestDevice("0CE9D0BDCFD6B8B96D3440ADC1D453EC")
             .Build();
-        _rewardBasedVideo.LoadAd(_request, _adUnitId);
+        RewardBasedVideo.LoadAd(_request, _adUnitId);
     }
 
 
     public static void ShowRewardBasedVideo()
     {
-        _admobPRSatuses = AdmobPRSatuses.AdInProgress;
-        _rewardBasedVideo.Show();
+        AdmobPRSatuses = AdmobPRSatuses.AdInProgress;
+        RewardBasedVideo.Show();
     }
 
     static void RewardPlayer()
     {
-        _admobPRSatuses = AdmobPRSatuses.AdClosedAfterReward;
+        AdmobPRSatuses = AdmobPRSatuses.AdClosedAfterReward;
         CurrentPlayer.CampaignItem.BnsTaken++;
         _gameMode_1.SaveToFireBase(false);
 }
@@ -108,8 +101,8 @@ public static class AdMobPR  {
 
     static void HandleRewardBasedVideoClosed(object sender, EventArgs args)
     {
-        if (_admobPRSatuses != AdmobPRSatuses.AdClosedAfterReward)
-            _admobPRSatuses = AdmobPRSatuses.AdClosedBeforeReward;
+        if (AdmobPRSatuses != AdmobPRSatuses.AdClosedAfterReward)
+            AdmobPRSatuses = AdmobPRSatuses.AdClosedBeforeReward;
         Debug.Log("debug: AdMob: HandleRewardBasedVideoClosed event received");
         RequestRewardBasedVideo();
 }

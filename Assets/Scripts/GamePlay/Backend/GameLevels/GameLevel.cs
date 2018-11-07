@@ -9,101 +9,60 @@ public enum LevelPlayStatuses
 }
 
 
-public class GameLevel {
-
-    int _levelNo;
-    LevelPlayStatuses _playStatus;
-    int _hitsQty;
-    int _missQty;
-    int _bonusPerfectLevel;
-    int _hitsToWin;
-    int _missesToLoose;
-    Timer _pointsLivingTimer;
-    Timer _betweenPointsTimer;
-
-    public LevelPlayStatuses PlayStatus
-    {
-        get { return _playStatus; }
-        set
-        {
-            _playStatus = value;
-        }
-    }
-    public int LevelNo
-    {
-        get { return _levelNo; }
-        set { _levelNo = value; }
-    }
-    public int HitsQty
-    {
-        get { return _hitsQty; }
-        set { _hitsQty = value; }
-    }
-    public int MissQty
-    {
-        get { return _missQty; }
-        set { _missQty = value; }
-    }
-    public int BonusPerfectLevel { get { return _bonusPerfectLevel; } }
-    public int HitsToWin { get { return _hitsToWin; } }
-    public int MissesToLoose
-    {
-        get { return _missesToLoose; }
-        set { _missesToLoose = value; }
-    }
-    public Timer PointsLivingTimer
-    {
-        get { return _pointsLivingTimer; }
-        set { _pointsLivingTimer = value; }
-    }
-    public Timer BetweenPointsTimer
-    {
-        get { return _betweenPointsTimer; }
-        set { _betweenPointsTimer = value; }
-    }
+public class GameLevel
+{
+    public LevelPlayStatuses PlayStatus { get; set; }
+    public int LevelNo { get; set; }
+    public int HitsQty { get; set; }
+    public int MissQty { get; set; }
+    public int BonusPerfectLevel { get; private set; }
+    public int HitsToWin { get; private set; }
+    public int MissesToLoose { get; set; }
+    public Timer PointsLivingTimer { get; set; }
+    public Timer BetweenPointsTimer { get; set; }
 
     public GameLevel (int levelNo
         , float pointsLivingTime
         , int hitsQty = 0
         , float reactionFastest = 0)
     {
-        _levelNo = levelNo;
-        _playStatus = LevelPlayStatuses.notStarted;
-        _pointsLivingTimer = new Timer(pointsLivingTime, true);
-        _betweenPointsTimer = new Timer(2, false);
-        _hitsQty = hitsQty;
-        _missQty = 0;
-        _bonusPerfectLevel = 1;
-        if (levelNo >= 11) _bonusPerfectLevel = 2;
-        if (levelNo >= 16) _bonusPerfectLevel = 3;
-        if (levelNo >= 21) _bonusPerfectLevel = 4;
-        if (levelNo >= 26) _bonusPerfectLevel = 5;
-        if (levelNo >= 31) _bonusPerfectLevel = 10;
-        if (levelNo >= 36) _bonusPerfectLevel = 15;
-        if (levelNo >= 41) _bonusPerfectLevel = 20;
-        if (levelNo >= 1) _hitsToWin = 2;
-        if (levelNo >= 2) _hitsToWin = 3;
-        if (levelNo >= 4) _hitsToWin = 4;
-        if (levelNo >= 7) _hitsToWin = 5;
-        if (levelNo >= 11) _hitsToWin = 6;
-        if (levelNo >= 16) _hitsToWin = 8;
-        if (levelNo >= 22) _hitsToWin = 10;
-        if (levelNo >= 30) _hitsToWin = 12;
-        if (levelNo >= 40) _hitsToWin = 15;
-        if (levelNo >= 1) _missesToLoose = 2;
-        if (levelNo >= 11) _missesToLoose = 3;
-        if (levelNo >= 21) _missesToLoose = 4;
-        if (levelNo >= 26) _missesToLoose = 5;
-        if (levelNo >= 31) _missesToLoose = 10;
-        if (levelNo >= 36) _missesToLoose = 15;
-        if (levelNo >= 41) _missesToLoose = 20;
+        LevelNo = levelNo;
+        PlayStatus = LevelPlayStatuses.notStarted;
+        PointsLivingTimer = new Timer(pointsLivingTime, true);
+        BetweenPointsTimer = new Timer(2, false);
+        HitsQty = hitsQty;
+        MissQty = 0;
+        BonusPerfectLevel = 1;
+        if (levelNo >= 11) BonusPerfectLevel = 2;
+        if (levelNo >= 16) BonusPerfectLevel = 3;
+        if (levelNo >= 21) BonusPerfectLevel = 4;
+        if (levelNo >= 26) BonusPerfectLevel = 5;
+        if (levelNo >= 31) BonusPerfectLevel = 10;
+        if (levelNo >= 36) BonusPerfectLevel = 15;
+        if (levelNo >= 41) BonusPerfectLevel = 20;
+        if (levelNo >= 1) HitsToWin = 2;
+        if (levelNo >= 2) HitsToWin = 3;
+        if (levelNo >= 4) HitsToWin = 4;
+        if (levelNo >= 7) HitsToWin = 5;
+        if (levelNo >= 11) HitsToWin = 6;
+        if (levelNo >= 16) HitsToWin = 8;
+        if (levelNo >= 22) HitsToWin = 10;
+        if (levelNo >= 30) HitsToWin = 12;
+        if (levelNo >= 40) HitsToWin = 15;
+        if (levelNo >= 1) MissesToLoose = 2;
+        if (levelNo >= 11) MissesToLoose = 3;
+        if (levelNo >= 21) MissesToLoose = 4;
+        if (levelNo >= 26) MissesToLoose = 5;
+        if (levelNo >= 31) MissesToLoose = 10;
+        if (levelNo >= 36) MissesToLoose = 15;
+        if (levelNo >= 41) MissesToLoose = 20;
     }
 
     float CalculateShotReaction(float hitTime)
     {
-        float hitReaction = hitTime - _pointsLivingTimer.StartTime;
-        if (hitReaction > _pointsLivingTimer.Lenght)
-            hitReaction = _pointsLivingTimer.Lenght;
+        float hitReaction = hitTime - PointsLivingTimer.StartTime;
+        if (hitReaction > PointsLivingTimer.Lenght)
+            hitReaction = PointsLivingTimer.Lenght;
         return hitReaction;
     }
 
@@ -112,15 +71,15 @@ public class GameLevel {
     {
         float hitReaction = CalculateShotReaction(hitTime);
 
-        _pointsLivingTimer.Deactivate();
-        _hitsQty++;
+        PointsLivingTimer.Deactivate();
+        HitsQty++;
         CurrentPlayer.CampaignItem.ReacCmp += hitReaction;
         CurrentPlayer.CampaignItem.HitsCmp++;
 
-        if (_hitsQty == hitsToWin)
+        if (HitsQty == hitsToWin)
             PlayStatus = LevelPlayStatuses.Win;
         else
-            _betweenPointsTimer.Activate();
+            BetweenPointsTimer.Activate();
     }
 
     public void RegisterFail(ScreenTouchTypes touchType)
@@ -131,19 +90,19 @@ public class GameLevel {
             CurrentPlayer.CampaignItem.ReacCmp += shotReaction;
             CurrentPlayer.CampaignItem.HitsCmp++;
         }
-        _missQty++;
+        MissQty++;
         CurrentPlayer.CampaignItem.Lives--;
     }
     public void Reset()
     {
-        _hitsQty = 0;
-        _missQty = 0;
-        _missesToLoose = (_missesToLoose < CurrentPlayer.CampaignItem.Lives) ? _missesToLoose : CurrentPlayer.CampaignItem.Lives;
+        HitsQty = 0;
+        MissQty = 0;
+        MissesToLoose = (MissesToLoose < CurrentPlayer.CampaignItem.Lives) ? MissesToLoose : CurrentPlayer.CampaignItem.Lives;
     }
 
     public void SpawnPoint()
     {
-        _pointsLivingTimer.Deactivate();
-        _betweenPointsTimer.Activate();
+        PointsLivingTimer.Deactivate();
+        BetweenPointsTimer.Activate();
     }
 }
