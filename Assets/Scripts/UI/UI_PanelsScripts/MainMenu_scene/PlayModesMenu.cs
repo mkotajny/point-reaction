@@ -7,7 +7,7 @@ public class PlayModesMenu : MonoBehaviour {
 
     public void RunTrialMode()
     {
-        CurrentPlayer.SetTrialMode();
+        SessionVariables.SetTrialMode();
         GetComponent<LoadSceneOnClickScript>().LoadByIndex(1);
     }
 

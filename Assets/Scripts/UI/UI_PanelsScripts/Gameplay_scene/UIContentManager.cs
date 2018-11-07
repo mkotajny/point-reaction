@@ -67,7 +67,7 @@ public class UIContentManager : MonoBehaviour {
         }
 
         // open (OFFLINE) game over panel
-        if (CurrentPlayer.TrialMode
+        if (SessionVariables.TrialMode
             && CurrentPlayer.CampaignItem.LvlNo == 11)
         {
             GetBonusButton.gameObject.SetActive(false);
@@ -82,7 +82,7 @@ public class UIContentManager : MonoBehaviour {
             GetBonusButton.gameObject.SetActive(true);
 
         // open "info about bonus" panel
-        if (!CurrentPlayer.TrialMode
+        if (!SessionVariables.TrialMode
             && (CurrentPlayer.CampaignItem.LvlNo - 1) % 5 == 0         // milestone level
             && (CurrentPlayer.CampaignItem.LvlNo - 1) / 5 == 1      //1st milestone
             && (CurrentPlayer.CampaignsHistoryItem.BnsBtnInf < 2)   // informed not more then 2 times in campaigns history
@@ -129,7 +129,7 @@ public class UIContentManager : MonoBehaviour {
 
     public void GetBonus()
     {
-        if (CurrentPlayer.TrialMode)
+        if (SessionVariables.TrialMode)
         {
             CurrentPlayer.CampaignItem.BnsTaken++;
             _bonusPanel.ActivatePanel(this);

@@ -37,7 +37,7 @@ public class WorldRankItem {
         CurrentPlayer.CampaignItem.HitsCmp = 6;
         CurrentPlayer.CampaignItem.ReacCmp = 9;
 #endif
-        if (CurrentPlayer.TrialMode)
+        if (SessionVariables.TrialMode)
             return;
 
         LvlNo = CurrentPlayer.CampaignItem.LvlNo;

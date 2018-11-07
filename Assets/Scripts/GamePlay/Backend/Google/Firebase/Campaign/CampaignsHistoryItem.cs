@@ -34,7 +34,7 @@ public class CampaignsHistoryItem
 
     public void EndOfCampaignIntoToFirebase()
     {
-        if (CurrentPlayer.TrialMode)
+        if (SessionVariables.TrialMode)
             return;
         CurrentDateToString();
         Cmpgns++;
@@ -46,7 +46,7 @@ public class CampaignsHistoryItem
 
     public void SaveToFirebase()
     {
-        if (CurrentPlayer.TrialMode)
+        if (SessionVariables.TrialMode)
             return;
         CurrentDateToString();
         string json = JsonUtility.ToJson(this);

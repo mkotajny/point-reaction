@@ -6,6 +6,7 @@ public class LoadingSceneControler : MonoBehaviour {
 
     private void Awake()
     {
+        SessionVariables.SetSession();
         _progressBarPanel = GameObject.Find("Panel_InProgress");
         int progressStages = 1;
         WorldRankPersister.Reset();

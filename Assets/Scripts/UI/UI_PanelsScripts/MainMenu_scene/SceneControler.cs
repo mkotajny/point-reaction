@@ -6,9 +6,9 @@ public class SceneControler : MonoBehaviour {
 
     private void Awake()
     {
-        SessionVariables.SetSessionForEditor();
-        if (CurrentPlayer.TrialMode)
-            CurrentPlayer.EndTrialMode();
+        SessionVariables.SetSession();
+        if (SessionVariables.TrialMode)
+            SessionVariables.EndTrialMode();
 
         MusicPR.PlayNextSong(MusicPR.PlayListMenu);
         MusicPR.SetVolumeSfx();

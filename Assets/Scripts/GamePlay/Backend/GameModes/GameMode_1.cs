@@ -52,7 +52,7 @@ public class GameMode_1
                 CurrentLevel.MissesToLoose : CurrentPlayer.CampaignItem.Lives)
             : 0);
         CurrentPlayer.CampaignItem.SaveToFirebase();
-        if (!CurrentPlayer.TrialMode
+        if (!SessionVariables.TrialMode
             && !levelStart 
             && CurrentPlayer.CampaignItem.CalculateFinalPoints(CurrentLevel.HitsQty) > CurrentPlayer.WorldRankItem.FinalPts)
         {

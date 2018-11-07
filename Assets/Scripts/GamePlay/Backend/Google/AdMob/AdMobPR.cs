@@ -44,7 +44,7 @@ public static class AdMobPR  {
         RewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
         RewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
         RewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
-        //RequestRewardBasedVideo();
+        RequestRewardBasedVideo();
         _initialized = true;
     }
 
@@ -87,6 +87,7 @@ public static class AdMobPR  {
     static void HandleRewardBasedVideoFailedToLoad(object sender, AdFailedToLoadEventArgs args)
     {
         Debug.Log("debug: AdMob: HandleRewardBasedVideoFailedToLoad event received with message: " + args.Message);
+        
     }
 
     static void HandleRewardBasedVideoOpened(object sender, EventArgs args)

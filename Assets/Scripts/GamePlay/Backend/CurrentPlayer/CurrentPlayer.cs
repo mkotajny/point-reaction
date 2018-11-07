@@ -6,16 +6,12 @@ using System;
 
 public static class CurrentPlayer
 {
-    static CampaignItem _campaignItemCopy;
-
     public static bool SignedIn { get; private set; }
     public static CampaignItem CampaignItem { get; set; }
     public static CampaignsHistoryItem CampaignsHistoryItem { get; set; }
     public static WorldRankItem WorldRankItem { get; set; }
-    public static ActivityLogIem ActivityLog { get; set; }
     public static int LivesTaken { get; set; }
     public static bool BonusInformed { get; set; }
-    public static bool TrialMode { get; set; }
 
     public static void SignInGooglePlay()
     {
@@ -61,14 +57,12 @@ public static class CurrentPlayer
                 Firebase.Auth.FirebaseUser newUser = task.Result;
 
                 Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
-                AdMobPR.RequestRewardBasedVideo();
                 FirebasePR.CampaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns/" + newUser.UserId);
                 FirebasePR.CampaignsHistoryDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns_history/" + newUser.UserId);
                 FirebasePR.WorldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
                 FirebasePR.ActivityLogDbReference = FirebaseDatabase.DefaultInstance.GetReference("activity_log/" + DateTime.Now.ToString("yyyy-MM"));
                 GetCurrentPlayerData(newUser.UserId, Social.localUser.userName);
                 SetPlayerAttributes(Social.localUser.userName);
-                ActivityLog = new ActivityLogIem();
                 PlayerPrefs.SetInt("InGooglePlay", 1);
                 SignedIn = true;
             });
@@ -97,27 +91,11 @@ public static class CurrentPlayer
     public static void GetCurrentPlayerData(string userId, string userName)
     {
         LivesTaken = 0;
-        TrialMode = false;
+        SessionVariables.TrialMode = false;
         if (!CheckInternet.IsConnected()) return;
         GetCampaignData(userId, userName);
         GetCampaignsHistoryData(userId, userName);
         GetWorldRankData(userId, userName);
-    }
-
-    public static void SetTrialMode()
-    {
-        if (CampaignItem != null)
-            _campaignItemCopy = new CampaignItem(CampaignItem.PlrId, CampaignItem.PlrName, CampaignItem.LvlNo, CampaignItem.HitsCmp
-                , CampaignItem.Lives, CampaignItem.ReacCmp, CampaignItem.BnsTaken, CampaignItem.BnsLastMlstn);
-        CampaignItem = new CampaignItem(string.Empty, string.Empty, 1, 0, 10, 0, 0, 0);
-        TrialMode = true;
-    }
-    public static void EndTrialMode()
-    {
-        if (_campaignItemCopy != null)
-            CampaignItem = new CampaignItem(_campaignItemCopy.PlrId, _campaignItemCopy.PlrName, _campaignItemCopy.LvlNo, _campaignItemCopy.HitsCmp
-            , _campaignItemCopy.Lives, _campaignItemCopy.ReacCmp, _campaignItemCopy.BnsTaken, _campaignItemCopy.BnsLastMlstn);
-        TrialMode = false;
     }
 
     static void GetCampaignData(string playerId, string userName)

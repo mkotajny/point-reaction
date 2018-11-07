@@ -76,7 +76,7 @@ public class CampaignItem {
             return;
         }
 
-        if (CurrentPlayer.TrialMode)
+        if (SessionVariables.TrialMode)
             return;
 
         if (!deleteRow)
