@@ -20,7 +20,12 @@ public class PlayModesMenu : MonoBehaviour {
                 .SetPositiveButton("OK", () => { }).Show();
             return;
         }
-
+        if (SessionVariables.CurrentGameVersion.VersionValue < SessionVariables.LatestCriticalUpdateVersion.VersionValue)
+        {
+            new Alert("Critical updates required !", "Please update the game in Play Store, and try again.")
+                .SetPositiveButton("OK", () => { }).Show();
+            return;
+        }
         if (CurrentPlayer.CampaignItem != null
             && CurrentPlayer.CampaignItem.IsNewCampaign())
         {

@@ -44,7 +44,7 @@ public class PlayerSettings : MonoBehaviour {
         if (signIn)
         {
             ModalPanel.SetActive(true);
-            ProgressBarPR.Activate("Loading ...", 4);
+            ProgressBarPR.Activate("Loading ...", 5);
             CurrentPlayer.SignInGooglePlay();
         }
         else

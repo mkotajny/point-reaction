@@ -7,32 +7,15 @@ using UnityEngine;
 
 public static class FirebasePR
 {
-    static bool _googlePlayInitialized, _firebaseInitialized = false;
-    public static DatabaseReference _campaignDbReference, _campaignsHistoryDbReference
-        , _worldRankDbReference, _activityLogDbReference;
+    static bool _googlePlayInitialized;
 
     public static Firebase.Auth.FirebaseAuth FirebaseAuth { get; private set; }
-    public static DatabaseReference CampaignDbReference
-    {
-        get { return _campaignDbReference; }
-        set { _campaignDbReference = value; }
-    }
-    public static DatabaseReference WorldRankDbReference
-    {
-        get { return _worldRankDbReference; }
-        set { _worldRankDbReference = value; }
-    }
-    public static DatabaseReference CampaignsHistoryDbReference
-    {
-        get { return _campaignsHistoryDbReference; }
-        set { _campaignsHistoryDbReference = value; }
-    }
-    public static DatabaseReference ActivityLogDbReference
-    {
-        get { return _activityLogDbReference; }
-        set { _activityLogDbReference = value; }
-    }
-    public static bool FirebaseInitialized { get { return _firebaseInitialized; } }
+    public static DatabaseReference CampaignDbReference { get; set; }
+    public static DatabaseReference CampaignsHistoryDbReference { get; set; }
+    public static DatabaseReference WorldRankDbReference { get; set; }
+    public static DatabaseReference ActivityLogDbReference { get; set; }
+    public static DatabaseReference GameSettingsReference { get; set; }
+    public static bool FirebaseInitialized { get; private set; }
 
     public static void InitializeGooglePlay()
     {
@@ -51,11 +34,10 @@ public static class FirebasePR
 
     public static void InitializeFireBaseDb()
     {
-        if (_firebaseInitialized || !CheckInternet.IsConnected())
+        if (FirebaseInitialized || !CheckInternet.IsConnected())
             return;
         SetNotSignedInDatabaseReferences();
-        _firebaseInitialized = true;
-
+        FirebaseInitialized = true;
     }
 
     public static void SetNotSignedInDatabaseReferences()
@@ -93,11 +75,13 @@ public static class FirebasePR
                     Debug.LogFormat("debug: Firebase user signed in successfully: {0} ({1})",
                         newUser.DisplayName, newUser.UserId);
 
-                    _worldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
+                    WorldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
+                    GameSettingsReference = FirebaseDatabase.DefaultInstance.GetReference("game_settings");
                     ProgressBarPR.AddProgress("Signed to Firebase without google play");
 
                     if (PlayerPrefs.GetInt("InGooglePlay") == 1) CurrentPlayer.SignInGooglePlay();
                     else WorldRankPersister.LoadWorldRank();
+                    SessionVariables.GetGameSettingsData();
                 });
 
             }

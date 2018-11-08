@@ -59,9 +59,11 @@ public static class CurrentPlayer
                 FirebasePR.CampaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns/" + newUser.UserId);
                 FirebasePR.CampaignsHistoryDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns_history/" + newUser.UserId);
                 FirebasePR.WorldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
+                FirebasePR.GameSettingsReference = FirebaseDatabase.DefaultInstance.GetReference("game_settings");
                 FirebasePR.ActivityLogDbReference = FirebaseDatabase.DefaultInstance.GetReference("activity_log/" + DateTime.Now.ToString("yyyy-MM"));
                 GetCurrentPlayerData(newUser.UserId, Social.localUser.userName);
                 SetPlayerAttributes(Social.localUser.userName);
+                SessionVariables.GetGameSettingsData();
                 PlayerPrefs.SetInt("InGooglePlay", 1);
                 SignedIn = true;
             });
@@ -128,7 +130,7 @@ public static class CurrentPlayer
 
     static void GetCampaignsHistoryData(string playerId, string userName)
     {
-        CampaignsHistoryItem = new CampaignsHistoryItem(playerId, userName, 0, 0, 0, 0);
+        CampaignsHistoryItem = new CampaignsHistoryItem(playerId, userName, 0, 0, 0);
 
         FirebasePR.CampaignsHistoryDbReference
             .GetValueAsync().ContinueWith(task =>
@@ -144,7 +146,6 @@ public static class CurrentPlayer
                         CampaignsHistoryItem.Cmpgns = System.Convert.ToInt32(snapshot.Child("Cmpgns").Value);
                         CampaignsHistoryItem.AdsWtchd = System.Convert.ToInt32(snapshot.Child("AdsWtchd").Value);
                         CampaignsHistoryItem.AdsSkpd = System.Convert.ToInt32(snapshot.Child("AdsSkpd").Value);
-                        CampaignsHistoryItem.BnsBtnInf = System.Convert.ToInt32(snapshot.Child("BnsBtnInf").Value);
                     }
                     ProgressBarPR.AddProgress("get campaign history data");
                 }
@@ -181,4 +182,34 @@ public static class CurrentPlayer
                 return;
             });
     }
+
+    static void GetGameSettingsnData()
+    {
+        FirebasePR.CampaignDbReference
+            .GetValueAsync().ContinueWith(task =>
+            {
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    if (snapshot != null)
+                    {
+                        CampaignItem.Updated = snapshot.Child("Updated").Value.ToString();
+                        CampaignItem.PlrId = snapshot.Child("PlrId").Value.ToString();
+                        CampaignItem.PlrName = snapshot.Child("PlrName").Value.ToString();
+                        CampaignItem.LvlNo = System.Convert.ToInt32(snapshot.Child("LvlNo").Value);
+                        CampaignItem.HitsCmp = System.Convert.ToInt32(snapshot.Child("HitsCmp").Value);
+                        CampaignItem.Lives = System.Convert.ToInt32(snapshot.Child("Lives").Value);
+                        CampaignItem.ReacCmp = System.Convert.ToDouble(snapshot.Child("ReacCmp").Value);
+                        CampaignItem.BnsTaken = System.Convert.ToInt32(snapshot.Child("BnsTaken").Value);
+                        CampaignItem.BnsLastMlstn = System.Convert.ToInt32(snapshot.Child("BnsLastMlstn").Value);
+                        SessionVariables.ActivityLog = new ActivityLogIem();
+                        AdMobPR.Initialize();
+                    }
+                    ProgressBarPR.AddProgress("get campaign data");
+                }
+                return;
+            });
+    }
+
+
 }

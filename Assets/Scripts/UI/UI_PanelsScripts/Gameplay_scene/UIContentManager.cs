@@ -110,13 +110,21 @@ public class UIContentManager : MonoBehaviour {
         if (!SessionVariables.TrialMode
             && (CurrentPlayer.CampaignItem.LvlNo - 1) % 5 == 0         // milestone level
             && (CurrentPlayer.CampaignItem.LvlNo - 1) / 5 == 1      //1st milestone
-            && (CurrentPlayer.CampaignsHistoryItem.BnsBtnInf < 2)   // informed not more then 2 times in campaigns history
+            && (PlayerPrefs.GetInt("InformedAboutBonus") != 1)   
             && !CurrentPlayer.BonusInformed)                        // not already informed in current session
         {
-            try { ZuiManager.OpenMenu("Menu_Info_About_Bonus"); } catch { }
             CurrentPlayer.BonusInformed = true;
-            CurrentPlayer.CampaignsHistoryItem.BnsBtnInf++;
+            PlayerPrefs.SetInt("InformedAboutBonus", 1);
             CurrentPlayer.CampaignsHistoryItem.SaveToFirebase();
+            try { ZuiManager.OpenMenu("Menu_Info_About_Bonus"); } catch { }
+            return;
+        }
+
+        // inform How to Play
+        if (PlayerPrefs.GetInt("InformedHowToPlay") != 1)
+        {
+            PlayerPrefs.SetInt("InformedHowToPlay", 1);
+            try { ZuiManager.OpenMenu("Menu_Info_HowToPlay"); } catch { }
             return;
         }
 

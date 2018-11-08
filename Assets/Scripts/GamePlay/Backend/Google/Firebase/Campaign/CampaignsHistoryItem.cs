@@ -6,7 +6,7 @@ public class CampaignsHistoryItem
 {
 
     public string UpdDt, PlrId, PlrName;
-    public int Cmpgns, AdsWtchd, AdsSkpd, BnsBtnInf;
+    public int Cmpgns, AdsWtchd, AdsSkpd;
 
 
     public CampaignsHistoryItem(string playerId
@@ -14,8 +14,6 @@ public class CampaignsHistoryItem
         , int campaignsClosed
         , int adsWatched
         , int adsSkipped
-        , int howManyTimesInformedAboutBonusButton
-        
         )
     {
         CurrentDateToString();
@@ -24,7 +22,6 @@ public class CampaignsHistoryItem
         Cmpgns = campaignsClosed;
         AdsWtchd = adsWatched;
         AdsSkpd = adsSkipped;
-        BnsBtnInf = howManyTimesInformedAboutBonusButton;
     }
 
     void CurrentDateToString()

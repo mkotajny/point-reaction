@@ -1,4 +1,7 @@
 ﻿
+using Firebase.Database;
+using UnityEngine;
+
 public static class SessionVariables  {
     public enum PRScenes
     {
@@ -13,10 +16,14 @@ public static class SessionVariables  {
     public static PRScenes CurrentScene { get; set; }
     public static ActivityLogIem ActivityLog { get; set; }
     public static bool TrialMode { get; set; }
+    public static GameVersion CurrentGameVersion { get; private set; }
+    public static GameVersion LatestCriticalUpdateVersion { get; private set; }
 
     public static void SetSession()
     {
         ActivityLog = new ActivityLogIem();
+        CurrentGameVersion = new GameVersion(Application.version);
+
         #if UNITY_EDITOR
             SetSessionForEditor();
         #endif
@@ -24,10 +31,10 @@ public static class SessionVariables  {
 
     static void SetSessionForEditor()
     {
-        //FirebasePR.InitializeFireBaseDb();
         if (CurrentPlayer.CampaignItem == null)
         {
             CurrentPlayer.CampaignItem = new CampaignItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 1, 0, 10, 0, 0, 0);
+            CurrentPlayer.CampaignsHistoryItem = new CampaignsHistoryItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 0, 0, 0);
             CurrentPlayer.WorldRankItem = new WorldRankItem("MMzIVx7Fs0SlKY6VqQqlcFIbtHQ2", "marekkoszmarek", 0, 6, 0.62);
             TrialMode = true;
         }
@@ -53,4 +60,19 @@ public static class SessionVariables  {
         TrialMode = false;
     }
 
+    public static void GetGameSettingsData()
+    {
+        FirebasePR.GameSettingsReference
+            .GetValueAsync().ContinueWith(task =>
+            {
+                if (task.IsCompleted)
+                {
+                    DataSnapshot snapshot = task.Result;
+                    if (snapshot != null)
+                        LatestCriticalUpdateVersion = new GameVersion(snapshot.Child("LastCriticalUpdateVersion").Value.ToString());
+                    ProgressBarPR.AddProgress("get game settings data");
+                }
+                return;
+            });
+    }
 }
