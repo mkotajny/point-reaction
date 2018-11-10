@@ -5,7 +5,7 @@ using UnityEngine;
 public class CampaignsHistoryItem
 {
 
-    public string UpdDt, PlrId, PlrName;
+    public string UpdDt, PlrId, PlrName, Ver;
     public int Cmpgns, AdsWtchd, AdsSkpd;
 
 
@@ -14,7 +14,7 @@ public class CampaignsHistoryItem
         , int campaignsClosed
         , int adsWatched
         , int adsSkipped
-        )
+        , string version)
     {
         CurrentDateToString();
         PlrId = playerId;
@@ -22,6 +22,7 @@ public class CampaignsHistoryItem
         Cmpgns = campaignsClosed;
         AdsWtchd = adsWatched;
         AdsSkpd = adsSkipped;
+        Ver = version;
     }
 
     void CurrentDateToString()

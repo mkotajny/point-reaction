@@ -63,7 +63,6 @@ public static class CurrentPlayer
                 FirebasePR.ActivityLogDbReference = FirebaseDatabase.DefaultInstance.GetReference("activity_log/" + DateTime.Now.ToString("yyyy-MM"));
                 GetCurrentPlayerData(newUser.UserId, Social.localUser.userName);
                 SetPlayerAttributes(Social.localUser.userName);
-                SessionVariables.GetGameSettingsData();
                 PlayerPrefs.SetInt("InGooglePlay", 1);
                 SignedIn = true;
             });
@@ -101,7 +100,8 @@ public static class CurrentPlayer
 
     static void GetCampaignData(string playerId, string userName)
     {
-        CampaignItem = new CampaignItem(playerId, userName, 1, 0, 10, 0, 0, 0);
+        CampaignItem = new CampaignItem(playerId, userName, 1, 0, 10, 0, 0, 0, SessionVariables.CurrentGameVersion.VersionString);
+        AdMobPR.Initialize();
         FirebasePR.CampaignDbReference
             .GetValueAsync().ContinueWith(task =>
             {
@@ -120,7 +120,6 @@ public static class CurrentPlayer
                         CampaignItem.BnsTaken = System.Convert.ToInt32(snapshot.Child("BnsTaken").Value);
                         CampaignItem.BnsLastMlstn = System.Convert.ToInt32(snapshot.Child("BnsLastMlstn").Value);
                         SessionVariables.ActivityLog = new ActivityLogIem();
-                        AdMobPR.Initialize();
                     }
                     ProgressBarPR.AddProgress("get campaign data");
                 }
@@ -130,7 +129,7 @@ public static class CurrentPlayer
 
     static void GetCampaignsHistoryData(string playerId, string userName)
     {
-        CampaignsHistoryItem = new CampaignsHistoryItem(playerId, userName, 0, 0, 0);
+        CampaignsHistoryItem = new CampaignsHistoryItem(playerId, userName, 0, 0, 0, SessionVariables.CurrentGameVersion.VersionString);
 
         FirebasePR.CampaignsHistoryDbReference
             .GetValueAsync().ContinueWith(task =>

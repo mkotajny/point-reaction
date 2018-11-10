@@ -4,7 +4,7 @@ using PaperPlaneTools;
 
 public class CampaignItem {
 
-    public string Updated, PlrId, PlrName;
+    public string Updated, PlrId, PlrName, Ver;
     public int LvlNo, HitsCmp, Lives, BnsTaken, BnsLastMlstn;
     public double ReacCmp;
 
@@ -16,6 +16,7 @@ public class CampaignItem {
         , double reactionSumCampaign
         , int bonusTaken
         , int bonusLastMilestone
+        , string version
         )
     {
         CurrentDateToString();
@@ -27,6 +28,7 @@ public class CampaignItem {
         ReacCmp = reactionSumCampaign;
         BnsTaken = bonusTaken;
         BnsLastMlstn = bonusLastMilestone;
+        Ver = version;
     }
 
     void CurrentDateToString()

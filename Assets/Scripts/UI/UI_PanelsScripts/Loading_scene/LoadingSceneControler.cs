@@ -15,7 +15,7 @@ public class LoadingSceneControler : MonoBehaviour {
         {
             progressStages += 2;
             if (PlayerPrefs.GetInt("InGooglePlay") == 1)
-                progressStages += 5;
+                progressStages += 4;
 
             FirebasePR.InitializeFireBaseDb();
         }

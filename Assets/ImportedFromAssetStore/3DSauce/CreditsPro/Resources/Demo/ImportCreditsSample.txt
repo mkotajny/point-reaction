@@ -1,0 +1,38 @@
+<br>
+<i>Credits Pro takes full advantage of the new Unity GUI system, as well as the unparalleled performance of the DOTween animation engine.
+<br>
+<divider>
+<br>
+<t>- Scripting and Tools -
+<n>Graham Bailey
+<br>
+<br>
+<t>- Bug Testing -
+<n>Rosalie Mantion
+<br>
+<br>
+<t>- Special Thanks -
+<n>Eva Bailey
+<n>Daniel Mantion
+<n>Simon Losier
+<br>
+<br>
+<t>- Imaginary People -
+<n>Craig Smythe
+<n>Stacy Fulton
+<n>Kristin Roscoe
+<n>Braydon River
+<n>Evelin Rudge
+<n>Ryan Ashley
+<n>Dominik Deighton
+<n>Sylvia Nunnally
+<br>
+<br>
+<t>- More People -
+<n>Abagail Foy
+<n>Alisha Stamper
+<n>Isabela Preston
+<n>Dion Nibley
+<br>
+<br>
+<i>Thank you all for checking out Credits Pro!
