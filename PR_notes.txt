@@ -19,3 +19,5 @@ Debug.Log("debug: query=***" + query + "***");
 
 
 - przetestować działanie całej gry point reaction
+
+sddsds
