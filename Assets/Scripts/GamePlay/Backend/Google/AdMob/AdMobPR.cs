@@ -21,8 +21,8 @@ public static class AdMobPR  {
 #if UNITY_ANDROID
     static string _appId = "ca-app-pub-9423577850321975~7011202817";
     
-    //static string _adUnitId = "ca-app-pub-3940256099942544/5224354917";   //rewarded-video ANDROID test unit id
-    static string _adUnitId = "ca-app-pub-9423577850321975/6791996376";   //real PR add unit id
+    static string _adUnitId = "ca-app-pub-3940256099942544/5224354917";   //rewarded-video ANDROID test unit id
+    //static string _adUnitId = "ca-app-pub-9423577850321975/6791996376";   //real PR add unit id
 
 #else
     static string _appId = "unexpected_platform";
