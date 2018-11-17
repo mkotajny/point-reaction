@@ -176,7 +176,12 @@ public static class CurrentPlayer
                             ProgressBarPR.AddProgress("get players World Rank data");
                             WorldRankPersister.LoadWorldRank();  // as worldRankItem.ReacAvg is required for calculating Player's position in the world rank
                         }
-                    } else ProgressBarPR.AddProgress("get players World Rank data");
+                    }
+                    else
+                    {
+                        ProgressBarPR.AddProgress("no players World Rank data");
+                        WorldRankPersister.LoadWorldRank();
+                    }
                 }
                 return;
             });

@@ -22,6 +22,7 @@ ExportedObj/
 *.booproj
 *.svd
 *.pdb
+*.txt
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -38,4 +39,3 @@ sysinfo.txt
 Assets/Resources/Music
 
 # Text files
-*.txt
