@@ -26,20 +26,17 @@ public static class MusicPR  {
         if (playList == _playListMenu)
         {
             suffix = "Menu";
-            fileNames.Add("202221__luckylittleraven__sweetclouds");
             fileNames.Add("241441__foolboymedia__ocean-drift");
-            fileNames.Add("329953__shadydave__alone-electronic-edit");
-            fileNames.Add("396024__patricklieberkind__rhythmic-game-menu-ambience");
+            fileNames.Add("Blue Line Loop");
         }
         else
         {
             suffix = "GameBoard";
-            fileNames.Add("100870__xythe__loop");
             fileNames.Add("174589__dingo1__down-dark-metal-electronic-loop");
-            fileNames.Add("218347__luckylittleraven__superhappycheesyloop2of2");
             fileNames.Add("369066__mrthenoronha__hurry-loop");
-            fileNames.Add("419335__sieuamthanh__nhanh-len");
             fileNames.Add("428858__supervanz__duskwalkin-loop");
+            fileNames.Add("DNB2 166");
+            fileNames.Add("Jumper Boy");
         }
 
         playList.Clear();
