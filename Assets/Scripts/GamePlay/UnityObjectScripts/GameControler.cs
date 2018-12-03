@@ -82,7 +82,6 @@ public class GameControler : MonoBehaviour {
         _gameMode_1.CurrentLevel.PlayStatus = LevelPlayStatuses.InProgress;
         _gameMode_1.CurrentLevel.SpawnPoint();
         _backToMainMenuButton.gameObject.SetActive(false);
-
     }
 
     public void LoadMainMenuScene()

@@ -1381,7 +1381,7 @@ RectTransform:
   m_Children:
   - {fileID: 1258508079}
   m_Father: {fileID: 276373680}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -3974,8 +3974,8 @@ RectTransform:
   - {fileID: 1933147254}
   - {fileID: 1180511383}
   - {fileID: 1435718838}
-  - {fileID: 49015113}
   - {fileID: 1663347215}
+  - {fileID: 49015113}
   m_Father: {fileID: 174609609}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9296,7 +9296,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 137.5, y: -222}
+  m_AnchoredPosition: {x: 137.5, y: -257}
   m_SizeDelta: {x: 275, y: 85}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &629490290
@@ -12460,8 +12460,8 @@ RectTransform:
   m_Father: {fileID: 344657825}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.05, y: 0.25}
-  m_AnchorMax: {x: 0.95, y: 0.75}
+  m_AnchorMin: {x: 0.05, y: 0.2}
+  m_AnchorMax: {x: 0.95, y: 0.8}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13517,8 +13517,8 @@ RectTransform:
   m_Father: {fileID: 94929113}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.05, y: 0.25}
-  m_AnchorMax: {x: 0.95, y: 0.75}
+  m_AnchorMin: {x: 0.05, y: 0.2}
+  m_AnchorMax: {x: 0.95, y: 0.8}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -30733,7 +30733,7 @@ RectTransform:
   - {fileID: 1776919259}
   - {fileID: 1732086582}
   m_Father: {fileID: 276373680}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -33548,7 +33548,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 137.5, y: -217}
+  m_AnchoredPosition: {x: 137.5, y: -248}
   m_SizeDelta: {x: 275, y: 85}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1783330439
@@ -33677,11 +33677,11 @@ MonoBehaviour:
   - {fileID: 91353907}
   - {fileID: 757217249}
   - {fileID: 630628495}
-  - {fileID: 1732086583}
   - {fileID: 94929112}
   - {fileID: 344657824}
   - {fileID: 669942124}
   - {fileID: 1044522352}
+  - {fileID: 1732086583}
   CurActiveMenu: {fileID: 0}
   AnimateFirstMenuAtStart: 1
   AllPopups: []

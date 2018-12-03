@@ -25,7 +25,6 @@ public class ActivityLogIem
     {
         if (!CheckInternet.IsConnected() || SessionVariables.TrialMode)
             return;
-
         Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
         SecAftSt = (int)Time.time;
         Cat = DecodeLogCategory(logItemCategory);
