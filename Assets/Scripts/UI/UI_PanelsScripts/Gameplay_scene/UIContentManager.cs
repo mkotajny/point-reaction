@@ -144,6 +144,7 @@ public class UIContentManager : MonoBehaviour {
         {
             _selectedVictoryAnimationIndex = Randomizer.Next(0, 8);
             victoryAnimations[_selectedVictoryAnimationIndex].SetActive(true);
+            GameMode_1.GameControlerComponent.AudioSources[4].Play();
             GameMode_1.LevelUp();
         }
         GameMode_1.SaveToFireBase(false, this);
