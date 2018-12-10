@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using GooglePlayGames;
 using Firebase.Database;
 using System;
+using System.Threading;
 
 public static class CurrentPlayer
 {
@@ -15,58 +16,88 @@ public static class CurrentPlayer
 
     public static void SignInGooglePlay()
     {
-        if (!CheckInternet.IsConnected()) return;
-
-        FirebasePR.InitializeGooglePlay();
-
-        Social.localUser.Authenticate((bool success) =>
+        try
         {
-            if (!success)
-            {
-                Debug.LogError("debug: SignInOnClick: Failed to Sign into Play Games Services.");
-                ProgressBarPR.SetFail("Failed to Sign into Play Games Services.");
-                return;
-            }
+            if (!CheckInternet.IsConnected()) return;
 
-            string authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
+            FirebasePR.InitializeGooglePlay();
+
+            Social.localUser.Authenticate((bool success) =>
+            {
+                if (!success)
+                {
+                    Debug.LogError("debug: SignInOnClick: Failed to Sign into Play Games Services.");
+                    ProgressBarPR.SetFail("Failed to Sign into Play Games Services.");
+                    return;
+                }
+               
+                string authCode = GetAuthCode();
+                if (string.IsNullOrEmpty(authCode)) return;
+
+                Debug.LogFormat("debug: SignInOnClick: Auth code is: {0}", authCode);
+
+                Firebase.Auth.Credential credential = Firebase.Auth.PlayGamesAuthProvider.GetCredential(authCode);
+                FirebasePR.FirebaseAuth.SignInWithCredentialAsync(credential).ContinueWith((System.Threading.Tasks.Task<Firebase.Auth.FirebaseUser> task) =>
+                {
+                    ProgressBarPR.AddProgress("signed with credentials");
+                    if (task.IsCanceled)
+                    {
+                        Debug.LogError("debug: SignInOnClick was canceled.");
+                        ProgressBarPR.SetFail("SignInOnClick was canceled.");
+                        return;
+                    }
+                    if (task.IsFaulted)
+                    {
+                        Debug.LogError("debug: SignInOnClick encountered an error: " + task.Exception);
+                        ProgressBarPR.SetFail("SignInOnClick encountered an system exception.");
+                        return;
+                    }
+                    Firebase.Auth.FirebaseUser newUser = task.Result;
+
+                    Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
+                    FirebasePR.CampaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns/" + newUser.UserId);
+                    FirebasePR.CampaignsHistoryDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns_history/" + newUser.UserId);
+                    GetCurrentPlayerData(newUser.UserId, Social.localUser.userName);
+                    SetPlayerAttributes(Social.localUser.userName);
+                    PlayerPrefs.SetInt("InGooglePlay", 1);
+                    SignedIn = true;
+                });
+            });
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("debug: " + e.Message + "::: " + e.StackTrace);
+        }
+    }
+
+    static string GetAuthCode()
+    {
+        int i;
+        string authCode = string.Empty;
+        bool firstAttemptFailed = false;
+        for (i = 0; i < 5; i++)
+        {
+            authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
             if (string.IsNullOrEmpty(authCode))
             {
-                Debug.LogError("debug: SignInOnClick: Signed into Play Games Services but failed to get the server auth code.");
-                ProgressBarPR.SetFail("Failed to get google play auth code.");
-                return;
-            }
-            Debug.LogFormat("debug: SignInOnClick: Auth code is: {0}", authCode);
-
-            Firebase.Auth.Credential credential = Firebase.Auth.PlayGamesAuthProvider.GetCredential(authCode);
-            FirebasePR.FirebaseAuth.SignInWithCredentialAsync(credential).ContinueWith((System.Threading.Tasks.Task<Firebase.Auth.FirebaseUser> task) =>
+                if (i == 0) firstAttemptFailed = true;
+                Debug.LogError("debug: SignInOn"
+                    + i + ": Signed into Play Games Services but failed to get the server auth code.");
+                Thread.Sleep(1500);
+            } else break;
+        }
+        if (firstAttemptFailed)
+        {
+            if (string.IsNullOrEmpty(authCode))
             {
-                ProgressBarPR.AddProgress("signed with credentials");
-                if (task.IsCanceled)
-                {
-                    Debug.LogError("debug: SignInOnClick was canceled.");
-                    ProgressBarPR.SetFail("SignInOnClick was canceled.");
-                    return;
-                }
-                if (task.IsFaulted)
-                {
-                    Debug.LogError("debug: SignInOnClick encountered an error: " + task.Exception);
-                    ProgressBarPR.SetFail("SignInOnClick encountered an system exception.");
-                    return;
-                }
-                Firebase.Auth.FirebaseUser newUser = task.Result;
-
-                Debug.LogFormat("debug: SignInOnClick: User signed in successfully: {0} ({1})", newUser.DisplayName, newUser.UserId);
-                FirebasePR.CampaignDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns/" + newUser.UserId);
-                FirebasePR.CampaignsHistoryDbReference = FirebaseDatabase.DefaultInstance.GetReference("campaigns_history/" + newUser.UserId);
-                FirebasePR.WorldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
-                FirebasePR.GameSettingsReference = FirebaseDatabase.DefaultInstance.GetReference("game_settings");
-                FirebasePR.ActivityLogDbReference = FirebaseDatabase.DefaultInstance.GetReference("activity_log/" + DateTime.Now.ToString("yyyy-MM"));
-                GetCurrentPlayerData(newUser.UserId, Social.localUser.userName);
-                SetPlayerAttributes(Social.localUser.userName);
-                PlayerPrefs.SetInt("InGooglePlay", 1);
-                SignedIn = true;
-            });
-        });
+                Debug.LogError("debug: All 5 attemts of getting auth code failed");
+                SessionVariables.ActivityLog.Send(LogCategories.GooglePlayAuthCodeFailed
+                    , "All 5 attemts of getting auth code failed");
+                ProgressBarPR.SetFail("Failed to get google play auth code.");
+            } else SessionVariables.ActivityLog.Send(LogCategories.GooglePlayAuthCodeFailed
+                , "Auth code gathered afer attempt no " + (i+1).ToString());
+        }
+        return authCode;
     }
 
     public static void SignOutGooglePlay()

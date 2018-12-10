@@ -6,14 +6,13 @@ public enum LogCategories
     AdLoadFailed,
     ThreeAdLoadsFailed,
     BonusWithoudAdvert,
-    LevelPassed,
-    LevelFailed
+    GooglePlayAuthCodeFailed
 }
 
 public class ActivityLogIem
 {
     public string PlrId, Date, Cat, Desc;
-    public int SecAftSt;
+    int _secAftSt;
 
     public ActivityLogIem()
     {
@@ -26,10 +25,9 @@ public class ActivityLogIem
         if (!CheckInternet.IsConnected() || SessionVariables.TrialMode)
             return;
         Date = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff");
-        SecAftSt = (int)Time.time;
+        _secAftSt = (int)Time.time;
         Cat = DecodeLogCategory(logItemCategory);
         Desc = logItemDescription;
-
         string json = JsonUtility.ToJson(this);
         FirebasePR.ActivityLogDbReference.Child(Date.Replace(".", ":")).SetRawJsonValueAsync(json);
         return;
@@ -43,8 +41,7 @@ public class ActivityLogIem
             case LogCategories.AdLoadFailed: logCategoryText = "Load of advert failed"; break;
             case LogCategories.ThreeAdLoadsFailed: logCategoryText = "3 failed advert loads"; break;
             case LogCategories.BonusWithoudAdvert: logCategoryText = "Bonus without advert"; break;
-            case LogCategories.LevelPassed: logCategoryText = "level passed"; break;
-            case LogCategories.LevelFailed: logCategoryText = "level failed"; break;
+            case LogCategories.GooglePlayAuthCodeFailed: logCategoryText = "google play auth code failed"; break;
             default: logCategoryText = ""; break;
         }
         return logCategoryText;

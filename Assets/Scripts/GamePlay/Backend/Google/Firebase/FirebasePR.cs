@@ -3,6 +3,7 @@ using Firebase.Database;
 using Firebase.Unity.Editor;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
+using System;
 using UnityEngine;
 
 public static class FirebasePR
@@ -77,6 +78,7 @@ public static class FirebasePR
 
                     WorldRankDbReference = FirebaseDatabase.DefaultInstance.GetReference("world_rank");
                     GameSettingsReference = FirebaseDatabase.DefaultInstance.GetReference("game_settings");
+                    ActivityLogDbReference = FirebaseDatabase.DefaultInstance.GetReference("activity_log/" + DateTime.Now.ToString("yyyy-MM"));
                     ProgressBarPR.AddProgress("Signed to Firebase without google play");
 
                     if (PlayerPrefs.GetInt("InGooglePlay") == 1) CurrentPlayer.SignInGooglePlay();
