@@ -66,10 +66,12 @@ public static class AdMobPR  {
         if (!CheckInternet.IsConnected() || SessionVariables.TrialMode) return;
 
         if (restartAttempts) LoadingAddAttempts = 1;
-        else LoadingAddAttempts++; LoadingAdTimer.Activate();
+        else LoadingAddAttempts++;
+
+        LoadingAdTimer.Activate();
 
         _request = new AdRequest.Builder()
-            .AddTestDevice("0CE9D0BDCFD6B8B96D3440ADC1D453EC")
+            //.AddTestDevice("0CE9D0BDCFD6B8B96D3440ADC1D453EC")
             .Build();
         RewardBasedVideo.LoadAd(_request, _adUnitId);
     }
@@ -100,7 +102,8 @@ public static class AdMobPR  {
     {
         AdmobPRSatuses = AdmobPRSatuses.AdFailedToLoad;
         Debug.Log("debug: AdMob: HandleRewardBasedVideoFailedToLoad event received with message: " + args.Message);
-        SessionVariables.ActivityLog.Send(LogCategories.AdLoadFailed, "HandleRewardBasedVideoFailedToLoad raised with message: " + args.Message);
+        if (LoadingAddAttempts >= 3)
+            SessionVariables.ActivityLog.Send(LogCategories.AdLoadFailed, "HandleRewardBasedVideoFailedToLoad raised with message: " + args.Message);
     }
 
     static void HandleRewardBasedVideoOpened(object sender, EventArgs args)

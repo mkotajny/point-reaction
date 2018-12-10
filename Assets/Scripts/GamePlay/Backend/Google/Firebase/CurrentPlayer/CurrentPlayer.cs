@@ -2,7 +2,6 @@
 using UnityEngine.UI;
 using GooglePlayGames;
 using Firebase.Database;
-using System;
 using System.Threading;
 
 public static class CurrentPlayer
@@ -217,34 +216,5 @@ public static class CurrentPlayer
                 return;
             });
     }
-
-    static void GetGameSettingsnData()
-    {
-        FirebasePR.CampaignDbReference
-            .GetValueAsync().ContinueWith(task =>
-            {
-                if (task.IsCompleted)
-                {
-                    DataSnapshot snapshot = task.Result;
-                    if (snapshot != null)
-                    {
-                        CampaignItem.Updated = snapshot.Child("Updated").Value.ToString();
-                        CampaignItem.PlrId = snapshot.Child("PlrId").Value.ToString();
-                        CampaignItem.PlrName = snapshot.Child("PlrName").Value.ToString();
-                        CampaignItem.LvlNo = System.Convert.ToInt32(snapshot.Child("LvlNo").Value);
-                        CampaignItem.HitsCmp = System.Convert.ToInt32(snapshot.Child("HitsCmp").Value);
-                        CampaignItem.Lives = System.Convert.ToInt32(snapshot.Child("Lives").Value);
-                        CampaignItem.ReacCmp = System.Convert.ToDouble(snapshot.Child("ReacCmp").Value);
-                        CampaignItem.BnsTaken = System.Convert.ToInt32(snapshot.Child("BnsTaken").Value);
-                        CampaignItem.BnsLastMlstn = System.Convert.ToInt32(snapshot.Child("BnsLastMlstn").Value);
-                        SessionVariables.ActivityLog = new ActivityLogIem();
-                        AdMobPR.Initialize();
-                    }
-                    ProgressBarPR.AddProgress("get campaign data");
-                }
-                return;
-            });
-    }
-
 
 }
