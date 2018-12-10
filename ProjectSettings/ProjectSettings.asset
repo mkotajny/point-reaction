@@ -126,7 +126,7 @@ PlayerSettings:
     16:10: 1
     16:9: 1
     Others: 1
-  bundleVersion: 1.10.9
+  bundleVersion: 1.10.10
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -160,7 +160,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.TenSoft.PReaction
   buildNumber: {}
-  AndroidBundleVersionCode: 52
+  AndroidBundleVersionCode: 53
   AndroidMinSdkVersion: 16
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 0
@@ -267,7 +267,7 @@ PlayerSettings:
   - m_BuildTarget: Android
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 7752695ae5a33c940b5e9ad60f74bf4a, type: 3}
+      m_Icon: {fileID: 2800000, guid: a7e284e52fa30e448a6e35a9d3e0f219, type: 3}
       m_Width: 192
       m_Height: 192
       m_Kind: 0
