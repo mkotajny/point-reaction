@@ -103,7 +103,7 @@ public static class AdMobPR  {
         AdmobPRSatuses = AdmobPRSatuses.AdFailedToLoad;
         Debug.Log("debug: AdMob: HandleRewardBasedVideoFailedToLoad event received with message: " + args.Message);
         if (LoadingAddAttempts >= 3)
-            SessionVariables.ActivityLog.Send(LogCategories.AdLoadFailed, "HandleRewardBasedVideoFailedToLoad raised with message: " + args.Message);
+            SessionVariables.ActivityLog.Send(LogCategories.AdLoadFailed, "3 attempts of HandleRewardBasedVideoFailedToLoad raised with message: " + args.Message);
     }
 
     static void HandleRewardBasedVideoOpened(object sender, EventArgs args)
