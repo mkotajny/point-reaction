@@ -5,6 +5,6 @@ public static class GameOptions {
 
     static public void LoadOptions()
     {
-        Vibrate = !(PlayerPrefs.GetString("Vibrate") == "0");
+        Vibrate = (PlayerPrefs.GetString("Vibrate") == "1");
     }
 }

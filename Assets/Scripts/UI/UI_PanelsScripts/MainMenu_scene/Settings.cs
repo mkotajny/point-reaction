@@ -30,7 +30,7 @@ public class Settings : MonoBehaviour {
     public void GetVibrate()
     {
         _settingsValueText = PlayerPrefs.GetString("Vibrate");
-        if (_settingsValueText == "1" || string.IsNullOrEmpty(_settingsValueText))
+        if (_settingsValueText == "1")
             _vibrateToggle.isOn = true;
         else
             _vibrateToggle.isOn = false;
