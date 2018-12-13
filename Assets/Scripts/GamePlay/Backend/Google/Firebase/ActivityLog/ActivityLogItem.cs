@@ -3,7 +3,6 @@ using UnityEngine;
 
 public enum LogCategories
 {
-    AdLoadFailed,
     ThreeAdLoadsFailed,
     BonusWithoudAdvert,
     GooglePlayAuthCodeFailed
@@ -38,7 +37,6 @@ public class ActivityLogIem
         string logCategoryText;
         switch (logItemCategory)
         {
-            case LogCategories.AdLoadFailed: logCategoryText = "Load of advert failed"; break;
             case LogCategories.ThreeAdLoadsFailed: logCategoryText = "3 failed advert loads"; break;
             case LogCategories.BonusWithoudAdvert: logCategoryText = "Bonus without advert"; break;
             case LogCategories.GooglePlayAuthCodeFailed: logCategoryText = "google play auth code failed"; break;

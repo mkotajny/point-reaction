@@ -51,15 +51,9 @@ public class UIContentManager : MonoBehaviour {
         if (GetBonusButton.IsActive())
         {
             if (!GetBonusButtonEffects.activeInHierarchy && (AdMobPR.RewardBasedVideo.IsLoaded() || AdMobPR.LoadingAddAttempts > 1))
-            {
                 GetBonusButtonEffects.SetActive(true);
-                Debug.Log("debug: UiContentManager-->Update: chk1: bonus button effects activated");
-            }
             if (GetBonusButtonEffects.activeInHierarchy && !AdMobPR.RewardBasedVideo.IsLoaded() && AdMobPR.LoadingAddAttempts <= 1)
-            {
                 GetBonusButtonEffects.SetActive(false);
-                Debug.Log("debug: UiContentManager-->Update: chk2: bonus button effects deactivated");
-            }
         }
 
         if (AdMobPR.LoadingAdTimer != null && AdMobPR.LoadingAdTimer.TimeElapsed())
@@ -68,10 +62,6 @@ public class UIContentManager : MonoBehaviour {
             {
                 Debug.Log("debug: 30 seconds of loading Advertisement elapsed, attempt no " + (AdMobPR.LoadingAddAttempts + 1).ToString() + " started.");
                 AdMobPR.RequestRewardBasedVideo();
-            } else
-            {
-                SessionVariables.ActivityLog.Send(LogCategories.ThreeAdLoadsFailed, "Three attempts of loading Advert. failed");
-                AdMobPR.LoadingAdTimer.Deactivate();
             }
         }
     }
@@ -184,10 +174,13 @@ public class UIContentManager : MonoBehaviour {
     void LoadPanelsWithData()
     {
         _panelStartLevel.text = GameMode_1.CurrentLevel.LevelNo.ToString();
-        _panelStart_PointsLivingTime.text = (GameMode_1.CurrentLevel.PointsLivingTimer.Lenght).ToString() + " sec";
+        _panelStart_PointsLivingTime.text = (GameMode_1.CurrentLevel.PointsLivingTimer.Lenght).ToString() 
+            + " sec";
         _panelStartHitsToWin.text = GameMode_1.CurrentLevel.HitsToWin.ToString();
-        _panelStartMissesToLoose.text = (GameMode_1.CurrentLevel.MissesToLoose < CurrentPlayer.CampaignItem.Lives ? 
-            GameMode_1.CurrentLevel.MissesToLoose : CurrentPlayer.CampaignItem.Lives).ToString();
+        _panelStartMissesToLoose.text = (GameMode_1.CurrentLevel.MissesToLoose 
+            < CurrentPlayer.CampaignItem.Lives 
+            ? GameMode_1.CurrentLevel.MissesToLoose 
+            : CurrentPlayer.CampaignItem.Lives).ToString();
         _panelResultLevelValue.text = GameMode_1.CurrentLevel.LevelNo.ToString();
         _panelResult_PerfectBonus.text = GameMode_1.CurrentLevel.BonusPerfectLevel.ToString();
 
@@ -207,7 +200,9 @@ public class UIContentManager : MonoBehaviour {
         }
 
         if (CurrentPlayer.CampaignItem.HitsCmp > 0)
-            _panelResult_AvgReaction.text = (CurrentPlayer.CampaignItem.ReacCmp / CurrentPlayer.CampaignItem.HitsCmp).ToString("0.00");
+            _panelResult_AvgReaction.text = 
+                (CurrentPlayer.CampaignItem.ReacCmp / CurrentPlayer.CampaignItem.HitsCmp).ToString("0.00") 
+                + " sec";
 
         if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
         {

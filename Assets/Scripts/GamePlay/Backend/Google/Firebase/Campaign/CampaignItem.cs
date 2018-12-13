@@ -86,10 +86,6 @@ public class CampaignItem {
             Lives -= CurrentPlayer.LivesTaken;
             string json = JsonUtility.ToJson(this);
             Lives += CurrentPlayer.LivesTaken;
-            /*Debug.Log("debug: SaveToFirebase: chk1: firebase credentials: "
-                + FirebasePR.FirebaseAuth.CurrentUser.UserId + "/"
-                + FirebasePR.FirebaseAuth.CurrentUser.DisplayName);*/
-
             FirebasePR.CampaignDbReference.SetRawJsonValueAsync(json);
             return;
         }

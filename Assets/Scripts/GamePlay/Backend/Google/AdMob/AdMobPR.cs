@@ -21,8 +21,8 @@ public static class AdMobPR  {
 #if UNITY_ANDROID
     static string _appId = "ca-app-pub-9423577850321975~7011202817";
     
-    static string _adUnitId = "ca-app-pub-3940256099942544/5224354917";   //rewarded-video ANDROID test unit id
-    //static string _adUnitId = "ca-app-pub-9423577850321975/6791996376";   //real PR add unit id
+    //static string _adUnitId = "ca-app-pub-3940256099942544/5224354917";   //rewarded-video ANDROID test unit id
+    static string _adUnitId = "ca-app-pub-9423577850321975/6791996376";   //real PR add unit id
 
 #else
     static string _appId = "unexpected_platform";
@@ -55,7 +55,6 @@ public static class AdMobPR  {
         _initialized = true;
     }
 
-
     public static void InjectGameode(GameMode_1 gameMode_1)
     {
         _gameMode_1 = gameMode_1;
@@ -71,11 +70,10 @@ public static class AdMobPR  {
         LoadingAdTimer.Activate();
 
         _request = new AdRequest.Builder()
-            //.AddTestDevice("0CE9D0BDCFD6B8B96D3440ADC1D453EC")
+            .AddTestDevice("0CE9D0BDCFD6B8B96D3440ADC1D453EC")
             .Build();
         RewardBasedVideo.LoadAd(_request, _adUnitId);
     }
-
 
     public static void ShowRewardBasedVideo()
     {
@@ -103,7 +101,7 @@ public static class AdMobPR  {
         AdmobPRSatuses = AdmobPRSatuses.AdFailedToLoad;
         Debug.Log("debug: AdMob: HandleRewardBasedVideoFailedToLoad event received with message: " + args.Message);
         if (LoadingAddAttempts >= 3)
-            SessionVariables.ActivityLog.Send(LogCategories.AdLoadFailed, "3 attempts of HandleRewardBasedVideoFailedToLoad raised with message: " + args.Message);
+            SessionVariables.ActivityLog.Send(LogCategories.ThreeAdLoadsFailed, "3 attempts of HandleRewardBasedVideoFailedToLoad raised with message: " + args.Message);
     }
 
     static void HandleRewardBasedVideoOpened(object sender, EventArgs args)
@@ -122,7 +120,7 @@ public static class AdMobPR  {
             AdmobPRSatuses = AdmobPRSatuses.AdClosedBeforeReward;
         Debug.Log("debug: AdMob: HandleRewardBasedVideoClosed event received");
         RequestRewardBasedVideo(restartAttempts: true);
-}
+    }
 
     static void HandleRewardBasedVideoRewarded(object sender, Reward args)
     {
