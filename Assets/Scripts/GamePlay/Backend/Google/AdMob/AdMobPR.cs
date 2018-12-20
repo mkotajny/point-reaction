@@ -70,7 +70,7 @@ public static class AdMobPR  {
         LoadingAdTimer.Activate();
 
         _request = new AdRequest.Builder()
-            .AddTestDevice("0CE9D0BDCFD6B8B96D3440ADC1D453EC")
+            .AddTestDevice("1BFF15B3D59523BCAD2D946BEAA8C535")
             .Build();
         RewardBasedVideo.LoadAd(_request, _adUnitId);
     }

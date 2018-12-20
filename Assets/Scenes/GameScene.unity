@@ -19054,7 +19054,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Video Load in progress
+  m_Text: Video load in progress
 --- !u!222 &998032658
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -30576,7 +30576,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: How to Play
+  m_Text: How to play
 --- !u!222 &1659903262
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39812,7 +39812,7 @@ MonoBehaviour:
 
 
 
-    Please start REAL game in Main Menu --> Start --> "ONLINE game".'
+    Please start REAL game in Main Menu --> "Start" --> "ONLINE game".'
 --- !u!222 &2014197275
 CanvasRenderer:
   m_ObjectHideFlags: 0
