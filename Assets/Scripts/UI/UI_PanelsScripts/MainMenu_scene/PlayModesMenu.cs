@@ -16,13 +16,13 @@ public class PlayModesMenu : MonoBehaviour {
         if (CurrentPlayer.CampaignItem == null
             || CurrentPlayer.CampaignItem.PlrName == string.Empty)
         {
-            new Alert("You are not Signed in !", "Please Sign in and try again\n\n(\"Main Menu\" --> \"Player\" --> \"Sign in\").")
+            new Alert("You are not Signed in!", "Please Sign in and try again\n\n(\"Main Menu\" --> \"Player\" --> \"Sign in\").")
                 .SetPositiveButton("OK", () => { }).Show();
             return;
         }
         if (SessionVariables.CurrentGameVersion.VersionValue < SessionVariables.LatestCriticalUpdateVersion.VersionValue)
         {
-            new Alert("Critical updates required !", "Please update the game in Play Store, and try again.")
+            new Alert("Critical updates required!", "Please update the game via the Play Store, and try again.")
                 .SetPositiveButton("OK", () => { }).Show();
             return;
         }

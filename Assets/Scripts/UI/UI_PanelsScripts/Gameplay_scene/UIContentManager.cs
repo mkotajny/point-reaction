@@ -207,7 +207,7 @@ public class UIContentManager : MonoBehaviour {
         if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Win)
         {
             _levelResultText.color = new Color32(50, 160, 50, 255);
-            _levelResultText.text = " PASSED !";
+            _levelResultText.text = " COMPLETED ";
             _resultLevelButtonText.text = "Next Level";
         }
         else if (GameMode_1.CurrentLevel.PlayStatus == LevelPlayStatuses.Lost)

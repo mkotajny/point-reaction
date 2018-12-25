@@ -21,7 +21,7 @@ public class BonusPanelScriptContainer : MonoBehaviour {
         _uIContentManager.backgrounds[_backgroundAnimationIndex].SetActive(true);
         _gameControler.AudioSources[5].Play();
         StartCoroutine(_uIContentManager.UpperPanel.ChangeUpperPanelStats(_uIContentManager.GameMode_1.CurrentLevel, livesIncrease));
-        _bonusHeader.text = "Milestone Level Bonus no " + CurrentPlayer.CampaignItem.BnsTaken.ToString();
+        _bonusHeader.text = "Milestone Level Bonus no. " + CurrentPlayer.CampaignItem.BnsTaken.ToString();
         _bonusValue.text = "+" + livesIncrease.ToString();
         CurrentPlayer.CampaignItem.BnsLastMlstn = (CurrentPlayer.CampaignItem.LvlNo - 1) / 5;
         try { _uIContentManager.ZuiManager.OpenMenu("Menu_Bonus"); } catch { }

@@ -604,7 +604,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.75}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -276.66663, y: 0}
+  m_SizeDelta: {x: -283.33328, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &50424796
 MonoBehaviour:
@@ -4074,7 +4074,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Game Start
+  m_Text: Start Game
 --- !u!222 &280536946
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4264,7 +4264,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Special thanks to:'
+  m_Text: 'A special thanks to:'
 --- !u!222 &312887277
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7171,7 +7171,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Sound FX Volume
+  m_Text: FX Volume
 --- !u!222 &589657302
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13529,7 +13529,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: World Rank
+  m_Text: World Rankings
 --- !u!222 &1153089633
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18947,7 +18947,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Do you want to start new game ?\n\n(last game progress will be lost)\t"
+  m_Text: "Do you want to start a new game ?\n\nCurrent game\u2019s progress will
+    be lost."
 --- !u!222 &1539370377
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19115,7 +19116,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Music Volume
+  m_Text: Music volume
 --- !u!222 &1559235341
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24262,7 +24263,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Device vibrations
+  m_Text: 'Vibration settings
 
 '
 --- !u!222 &2032087356
