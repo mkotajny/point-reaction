@@ -18,8 +18,8 @@ public static class CurrentPlayer
         try
         {
             if (!CheckInternet.IsConnected()) return;
-
             FirebasePR.InitializeGooglePlay();
+
 
             Social.localUser.Authenticate((bool success) =>
             {
@@ -30,8 +30,14 @@ public static class CurrentPlayer
                     return;
                 }
                
-                string authCode = GetAuthCode();
-                if (string.IsNullOrEmpty(authCode)) return;
+                string authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
+
+                if (string.IsNullOrEmpty(authCode))
+                {
+                    PlayGamesPlatform.Instance.SignOut();
+                    ProgressBarPR.SetFail("Problem with google play auth code. Please REINSTALL the game");
+                    return;
+                }
 
                 Debug.LogFormat("debug: SignInOnClick: Auth code is: {0}", authCode);
 
@@ -67,36 +73,6 @@ public static class CurrentPlayer
         {
             Debug.LogError("debug: " + e.Message + "::: " + e.StackTrace);
         }
-    }
-
-    static string GetAuthCode()
-    {
-        int i;
-        string authCode = string.Empty;
-        bool firstAttemptFailed = false;
-        for (i = 0; i < 5; i++)
-        {
-            authCode = PlayGamesPlatform.Instance.GetServerAuthCode();
-            if (string.IsNullOrEmpty(authCode))
-            {
-                if (i == 0) firstAttemptFailed = true;
-                Debug.LogError("debug: SignInOn"
-                    + i + ": Signed into Play Games Services but failed to get the server auth code.");
-                Thread.Sleep(1500);
-            } else break;
-        }
-        if (firstAttemptFailed)
-        {
-            if (string.IsNullOrEmpty(authCode))
-            {
-                Debug.LogError("debug: All 5 attemts of getting auth code failed");
-                SessionVariables.ActivityLog.Send(LogCategories.GooglePlayAuthCodeFailed
-                    , "All 5 attemts of getting auth code failed");
-                ProgressBarPR.SetFail("Failed to get google play auth code.");
-            } else SessionVariables.ActivityLog.Send(LogCategories.GooglePlayAuthCodeFailed
-                , "Auth code gathered afer attempt no " + (i+1).ToString());
-        }
-        return authCode;
     }
 
     public static void SignOutGooglePlay()
