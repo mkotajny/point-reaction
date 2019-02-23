@@ -6869,7 +6869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 468.49997, y: -369.86667}
+  m_AnchoredPosition: {x: 468.49997, y: -349.1667}
   m_SizeDelta: {x: 425, y: 85}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &565647748
@@ -20217,7 +20217,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 468.49997, y: -238.92001}
+  m_AnchoredPosition: {x: 468.49997, y: -226.5}
   m_SizeDelta: {x: 425, y: 85}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1662771761
@@ -22126,7 +22126,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: ONLINE game
+  m_Text: REAL game
 --- !u!222 &1843128096
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22916,7 +22916,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: OFFLINE game
+  m_Text: Training
 --- !u!222 &1885377743
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23217,7 +23217,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 468.49997, y: -107.973335}
+  m_AnchoredPosition: {x: 468.49997, y: -103.833336}
   m_SizeDelta: {x: 425, y: 85}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1958316078

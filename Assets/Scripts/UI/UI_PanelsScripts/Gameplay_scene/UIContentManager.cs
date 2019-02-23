@@ -82,6 +82,7 @@ public class UIContentManager : MonoBehaviour {
         }
 
         // open (OFFLINE) game over panel
+        /*
         if (SessionVariables.TrialMode
             && CurrentPlayer.CampaignItem.LvlNo == 11)
         {
@@ -89,7 +90,7 @@ public class UIContentManager : MonoBehaviour {
             _backToMainMenuButton.gameObject.SetActive(false);
             try { ZuiManager.OpenMenu("Menu_End_Of_Trial"); } catch { }
             return;
-        }
+        }*/
 
         //activate ad --> bonus button
         if (CurrentPlayer.CampaignItem.BnsTaken < CurrentPlayer.CampaignItem.BonusesAvailable()
