@@ -1,6 +1,10 @@
-# point-reaction
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/33925073/144209867-79d9893c-13d1-4df0-a947-61b725ee19fa.jpg" />
+</p>
+<br/>
 
 Simple game for android mobile devices.
+<br/><br/><br/>
 
 # how to start to install the game
 Press this link in your mobile device, and follow installation instructions:
